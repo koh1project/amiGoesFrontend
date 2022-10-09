@@ -4,6 +4,12 @@ import { TouchableOpacity, Text, View } from 'react-native'
 import { auth } from '../../firebase'
 
 const IndexScreen = () => {
+    auth.currentUser.getIdToken(true).then(idToken => {
+        console.log(idToken);
+    }).catch(error => {
+        console.log(error);
+    })
+
     const navigation = useNavigation()
 
     const handleSignout = () => {
