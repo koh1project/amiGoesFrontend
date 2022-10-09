@@ -1,10 +1,27 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { useNavigation } from '@react-navigation/core'
+import { TouchableOpacity, Text, View } from 'react-native'
+import { auth } from '../../firebase'
 
 const IndexScreen = () => {
+    const navigation = useNavigation()
+
+    const handleSignout = () => {
+        auth
+            .signOut()
+            .then(() => {
+                navigation.replace('Login')
+            })
+            .catch(error => alert(error.message))
+    }
+
     return (
-        <View>
-            <Text>Index Screen</Text>
+        <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                    <TouchableOpacity
+                        onPress={handleSignout} 
+                    >
+                        <Text>LOG OUT</Text>
+                    </TouchableOpacity>
         </View>
     )
 }

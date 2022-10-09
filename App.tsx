@@ -12,12 +12,12 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Signup" component={SignupScreen} />
-        {/* <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Index" component={IndexScreen} /> */}
+        <Stack.Screen options={{headerShown: false}} name="Signup" component={SignupScreen} />
+        <Stack.Screen options={{headerShown: false}} name="Login" component={LoginScreen} />
+        <Stack.Screen name="Index" component={IndexScreen} />
       </Stack.Navigator>
     </NavigationContainer>
-  );
+  )
 }
 
 const styles = StyleSheet.create({

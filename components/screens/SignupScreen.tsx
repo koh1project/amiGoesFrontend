@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useNavigation } from '@react-navigation/core'
 import { StyleSheet, TextInput, Text, View, KeyboardAvoidingView, TouchableOpacity } from 'react-native'
 import { auth } from '../../firebase'
 
@@ -6,6 +7,17 @@ const SignupScreen = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
+
+    const navigation = useNavigation()
+
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged(user => {
+            if (user) {
+                navigation.navigate('Index')
+            }
+        })
+        return unsubscribe
+    }, [])
     
     const handleSignup = () => {
         if (password !== confirmPassword) {
@@ -22,7 +34,7 @@ const SignupScreen = () => {
     }
 
     return (
-        <KeyboardAvoidingView
+        <View
             style={styles.container}
             behavior='padding'>
             <View style={styles.inputContainer}>
@@ -57,14 +69,14 @@ const SignupScreen = () => {
                 <View style={{flexDirection: 'row'}}>
                     <Text style={{fontSize: 15, color: 'gray', marginTop: 5}}>Already have an account? </Text>
                     <TouchableOpacity
-                        onPress={() => {}}
+                        onPress={() => navigation.navigate('Login')}
                         style={styles.buttonOutline}    
                     >
                         <Text style={styles.buttonTextOutline}>Login</Text>
                     </TouchableOpacity>
                 </View>
             </View>
-        </KeyboardAvoidingView>
+        </View>
     )
 }
 

@@ -1,14 +1,35 @@
-import React, { useState } from 'react'
+import { useNavigation } from '@react-navigation/core';
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, TextInput, Text, View, KeyboardAvoidingView, TouchableOpacity } from  'react-native'
+import { auth } from '../../firebase'
 
 const LoginScreen = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    
+    const navigation = useNavigation()
+
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged(user => {
+            if (user) {
+                navigation.navigate('Index')
+            }
+        })
+        return unsubscribe
+    }, [])
+
+    const handleLogin = () => {
+        auth
+            .signInWithEmailAndPassword(email, password)
+            .then(userCredentials => {
+                const user = userCredentials.user
+                console.log('Logged in with: ', user.email);
+            })
+            .catch(error => alert("Invalid email or password"))
+    }
 
     return (
-        <KeyboardAvoidingView
+        <View
             style={styles.container}
             behavior='padding'>
             <View style={styles.inputContainer}>
@@ -28,7 +49,7 @@ const LoginScreen = () => {
             </View>
             <View style={styles.buttonContainer}>
                 <TouchableOpacity
-                    onPress={() => {}}
+                    onPress={handleLogin}
                     style={styles.button}    
                 >
                     <Text style={styles.buttonText}>LOGIN</Text>
@@ -36,14 +57,14 @@ const LoginScreen = () => {
                 <View style={{flexDirection: 'row'}}>
                     <Text style={{fontSize: 15, color: 'gray', marginTop: 5}}>New on AmiGoes? </Text>
                     <TouchableOpacity
-                        onPress={() => {}}
+                        onPress={() => { navigation.navigate('Signup') }}
                         style={styles.buttonOutline}    
                     >
                         <Text style={styles.buttonTextOutline}>Create Account</Text>
                     </TouchableOpacity>
                 </View>
             </View>
-        </KeyboardAvoidingView>
+        </View>
     )
 }
 
