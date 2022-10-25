@@ -1,14 +1,14 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { DiscoverScreen } from './components/screens/DiscoverScreen';
+import IndexScreen from './components/screens/IndexScreen';
 import LoginScreen from './components/screens/LoginScreen';
 import SignupScreen from './components/screens/SignupScreen';
-import IndexScreen from './components/screens/IndexScreen';
-import { DiscoverScreen } from './components/screens/DiscoverScreen';
-import { SCREEN_NAMES, INITIAL_SCREEN } from './const';
+import { INITIAL_SCREEN, SCREEN_NAMES } from './const';
 
 const Stack = createNativeStackNavigator();
 
-export default function App() {
+const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName={INITIAL_SCREEN}>
