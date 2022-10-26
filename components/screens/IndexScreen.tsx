@@ -9,51 +9,55 @@ import { url } from '../../url';
 import { PrimaryButton } from '../buttons/PrimaryButton';
 
 const IndexScreen = () => {
-    const [token, setToken] = useState('')
+  const [token, setToken] = useState('');
 
-    const navigation = useNavigation()
+  const navigation = useNavigation();
 
-    // code to test authentication on backend
-    // *************************************
-    useEffect(() => {
-        if (token !== '') {
-            fetchData(token)
-        } else {
-            auth.currentUser.getIdToken(true).then(idToken => {
-                //console.log(idToken);
-                setToken(idToken)
-            }).catch(error => {
-                console.log(error);
-                handleSignout()
-            })
-        }
-    }, [token])
-
-// fetch data from backend home route
-    const fetchData = async (token) => {
-        const authHeader = "Bearer " + token
-        const response = await axios.get(`${url}/home`, {
-            headers: {
-                Authorization: authHeader
-            }
+  // code to test authentication on backend
+  // *************************************
+  useEffect(() => {
+    if (token !== '') {
+      fetchData(token);
+    } else {
+      auth.currentUser
+        .getIdToken(true)
+        .then((idToken) => {
+          //console.log(idToken);
+          setToken(idToken);
         })
-        .then(response => {
-            console.log(response.data); // response.data is the data from the backend
-        })
-        .catch(error => {
-            console.log("error: ", error);
-            handleSignout() // sign out if token is invalid
-        })
+        .catch((error) => {
+          console.log(error);
+          handleSignout();
+        });
     }
+  }, [token]);
 
-    const handleSignout = () => {
-        auth
-            .signOut()
-            .then(() => {
-                navigation.replace('Login')
-            })
-            .catch(error => alert(error.message))
-    }
+  // fetch data from backend home route
+  const fetchData = async (token) => {
+    const authHeader = 'Bearer ' + token;
+    const response = await axios
+      .get(`${url}/home`, {
+        headers: {
+          Authorization: authHeader,
+        },
+      })
+      .then((response) => {
+        console.log(response.data); // response.data is the data from the backend
+      })
+      .catch((error) => {
+        console.log('error: ', error);
+        handleSignout(); // sign out if token is invalid
+      });
+  };
+
+  const handleSignout = () => {
+    auth
+      .signOut()
+      .then(() => {
+        navigation.replace('Login');
+      })
+      .catch((error) => alert(error.message));
+  };
 
   return (
     <View style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -66,5 +70,6 @@ const IndexScreen = () => {
       />
     </View>
   );
+};
 
-export default IndexScreen
+export default IndexScreen;
