@@ -1,10 +1,12 @@
-import React from 'react'
-import { useNavigation } from '@react-navigation/core'
-import { TouchableOpacity, Text, View } from 'react-native'
-import { auth } from '../../firebase'
-import { useEffect, useState } from 'react'
-import axios from 'axios'
-import { url } from '../../url'
+import React from 'react';
+import { useNavigation } from '@react-navigation/core';
+
+import { TouchableOpacity, Text, View } from 'react-native';
+import { auth } from '../../firebase';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { url } from '../../url';
+import { PrimaryButton } from '../buttons/PrimaryButton';
 
 const IndexScreen = () => {
     const [token, setToken] = useState('')
@@ -53,15 +55,16 @@ const IndexScreen = () => {
             .catch(error => alert(error.message))
     }
 
-    return (
-        <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                    <TouchableOpacity
-                        onPress={handleSignout} 
-                    >
-                        <Text>LOG OUT</Text>
-                    </TouchableOpacity>
-        </View>
-    )
-}
+  return (
+    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+      <TouchableOpacity onPress={handleSignout}>
+        <Text>LOG OUT</Text>
+      </TouchableOpacity>
+      <PrimaryButton
+        label="Discover"
+        onPress={() => navigation.navigate('Discover' as never)}
+      />
+    </View>
+  );
 
 export default IndexScreen

@@ -14,7 +14,11 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint", "promise", "prettier"],
+  "plugins": [
+    "@typescript-eslint",
+    "promise",
+    "prettier"
+  ],
   "rules": {
     "prettier/prettier": [
       "error",
@@ -25,9 +29,18 @@
         "usePrettierrc": true
       }
     ],
-    "linebreak-style": ["error", "unix"],
-    "quotes": ["error", "single"],
-    "semi": ["error", "always"],
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
     "prefer-const": [
       "warn",
       {
@@ -36,7 +49,8 @@
       }
     ],
     "no-unneeded-ternary": "error",
-    "promise/prefer-await-to-then": "error",
-    "promise/prefer-await-to-callbacks": "warn"
+    "promise/prefer-await-to-then": "off",
+    "promise/prefer-await-to-callbacks": "off",
+    "@typescript-eslint/ban-ts-comment": "off"
   }
 }
