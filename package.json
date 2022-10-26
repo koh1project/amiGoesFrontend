@@ -8,12 +8,15 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
-    "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write"
+    "lint:fix": "eslint --fix . --ext .ts,.tsx,.js,.jsx",
+    "prettier-format": "prettier --config .prettierrc '**/*.ts' --write"
   },
   "dependencies": {
+    "@expo/config-types": "^46.0.2",
     "@react-navigation/native": "^6.0.13",
     "@react-navigation/native-stack": "^6.9.0",
     "axios": "^1.1.2",
+    "dotenv": "^16.0.3",
     "expo": "~46.0.13",
     "expo-status-bar": "~1.4.0",
     "firebase": "^8.2.3",
