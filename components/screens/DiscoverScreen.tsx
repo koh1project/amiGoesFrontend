@@ -1,4 +1,4 @@
-import { useEffect, useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Text } from 'react-native';
 import { getDiscover } from '../../services/discover.service';
 

@@ -7,6 +7,8 @@ export const SCREEN_NAMES = {
   Signup: 'Signup',
   Login: 'Login',
   Discover: 'Discover',
+  Camera: 'Camera',
+  Translate: 'Translate',
 };
 
 export const INITIAL_SCREEN = Constants.expoConfig.extra.INITIAL_SCREEN;
