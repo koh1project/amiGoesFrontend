@@ -14,11 +14,7 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": [
-    "@typescript-eslint",
-    "promise",
-    "prettier"
-  ],
+  "plugins": ["@typescript-eslint", "promise", "prettier"],
   "rules": {
     "prettier/prettier": [
       "error",
@@ -29,18 +25,9 @@
         "usePrettierrc": true
       }
     ],
-    "linebreak-style": [
-      "error",
-      "unix"
-    ],
-    "quotes": [
-      "error",
-      "single"
-    ],
-    "semi": [
-      "error",
-      "always"
-    ],
+
+    "quotes": ["error", "single"],
+    "semi": ["error", "always"],
     "prefer-const": [
       "warn",
       {

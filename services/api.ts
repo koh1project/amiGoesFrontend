@@ -20,6 +20,7 @@ export const post = async (
   data = {},
   headers = DEFAULT_HEADERS(),
 ) => {
+  console.log(BASE_URL + url);
   return axios.post(BASE_URL + url, data, {
     headers,
   });

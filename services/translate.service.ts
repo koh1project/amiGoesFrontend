@@ -15,6 +15,7 @@ const TRANSLATE_ENDPOINT = {
 // };
 
 export const recognize = async (image) => {
+  console.log(TRANSLATE_ENDPOINT.post);
   post(TRANSLATE_ENDPOINT.post, image)
     .then((response) => {
       console.log(response);
