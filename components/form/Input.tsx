@@ -32,7 +32,7 @@ export const Input = ({
                 />
             </View>
             {error && (
-                <Text style={{color: 'red', fontSize: 12, marginTop: 5}}>
+                <Text style={{color: 'red', fontSize: 12, marginBottom: 5}}>
                     {error}
                 </Text>
             )}

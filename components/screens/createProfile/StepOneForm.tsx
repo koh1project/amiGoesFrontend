@@ -2,29 +2,17 @@ import { useNavigation } from '@react-navigation/core';
 import React, { useState, useEffect } from 'react'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import SelectList from 'react-native-dropdown-select-list'
-import { StyleSheet, TextInput, Text, View, TouchableOpacity, ScrollView } from  'react-native'
+import { StyleSheet, TextInput, Text, View, TouchableOpacity, SafeAreaView, ScrollView, Keyboard, Platform } from  'react-native'
 import { auth } from '../../../firebase'
 import { PrimaryButton } from '../../buttons/PrimaryButton';
 import { Input } from '../../form/Input';
 
 export const StepOneForm: React.FC = () => {
-    // const user = auth.currentUser
-    // console.log(user)
     const navigation = useNavigation();
-    // const [name, setName] = useState('');
-    // const [birthDate, setBirthDate] = useState('');
-    // const [gender, setGender] = useState('');
-    // const [phoneNumber, setPhoneNumber] = useState('');
-    // const [emergencyName, setEmergencyName] = useState('');
-    // const [emergencyRelationship, setEmergencyRelationship] = useState('');
-    // const [emergencyPhoneNumber, setEmergencyPhoneNumber] = useState('');
     const [show, setShow] = useState(false);
-    const [date, setDate] = useState('');
+    const [date, setDate] = useState(new Date());
+    const [text, setText] = useState('');
     const [genderSelected, setGenderSelected] = useState('');
-
-    useEffect(() => {
-        onSelectGender(genderSelected)
-    }, [genderSelected])
 
     const [inputs, setInputs] = useState({
         name: '',
@@ -35,6 +23,12 @@ export const StepOneForm: React.FC = () => {
         emergencyRelationship: '',
         emergencyPhoneNumber: '',
     });
+
+    const [errors, setErrors] = useState({});
+
+    useEffect(() => {
+        onSelectGender(genderSelected)
+    }, [genderSelected])
 
     const genderOptions = [
         { key: 'male', value: 'Male'},
@@ -50,20 +44,75 @@ export const StepOneForm: React.FC = () => {
     }
 
     const onDateChange = (event, selectedDate) => {
-        const currentDate =;
+        const currentDate = selectedDate || date;
+        setShow(Platform.OS === 'ios');
+        setDate(currentDate);
+
+        let tempDate = new Date(currentDate);
+        let fDate = tempDate.getDate() + '/' + (tempDate.getMonth() + 1) + '/' + tempDate.getFullYear();
+        setText(fDate);
+
+        console.log("Formatted Date: " + fDate);
+
         setInputs({
             ...inputs,
             birthDate: currentDate,
         });
-        setDate(currentDate.toString().);
-        setShow(false);
     };
 
     const validate = () => {
-        navigation.navigate('Create Profile: Step 2' as never, {inputs})
+        Keyboard.dismiss();
+        let valid = true;
+        if (!inputs.name) {
+            handleError('Please enter your name', 'name');
+            valid = false;
+        }
+
+        if (!inputs.birthDate) {
+            handleError('Please enter your birth date', 'birthDate');
+            valid = false;
+        }
+
+        if (!inputs.gender) {
+            handleError('Please select your gender', 'gender');
+            valid = false;
+        }
+
+        if (!inputs.phoneNumber) {
+            handleError('Please enter your phone number', 'phoneNumber');
+            valid = false;
+        }
+
+        if (!inputs.emergencyName) {
+            handleError('Please enter your emergency contact name', 'emergencyName');
+            valid = false;
+        }
+
+        if (!inputs.emergencyRelationship) {
+            handleError('Please enter your emergency contact relationship', 'emergencyRelationship');
+            valid = false;
+        }
+
+        if (!inputs.emergencyPhoneNumber) {
+            handleError('Please enter your emergency contact phone number', 'emergencyPhoneNumber');
+            valid = false;
+        }
+
+        if (valid) {
+            navigation.navigate('Create Profile: Step 2' as never, {inputs})
+        }
     };
 
+    const handleOnChange = (text, input) => {
+        setInputs(prevState => ({...prevState, [input]: text}));
+    }
+
+    const handleError = (errorMessage, input) => {
+        setErrors(prevState => ({ ...prevState, [input]: errorMessage }));
+    }
+
     return (
+        <SafeAreaView>
         <ScrollView>
             <Text>Your primary information</Text>
             <Text>Primary information is important to keep our community safe, 
@@ -71,41 +120,83 @@ export const StepOneForm: React.FC = () => {
                 information is not stored by us, and is only used to verify your identity.
             </Text>
             <View style={{ marginHorizontal: 20 }}>
-                <Input label='Name' placeholder='Ex. John Smith' />
+                <Input 
+                    label='Name' 
+                    placeholder='Ex. John Smith' 
+                    error={errors.name}
+                    onFocus={() => {
+                        handleError(null, 'name');
+                    }}
+                    onChangeText={text => handleOnChange(text, 'name')}/>
                 <Text style={{ 
                         fontSize: 16, fontWeight: 'medium', marginBottom: 8, 
                     }}>Birth Date</Text>
                 <TouchableOpacity onPress={() => setShow(true)}>
-                    <View style={[styles.inputContainer, {borderColor: 'gray', borderWidth: 1}]}>
-                        <Text style={styles.input}>{date}</Text>
+                    <View style={[styles.inputContainer, {borderColor: errors.birthDate ? 'red' : 'gray', borderWidth: 1}]}>
+                        <Text style={styles.input}>{text}</Text>
                     </View>
+                    {errors.birthDate && <Text style={{color: 'red'}}>{errors.birthDate}</Text>}
                 </TouchableOpacity>
                 {show && (
                 <DateTimePicker
+                    testID="dateTimePicker"
                     mode="date"
                     display="default"
-                    value={new Date()}
+                    value={date}
                     minimumDate={new Date(1920, 1, 1)}
                     maximumDate={new Date(2004, 1, 1)}
                     onChange={onDateChange}
                 />
                 )}
-                <View style={{marginBottom: 10}}>
+                <View style={{marginBottom: 10}} >
                 <Text style={{ 
                         fontSize: 16, fontWeight: 'medium', marginBottom: 8, 
                     }}>Gender</Text>
+                <View style={[styles.inputContainer, {borderColor: errors.gender ? 'red' : 'gray', borderWidth: 1}]}>
                 <SelectList
                     setSelected={setGenderSelected}
                     data={genderOptions}
                     search={false}
                 />
                 </View>
-                <Input keyboardType="numeric" label='Phone Number' placeholder='Ex. 987 654 3210' />
+                {errors.gender && <Text style={{color: 'red'}}>{errors.gender}</Text>}
+                </View>
+                <Input 
+                    keyboardType="numeric" 
+                    label='Phone Number' 
+                    placeholder='Ex. 987 654 3210'
+                    error={errors.phoneNumber}
+                    onFocus={() => {
+                        handleError(null, 'phoneNumber');
+                    }}
+                    onChangeText={text => handleOnChange(text, 'phoneNumber')}/>
                 <View>
                     <Text>Emergency Contact</Text>
-                    <Input label='Name' placeholder='Ex. John Smith' />
-                    <Input label='Relationship' placeholder='Ex. Son' />
-                    <Input keyboardType="numeric" label='Phone Number' placeholder='Ex. 987 654 3210' />
+                    <Input 
+                        label='Name' 
+                        placeholder='Ex. John Smith' 
+                        error={errors.emergencyName}
+                        onFocus={() => {
+                            handleError(null, 'emergencyName');
+                        }}
+                        onChangeText={text => handleOnChange(text, 'emergencyName')}/>
+                    <Input 
+                        label='Relationship' 
+                        placeholder='Ex. Son'
+                        error={errors.emergencyRelationship}
+                        onFocus={() => {
+                            handleError(null, 'emergencyRelationship');
+                        }}
+                        onChangeText={text => handleOnChange(text, 'emergencyRelationship')} />
+                    <Input 
+                        keyboardType="numeric" 
+                        label='Phone Number' 
+                        placeholder='Ex. 987 654 3210'
+                        error={errors.emergencyPhoneNumber}
+                        onFocus={() => {
+                            handleError(null, 'emergencyPhoneNumber');
+                        }}
+                        onChangeText={text => handleOnChange(text, 'emergencyPhoneNumber')} />
                 </View>
             </View>
             <PrimaryButton
@@ -113,6 +204,7 @@ export const StepOneForm: React.FC = () => {
                 onPress={validate}
             />
         </ScrollView>
+        </SafeAreaView>
     )
 }
 
