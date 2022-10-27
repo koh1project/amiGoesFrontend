@@ -8,6 +8,7 @@ export const SCREEN_NAMES = {
   Login: 'Login',
   Discover: 'Discover',
   CreateProfileStepOneForm: 'Create Profile: Step 1',
+  CreateProfileStepTwoForm: 'Create Profile: Step 2',
 };
 
 export const INITIAL_SCREEN = Constants.expoConfig.extra.INITIAL_SCREEN;

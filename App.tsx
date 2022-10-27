@@ -5,6 +5,7 @@ import SignupScreen from './components/screens/SignupScreen';
 import IndexScreen from './components/screens/IndexScreen';
 import { DiscoverScreen } from './components/screens/DiscoverScreen';
 import { StepOneForm } from './components/screens/createProfile/StepOneForm';
+import { StepTwoForm } from './components/screens/createProfile/StepTwoForm';
 import { SCREEN_NAMES, INITIAL_SCREEN } from './const';
 
 const Stack = createNativeStackNavigator();
@@ -28,6 +29,10 @@ export default function App() {
         <Stack.Screen 
           name={SCREEN_NAMES.CreateProfileStepOneForm} 
           component={StepOneForm} 
+        />
+        <Stack.Screen 
+          name={SCREEN_NAMES.CreateProfileStepTwoForm} 
+          component={StepTwoForm} 
         />
       </Stack.Navigator>
     </NavigationContainer>
