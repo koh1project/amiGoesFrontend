@@ -18,7 +18,7 @@ const IndexScreen = () => {
   useEffect(() => {
     if (token !== '') {
       fetchData(token);
-    } else {
+    } else if (auth.currentUser) {
       auth.currentUser
         .getIdToken(true)
         .then((idToken) => {
@@ -29,6 +29,8 @@ const IndexScreen = () => {
           console.log(error);
           handleSignout();
         });
+    } else {
+      navigation.navigate('Login');
     }
   }, [token]);
 
@@ -54,7 +56,7 @@ const IndexScreen = () => {
     auth
       .signOut()
       .then(() => {
-        navigation.replace('Login');
+        navigation.navigate('Login');
       })
       .catch((error) => alert(error.message));
   };
@@ -67,6 +69,10 @@ const IndexScreen = () => {
       <PrimaryButton
         label="Discover"
         onPress={() => navigation.navigate('Discover' as never)}
+      />
+      <PrimaryButton
+        label="Create Profile"
+        onPress={() => navigation.navigate('Create Profile: Step 1' as never)}
       />
     </View>
   );

@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/core';
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, TextInput, Text, View, KeyboardAvoidingView, TouchableOpacity } from  'react-native'
+import { StyleSheet, TextInput, Text, View, TouchableOpacity } from  'react-native'
 import { auth } from '../../firebase'
 
 const LoginScreen = () => {
@@ -23,7 +23,6 @@ const LoginScreen = () => {
             .signInWithEmailAndPassword(email, password)
             .then(userCredentials => {
                 const user = userCredentials.user
-                console.log('Logged in with: ', user.email);
             })
             .catch(error => alert("Invalid email or password"))
     }
