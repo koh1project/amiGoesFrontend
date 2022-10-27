@@ -27,6 +27,11 @@ export default (): ExpoConfig => {
         foregroundImage: './assets/adaptive-icon.png',
         backgroundColor: '#FFFFFF',
       },
+      permissions: [
+        'ACCESS_FINE_LOCATION',
+        'ACCESS_COARSE_LOCATION',
+        'ACCESS_BACKGROUND_LOCATION',
+      ],
     },
     web: {
       favicon: './assets/favicon.png',
@@ -34,6 +39,7 @@ export default (): ExpoConfig => {
     extra: {
       URL: process.env.URL,
       INITIAL_SCREEN: process.env.INITIAL_SCREEN || 'Index',
+      GOOGLE_MAPS_API_KEY: process.env.GOOGLE_MAPS_API_KEY,
     },
   };
 };

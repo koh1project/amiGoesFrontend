@@ -9,8 +9,16 @@ const DEFAULT_HEADERS = () => {
   };
 };
 
-export const get = async (url: string, headers = DEFAULT_HEADERS()) => {
-  return axios.get(BASE_URL + url, {
-    headers,
-  });
+export const get = async <T = any>(
+  url: string,
+  headers = DEFAULT_HEADERS(),
+) => {
+  try {
+    return axios.get<T>(BASE_URL + url, {
+      headers,
+    });
+  } catch (error) {
+    console.error('API GET ERROR', error);
+    throw error;
+  }
 };
