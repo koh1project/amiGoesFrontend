@@ -1,11 +1,13 @@
 import { Button, Center, VStack } from 'native-base';
 
 const IconBtn = (props) => {
-  const { text } = props;
+  const { text, action } = props;
   return (
     <Center>
       <VStack space={4} alignItems="center">
-        <Button size="lg">{text}</Button>
+        <Button size="lg" onPress={action}>
+          {text}
+        </Button>
       </VStack>
     </Center>
   );
