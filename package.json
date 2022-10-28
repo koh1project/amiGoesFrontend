@@ -4,8 +4,8 @@
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
-    "android": "expo start --android",
-    "android:tunnel": "adb reverse tcp:8080 tcp:8080 && expo start --android --tunnel ",
+    "android": "adb reverse tcp:8080 tcp:8080 && expo start --android",
+    "android:tunnel": "adb reverse tcp:8080 tcp:8080 && expo start --android --tunnel",
     "ios": "expo start --ios",
     "web": "expo start --web",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",

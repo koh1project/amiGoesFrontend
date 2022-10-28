@@ -1,6 +1,5 @@
 import React, { FC, useCallback } from 'react';
 import {
-  View,
   Text,
   Box,
   AspectRatio,
@@ -13,7 +12,7 @@ import {
 import { Place, UserLocation } from '../../../types/discover';
 
 import { getDistance } from 'geolib';
-import { PlaceImage } from './PlaceImage';
+// import { PlaceImage } from './PlaceImage';
 
 type CarouselProps = {
   places: Place[];
@@ -66,13 +65,13 @@ export const PlacesCarousel: React.FC<CarouselProps> = ({
   if (!places || places.length === 0) {
     return <Text>No places</Text>;
   }
-  const renderItem = ({ item, index }) => {
-    return (
-      <View>
-        <Text>{'items'}</Text>
-      </View>
-    );
-  };
+  // const renderItem = ({ item, index }) => {
+  //   return (
+  //     <View>
+  //       <Text>{'items'}</Text>
+  //     </View>
+  //   );
+  // };
 
   const TextDistance: FC<{ place: Place }> = ({ place }) => {
     if (!userLocation || !place.geometry || !place.geometry.location) {

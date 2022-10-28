@@ -1,10 +1,11 @@
-import { Box } from 'native-base';
+import { ScrollView } from 'native-base';
 import { useEffect, useCallback, useState } from 'react';
 import { Text } from 'react-native';
 import { PlacesCarousel } from '../../features/discover/components/PlacesCarousel';
 import { getDiscover } from '../../services/discover.service';
 import { GetDiscoverResponse, UserLocation } from '../../types/discover';
 import * as Location from 'expo-location';
+import { SecondaryHeading } from '../texts/Heading';
 
 export const DiscoverScreen: React.FC = () => {
   const [places, setPlaces] = useState<GetDiscoverResponse>();
@@ -20,12 +21,12 @@ export const DiscoverScreen: React.FC = () => {
   }, []);
 
   const readLocation = useCallback(async () => {
-    let { status } = await Location.requestForegroundPermissionsAsync();
+    const { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== 'granted') {
       return;
     }
 
-    let location = await Location.getCurrentPositionAsync({});
+    const location = await Location.getCurrentPositionAsync({});
     console.log('location: ', location);
     setLocation(location);
   }, []);
@@ -47,7 +48,22 @@ export const DiscoverScreen: React.FC = () => {
   let content = <></>;
   if (places) {
     content = (
-      <PlacesCarousel places={places['parks']} userLocation={location} />
+      <>
+        <SecondaryHeading>Parks</SecondaryHeading>
+        <PlacesCarousel places={places['parks']} userLocation={location} />
+        <SecondaryHeading>Restaurants</SecondaryHeading>
+        <PlacesCarousel
+          places={places['restaurants']}
+          userLocation={location}
+        />
+        <SecondaryHeading>Entertainment</SecondaryHeading>
+        <PlacesCarousel
+          places={places['entertainment']}
+          userLocation={location}
+        />
+        <SecondaryHeading>Sports</SecondaryHeading>
+        <PlacesCarousel places={places['sports']} userLocation={location} />
+      </>
     );
   }
 
@@ -55,8 +71,7 @@ export const DiscoverScreen: React.FC = () => {
     <>
       <Text>Discover</Text>
       <Text>Search Box</Text>
-
-      <Box>{content}</Box>
+      <ScrollView>{content}</ScrollView>
     </>
   );
 };
