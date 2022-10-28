@@ -7,6 +7,7 @@ import { DiscoverScreen } from './components/screens/DiscoverScreen';
 import { SCREEN_NAMES, INITIAL_SCREEN } from './const';
 import { Header } from './components/headers/Header';
 import { NativeBaseProvider } from 'native-base';
+import ConnectedandBlockedScreen from './components/screens/ConnectedandBlockedScreen';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -29,6 +30,11 @@ export default function App() {
           <Stack.Screen
             name={SCREEN_NAMES.Discover}
             component={DiscoverScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name={SCREEN_NAMES.ConnectedandBlockedScreen}
+            component={ConnectedandBlockedScreen}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
