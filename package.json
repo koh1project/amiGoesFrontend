@@ -1,4 +1,4 @@
-{
+å{
   "name": "my-app",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
@@ -15,6 +15,7 @@
   "dependencies": {
     "@expo/config-types": "^46.0.2",
     "@googlemaps/google-maps-services-js": "^3.3.16",
+    "@react-native-community/datetimepicker": "6.2.0",
     "@react-navigation/native": "^6.0.13",
     "@react-navigation/native-stack": "^6.9.0",
     "@types/react-native-snap-carousel": "^3.8.5",
@@ -26,7 +27,7 @@
     "expo-status-bar": "~1.4.0",
     "firebase": "^8.2.3",
     "geolib": "^3.3.3",
-    "native-base": "^3.4.17",
+    "native-base": "^3.4.19",
     "patch-package": "^6.5.0",
     "react": "18.0.0",
     "react-dom": "18.0.0",
@@ -38,6 +39,10 @@
     "react-native-snap-carousel": "^3.9.1",
     "react-native-svg": "12.3.0",
     "react-native-svg-transformer": "^1.0.0",
+    "prop-types": "^15.8.1",
+    "react-native-dropdown-select-list": "^1.0.23",
+    "react-native-multiple-select": "^0.5.12",
+    "react-native-vector-icons": "^9.2.0",
     "react-native-web": "~0.18.7"
   },
   "devDependencies": {

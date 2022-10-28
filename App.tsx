@@ -1,12 +1,14 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NativeBaseProvider } from 'native-base';
+import { Header } from './components/headers/Header';
+import { StepOneForm } from './components/screens/createProfile/StepOneForm';
+import { StepTwoForm } from './components/screens/createProfile/StepTwoForm';
+import { DiscoverScreen } from './components/screens/DiscoverScreen';
+import IndexScreen from './components/screens/IndexScreen';
 import LoginScreen from './components/screens/LoginScreen';
 import SignupScreen from './components/screens/SignupScreen';
-import IndexScreen from './components/screens/IndexScreen';
-import { DiscoverScreen } from './components/screens/DiscoverScreen';
-import { SCREEN_NAMES, INITIAL_SCREEN } from './const';
-import { Header } from './components/headers/Header';
-import { NativeBaseProvider } from 'native-base';
+import { INITIAL_SCREEN, SCREEN_NAMES } from './const';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -32,6 +34,15 @@ export default function App() {
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
+        <Stack.Screen 
+          name={SCREEN_NAMES.CreateProfileStepOneForm} 
+          component={StepOneForm} 
+        />
+        <Stack.Screen 
+          name={SCREEN_NAMES.CreateProfileStepTwoForm} 
+          component={StepTwoForm} 
+        />
+
       </NavigationContainer>
     </NativeBaseProvider>
   );

@@ -22,3 +22,7 @@ export const get = async <T = any>(
     throw error;
   }
 };
+
+export const post = async (url: string, data: any, headers = DEFAULT_HEADERS()) => {
+  return axios.post(BASE_URL + url, data);
+};
