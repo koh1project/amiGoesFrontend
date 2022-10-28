@@ -55,7 +55,7 @@ export const StepOneForm: React.FC = () => {
 
         setInputs({
             ...inputs,
-            birthDate: currentDate,
+            birthDate: currentDate.toISOString(),
         });
     };
 

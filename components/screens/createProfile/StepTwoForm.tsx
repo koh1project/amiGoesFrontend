@@ -1,29 +1,33 @@
 import { useNavigation } from '@react-navigation/core';
 import React, { useState, useEffect } from 'react';
-import SelectList from 'react-native-dropdown-select-list';
+import { post } from '../../../services/api';
+import { CREATE_USERPROFILE_ENDPOINT } from '../../../services/userProfile.service';
 import { StyleSheet, TextInput, Text, View, TouchableOpacity, SafeAreaView, ScrollView, Keyboard, Platform } from 'react-native';
 import { PrimaryButton } from '../../buttons/PrimaryButton';
 import { Input } from '../../form/Input';
-import { auth } from '../../../firebase';
+import { authUser } from '../../../services/userProfile.service';
 
 export const StepTwoForm: React.FC = ({ route }) => {
-    const user = auth.currentUser;
-    console.log(user);
+    //console.log(user);
+    const user = authUser();
     const navigation = useNavigation();
     const inputs = route.params;
-    //console.log(inputs);
+    const [languagesArray, setLanguagesArray] = useState([]);
+    const [hobbiesArray, setHobbiesArray] = useState([]);
     const [profileInfo, setProfileInfo] = useState({
+        _id: user.uid,
         name: inputs.inputs.name,
-        birthDate: inputs.inputs.birthDate,
+        birthday: inputs.inputs.birthDate,
         gender: inputs.inputs.gender,
+        isVerified: true,
         contact: {
             phoneNumber: inputs.inputs.phoneNumber,
             email: user.email,
         },
         emergencyContact: {
-            emergencyName: inputs.inputs.emergencyName,
-            emergencyRelationship: inputs.inputs.emergencyRelationship,
-            emergencyPhoneNumber: inputs.inputs.emergencyPhoneNumber,
+            name: inputs.inputs.emergencyName,
+            phoneNumber: inputs.inputs.emergencyPhoneNumber,
+            relationship: inputs.inputs.emergencyRelationship,
         },
         homeCountry: '',
         languages: [],
@@ -31,7 +35,35 @@ export const StepTwoForm: React.FC = ({ route }) => {
         hobbies: [],
     });
 
-    console.log('profileInfo: ', profileInfo);
+    const handleOnChange = (text, input) => {
+        //if ((input === 'homeCountry') || (input === 'bio')) {
+            setProfileInfo(prevState => ({...prevState, [input]: text}));
+       // }
+    }
+
+    const handleHobbiesArray = (text) => {
+        setHobbiesArray(prevState => [...prevState, text]);
+    }
+
+    const handleLanguagesArray = (text) => {
+        setLanguagesArray(prevState => [...prevState, text]);
+    }
+
+    const handleOnSubmit = () => {
+        setProfileInfo(prevState => ({...prevState, languages: languagesArray}));
+        setProfileInfo(prevState => ({...prevState, hobbies: hobbiesArray}));
+        console.log(profileInfo);
+        createProfile();
+    }
+
+    const createProfile = async () => {
+        const result = await post(CREATE_USERPROFILE_ENDPOINT.post, profileInfo);
+        console.log('Response from backend: ', result.data);
+        if (result.data) {
+            alert('Profile created successfully!');
+            navigation.navigate('Index' as never);
+        };
+    }
 
     return (
         <View>
@@ -44,7 +76,7 @@ export const StepTwoForm: React.FC = ({ route }) => {
                     // onFocus={() => {
                     //     handleError(null, 'homeCountry');
                     // }}
-                    // onChangeText={text => handleOnChange(text, 'homeCountry')}
+                    onChangeText={text => handleOnChange(text, 'homeCountry')}
                     />
                 <Input 
                     label='Languages' 
@@ -53,7 +85,7 @@ export const StepTwoForm: React.FC = ({ route }) => {
                     // onFocus={() => {
                     //     handleError(null, 'languages');
                     // }}
-                    // onChangeText={text => handleOnChange(text, 'languages')} 
+                    onChangeText={text => handleLanguagesArray(text.split(', '))} 
                     />
                 <Input 
                     label='About Me' 
@@ -62,7 +94,7 @@ export const StepTwoForm: React.FC = ({ route }) => {
                     // onFocus={() => {
                     //     handleError(null, 'bio');
                     // }}
-                    // onChangeText={text => handleOnChange(text, 'bio')} 
+                    onChangeText={text => handleOnChange(text, 'bio')} 
                     />
                 <Input 
                     label='Hobbies' 
@@ -71,17 +103,13 @@ export const StepTwoForm: React.FC = ({ route }) => {
                     // onFocus={() => {
                     //     handleError(null, 'bio');
                     // }}
-                    // onChangeText={text => handleOnChange(text, 'bio')} 
+                    onChangeText={text => handleHobbiesArray(text.split(', '))}
                     />
             </View>
             <View>
                 <PrimaryButton
-                    label="Back"
-                    //onPress={validate}
-                />
-                <PrimaryButton
                     label="Next"
-                    //onPress={validate}
+                    onPress={handleOnSubmit}
                 />
             </View>
         </View>
