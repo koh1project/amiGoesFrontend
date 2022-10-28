@@ -38,7 +38,8 @@
     "react-native-snap-carousel": "^3.9.1",
     "react-native-svg": "12.3.0",
     "react-native-svg-transformer": "^1.0.0",
-    "react-native-web": "~0.18.7"
+    "react-native-web": "~0.18.7",
+    "recoil": "^0.7.6"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
