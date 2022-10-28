@@ -1,4 +1,4 @@
-import { Box, HStack, StatusBar, Text, ChevronLeftIcon } from 'native-base';
+import { Box, ChevronLeftIcon, HStack, StatusBar, Text } from 'native-base';
 
 export const Header: React.FC = () => {
   return (

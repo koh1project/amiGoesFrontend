@@ -2,11 +2,11 @@ import { useNavigation } from '@react-navigation/core';
 import { KeyboardAvoidingView } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import {
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View
 } from 'react-native';
 import { auth } from '../../firebase';
 

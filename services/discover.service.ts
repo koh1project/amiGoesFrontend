@@ -1,5 +1,5 @@
-import { get } from './api';
 import { GetDiscoverResponse } from '../types/discover';
+import { get } from './api';
 
 const DISCOVER_ENDPOINT = {
   get: '/discover',

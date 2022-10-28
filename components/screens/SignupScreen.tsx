@@ -1,12 +1,8 @@
-import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/core';
+import { KeyboardAvoidingView } from 'native-base';
+import React, { useEffect, useState } from 'react';
 import {
-  StyleSheet,
-  TextInput,
-  Text,
-  View,
-  KeyboardAvoidingView,
-  TouchableOpacity,
+  StyleSheet, Text, TextInput, TouchableOpacity, View
 } from 'react-native';
 import { auth } from '../../firebase';
 
@@ -41,7 +37,7 @@ const SignupScreen = () => {
   };
 
   return (
-    <View style={styles.container} behavior="padding">
+    <KeyboardAvoidingView style={styles.container} behavior="padding">
       <View style={styles.inputContainer}>
         <Text style={styles.text}>Email</Text>
         <TextInput
@@ -80,7 +76,7 @@ const SignupScreen = () => {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 

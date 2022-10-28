@@ -11,7 +11,7 @@ export const SCREEN_NAMES = {
   CreateProfileStepTwoForm: 'Create Profile: Step 2',
   Camera: 'Camera',
   Translate: 'Translate',
-};
+} as const;
 
 export const INITIAL_SCREEN = Constants.expoConfig.extra.INITIAL_SCREEN;
 

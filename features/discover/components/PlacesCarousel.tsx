@@ -1,13 +1,10 @@
-import React, { FC, useCallback } from 'react';
 import {
-  Text,
-  Box,
-  AspectRatio,
+  AspectRatio, Box, Heading,
   HStack,
-  Stack,
-  Heading,
   Image,
+  Stack, Text
 } from 'native-base';
+import React, { FC, useCallback } from 'react';
 
 import { Place, UserLocation } from '../../../types/discover';
 

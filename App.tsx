@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NativeBaseProvider } from 'native-base';
 import { Header } from './components/headers/Header';
 import CameraScreen from './components/screens/CameraScreen';
+import ConnectFilterScreen from './components/screens/Connect/ConnectFiltersScreen';
 import { StepOneForm } from './components/screens/createProfile/StepOneForm';
 import { StepTwoForm } from './components/screens/createProfile/StepTwoForm';
 import { DiscoverScreen } from './components/screens/DiscoverScreen';
@@ -11,9 +12,9 @@ import LoginScreen from './components/screens/LoginScreen';
 import SignupScreen from './components/screens/SignupScreen';
 import TranslateScreen from './components/screens/TranslateScreen';
 import { INITIAL_SCREEN, SCREEN_NAMES } from './const';
+import { RootStackParamList } from './types/navigation';
 
-const Stack = createNativeStackNavigator();
-console.log(INITIAL_SCREEN);
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
   return (
@@ -35,6 +36,11 @@ export default function App() {
           <Stack.Screen
             name={SCREEN_NAMES.Discover}
             component={DiscoverScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name={SCREEN_NAMES.ConnectFilter}
+            component={ConnectFilterScreen}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
