@@ -2,17 +2,18 @@ import { useNavigation } from '@react-navigation/core';
 import { KeyboardAvoidingView } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import {
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import { auth } from '../../firebase';
+import { auth } from '../../utils/firebase';
 
-const LoginScreen = () => {
+const SignupScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const navigation = useNavigation();
 
@@ -25,13 +26,18 @@ const LoginScreen = () => {
     return unsubscribe;
   }, []);
 
-  const handleLogin = () => {
-    auth
-      .signInWithEmailAndPassword(email, password)
-      .then((userCredentials) => {
-        const user = userCredentials.user;
-      })
-      .catch((error) => alert('Invalid email or password'));
+  const handleSignup = () => {
+    if (password !== confirmPassword) {
+      alert('Passwords do not match');
+    } else {
+      auth
+        .createUserWithEmailAndPassword(email, password)
+        .then((userCredentials) => {
+          const user = userCredentials.user;
+          console.log('Signed up with: ', user.email);
+        })
+        .catch((error) => alert(error.message));
+    }
   };
 
   return (
@@ -50,22 +56,27 @@ const LoginScreen = () => {
           style={styles.input}
           secureTextEntry
         />
+        <Text style={styles.text}>Confirm Password</Text>
+        <TextInput
+          value={confirmPassword}
+          onChangeText={(text) => setConfirmPassword(text)}
+          style={styles.input}
+          secureTextEntry
+        />
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity onPress={handleLogin} style={styles.button}>
-          <Text style={styles.buttonText}>LOGIN</Text>
+        <TouchableOpacity onPress={handleSignup} style={styles.button}>
+          <Text style={styles.buttonText}>CREATE</Text>
         </TouchableOpacity>
         <View style={{ flexDirection: 'row' }}>
           <Text style={{ fontSize: 15, color: 'gray', marginTop: 5 }}>
-            New on AmiGoes?{' '}
+            Already have an account?{' '}
           </Text>
           <TouchableOpacity
-            onPress={() => {
-              navigation.navigate('Signup');
-            }}
+            onPress={() => navigation.navigate('Login')}
             style={styles.buttonOutline}
           >
-            <Text style={styles.buttonTextOutline}>Create Account</Text>
+            <Text style={styles.buttonTextOutline}>Login</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -73,7 +84,7 @@ const LoginScreen = () => {
   );
 };
 
-export default LoginScreen;
+export default SignupScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -88,6 +99,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     fontWeight: '700',
+    marginBottom: 2,
   },
   input: {
     padding: 10,

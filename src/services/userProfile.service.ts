@@ -1,5 +1,5 @@
 //import { post } from './api';
-import { auth } from '../firebase';
+import { auth } from '../utils/firebase';
 
 export const authUser = () => {
   return auth.currentUser;

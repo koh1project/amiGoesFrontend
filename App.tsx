@@ -1,18 +1,18 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NativeBaseProvider } from 'native-base';
-import { Header } from './components/headers/Header';
-import CameraScreen from './components/screens/CameraScreen';
-import ConnectFilterScreen from './components/screens/Connect/ConnectFiltersScreen';
-import { StepOneForm } from './components/screens/createProfile/StepOneForm';
-import { StepTwoForm } from './components/screens/createProfile/StepTwoForm';
-import { DiscoverScreen } from './components/screens/DiscoverScreen';
-import IndexScreen from './components/screens/IndexScreen';
-import LoginScreen from './components/screens/LoginScreen';
-import SignupScreen from './components/screens/SignupScreen';
-import TranslateScreen from './components/screens/TranslateScreen';
-import { INITIAL_SCREEN, SCREEN_NAMES } from './const';
-import { RootStackParamList } from './types/navigation';
+import { Header } from './src/components/headers/Header';
+import CameraScreen from './src/components/screens/CameraScreen';
+import ConnectFilterScreen from './src/components/screens/Connect/ConnectFiltersScreen';
+import { StepOneForm } from './src/components/screens/createProfile/StepOneForm';
+import { StepTwoForm } from './src/components/screens/createProfile/StepTwoForm';
+import { DiscoverScreen } from './src/components/screens/DiscoverScreen';
+import IndexScreen from './src/components/screens/IndexScreen';
+import LoginScreen from './src/components/screens/LoginScreen';
+import SignupScreen from './src/components/screens/SignupScreen';
+import TranslateScreen from './src/components/screens/TranslateScreen';
+import { RootStackParamList } from './src/types/navigation';
+import { INITIAL_SCREEN, SCREEN_NAMES } from './src/utils/const';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -43,20 +43,20 @@ export default function App() {
             component={ConnectFilterScreen}
             options={{ headerShown: false }}
           />
-        </Stack.Navigator>
-        <Stack.Screen
-          name={SCREEN_NAMES.CreateProfileStepOneForm}
-          component={StepOneForm}
-        />
-        <Stack.Screen
-          name={SCREEN_NAMES.CreateProfileStepTwoForm}
-          component={StepTwoForm}
-        />
-         <Stack.Screen
+          <Stack.Screen
+            name={SCREEN_NAMES.CreateProfileStepOneForm}
+            component={StepOneForm}
+          />
+          <Stack.Screen
+            name={SCREEN_NAMES.CreateProfileStepTwoForm}
+            component={StepTwoForm}
+          />
+          <Stack.Screen
             name={SCREEN_NAMES.Translate}
             component={TranslateScreen}
           />
           <Stack.Screen name={SCREEN_NAMES.Camera} component={CameraScreen} />
+        </Stack.Navigator>
       </NavigationContainer>
     </NativeBaseProvider>
   );

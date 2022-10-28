@@ -12,6 +12,7 @@ import {
   View,
 } from 'react-native';
 import SelectList from 'react-native-dropdown-select-list';
+import { SCREEN_NAMES } from '../../../utils/const';
 import { PrimaryButton } from '../../buttons/PrimaryButton';
 import { Input } from '../../form/Input';
 
@@ -23,13 +24,13 @@ export const StepOneForm: React.FC = () => {
   const [genderSelected, setGenderSelected] = useState('');
 
   const [inputs, setInputs] = useState({
-    name: '',
+    name: 'Arvind Smith',
     birthDate: '',
-    gender: '',
-    phoneNumber: '',
-    emergencyName: '',
-    emergencyRelationship: '',
-    emergencyPhoneNumber: '',
+    gender: 'male',
+    phoneNumber: '123456789',
+    emergencyName: 'Gabriela',
+    emergencyRelationship: 'Friend',
+    emergencyPhoneNumber: '123456789',
   });
 
   const [errors, setErrors] = useState({});
@@ -118,7 +119,9 @@ export const StepOneForm: React.FC = () => {
     }
 
     if (valid) {
-      navigation.navigate('Create Profile: Step 2' as never, { inputs });
+      navigation.navigate(SCREEN_NAMES.CreateProfileStepTwoForm as never, {
+        inputs,
+      });
     }
   };
 
@@ -145,6 +148,7 @@ export const StepOneForm: React.FC = () => {
             label="Name"
             placeholder="Ex. John Smith"
             error={errors.name}
+            value={inputs.name}
             onFocus={() => {
               handleError(null, 'name');
             }}
@@ -216,6 +220,7 @@ export const StepOneForm: React.FC = () => {
             keyboardType="numeric"
             label="Phone Number"
             placeholder="Ex. 987 654 3210"
+            value={inputs.phoneNumber}
             error={errors.phoneNumber}
             onFocus={() => {
               handleError(null, 'phoneNumber');
@@ -227,6 +232,7 @@ export const StepOneForm: React.FC = () => {
             <Input
               label="Name"
               placeholder="Ex. John Smith"
+              value={inputs.emergencyName}
               error={errors.emergencyName}
               onFocus={() => {
                 handleError(null, 'emergencyName');
@@ -236,6 +242,7 @@ export const StepOneForm: React.FC = () => {
             <Input
               label="Relationship"
               placeholder="Ex. Son"
+              value={inputs.emergencyRelationship}
               error={errors.emergencyRelationship}
               onFocus={() => {
                 handleError(null, 'emergencyRelationship');
@@ -249,6 +256,7 @@ export const StepOneForm: React.FC = () => {
               label="Phone Number"
               placeholder="Ex. 987 654 3210"
               error={errors.emergencyPhoneNumber}
+              value={inputs.emergencyPhoneNumber}
               onFocus={() => {
                 handleError(null, 'emergencyPhoneNumber');
               }}

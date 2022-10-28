@@ -1,6 +1,6 @@
 import * as Location from 'expo-location';
-import { ScrollView } from 'native-base';
-import { useCallback, useEffect, useState } from 'react';
+import { Input, ScrollView, View } from 'native-base';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Text } from 'react-native';
 import { PlacesCarousel } from '../../features/discover/components/PlacesCarousel';
 import { getDiscover } from '../../services/discover.service';
@@ -68,10 +68,10 @@ export const DiscoverScreen: React.FC = () => {
   }
 
   return (
-    <>
+    <View style={{ padding: 10 }}>
       <Text>Discover</Text>
-      <Text>Search Box</Text>
+      <Input placeholder="Search"></Input>
       <ScrollView>{content}</ScrollView>
-    </>
+    </View>
   );
 };
