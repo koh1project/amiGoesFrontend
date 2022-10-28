@@ -34,15 +34,14 @@ export default function App() {
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
-        <Stack.Screen 
-          name={SCREEN_NAMES.CreateProfileStepOneForm} 
-          component={StepOneForm} 
+        <Stack.Screen
+          name={SCREEN_NAMES.CreateProfileStepOneForm}
+          component={StepOneForm}
         />
-        <Stack.Screen 
-          name={SCREEN_NAMES.CreateProfileStepTwoForm} 
-          component={StepTwoForm} 
+        <Stack.Screen
+          name={SCREEN_NAMES.CreateProfileStepTwoForm}
+          component={StepTwoForm}
         />
-
       </NavigationContainer>
     </NativeBaseProvider>
   );

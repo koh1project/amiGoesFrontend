@@ -1,10 +1,10 @@
-import React from 'react';
 import { useNavigation } from '@react-navigation/core';
+import React from 'react';
 
-import { TouchableOpacity, Text, View } from 'react-native';
-import { auth } from '../../firebase';
-import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
+import { auth } from '../../firebase';
 import { url } from '../../url';
 import { PrimaryButton } from '../buttons/PrimaryButton';
 
