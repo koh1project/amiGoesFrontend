@@ -7,8 +7,8 @@ export const SCREEN_NAMES = {
   Signup: 'Signup',
   Login: 'Login',
   Discover: 'Discover',
-};
-
+  ConnectFilter: 'ConnectFilter',
+} as const;
 export const INITIAL_SCREEN = Constants.expoConfig.extra.INITIAL_SCREEN;
 
 export const GOOGLE_MAPS_API_KEY =

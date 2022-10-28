@@ -1,19 +1,18 @@
-import React, { FC, useCallback } from 'react';
 import {
-  View,
-  Text,
-  Box,
   AspectRatio,
-  HStack,
-  Stack,
+  Box,
   Heading,
+  HStack,
   Image,
+  Stack,
+  Text,
+  View,
 } from 'native-base';
+import React, { FC, useCallback } from 'react';
 
 import { Place, UserLocation } from '../../../types/discover';
 
 import { getDistance } from 'geolib';
-import { PlaceImage } from './PlaceImage';
 
 type CarouselProps = {
   places: Place[];

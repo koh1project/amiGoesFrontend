@@ -1,7 +1,6 @@
 import { Image } from 'native-base';
-import { useState, useEffect, FC } from 'react';
+import { FC } from 'react';
 import { GOOGLE_MAPS_API_KEY } from '../../../const';
-import { GoogleMapHelper } from '../../../services/googleMapHelper';
 
 export const PlaceImage: FC<{ photoreference: string }> = ({
   photoreference,
