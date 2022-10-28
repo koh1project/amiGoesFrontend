@@ -7,7 +7,7 @@ export const SCREEN_NAMES = {
   Signup: 'Signup',
   Login: 'Login',
   Discover: 'Discover',
-  ConnectedandBlockedScreen: 'ConnectedandBlockedScreen',
+  ConnectedAndBlockedScreen: 'ConnectedAndBlockedScreen',
 };
 
 export const INITIAL_SCREEN = Constants.expoConfig.extra.INITIAL_SCREEN;

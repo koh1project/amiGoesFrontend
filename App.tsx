@@ -7,8 +7,21 @@ import { DiscoverScreen } from './components/screens/DiscoverScreen';
 import { SCREEN_NAMES, INITIAL_SCREEN } from './const';
 import { Header } from './components/headers/Header';
 import { NativeBaseProvider } from 'native-base';
-import ConnectedandBlockedScreen from './components/screens/ConnectedandBlockedScreen';
+// import ConnectedAndBlockedScreen from './components/screens/ConnectedAndBlockedScreen';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import BlockedUsers from './components/list/BlockedUsers';
+import ConnectedUsers from './components/list/ConnectedUsers';
 const Stack = createNativeStackNavigator();
+
+const TabNavigator = createMaterialTopTabNavigator();
+function ConnectedAndBlockedScreen() {
+  return (
+    <TabNavigator.Navigator>
+      <TabNavigator.Screen name="Connected" component={ConnectedUsers} />
+      <TabNavigator.Screen name="Blocked" component={BlockedUsers} />
+    </TabNavigator.Navigator>
+  );
+}
 
 export default function App() {
   return (
@@ -33,8 +46,8 @@ export default function App() {
             options={{ headerShown: false }}
           />
           <Stack.Screen
-            name={SCREEN_NAMES.ConnectedandBlockedScreen}
-            component={ConnectedandBlockedScreen}
+            name={SCREEN_NAMES.ConnectedAndBlockedScreen}
+            component={ConnectedAndBlockedScreen}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

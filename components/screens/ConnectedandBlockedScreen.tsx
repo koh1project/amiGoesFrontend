@@ -1,11 +1,11 @@
 import { Text, View } from 'native-base';
 
-const ConnectedandBlockedScreen = () => {
+const ConnectedAndBlockedScreen = () => {
   return (
     <View>
-      <Text>Connected and Blocked Users</Text>
+      <Text>ConnectedAndBlockedScreen</Text>
     </View>
   );
 };
 
-export default ConnectedandBlockedScreen;
+export default ConnectedAndBlockedScreen;
