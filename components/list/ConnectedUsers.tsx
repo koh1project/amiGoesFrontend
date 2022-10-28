@@ -9,11 +9,13 @@ const ConnectedUsers = () => {
   const fetchUsers = useCallback(async () => {
     const result = await getConnectedUsers();
     const { data } = result;
-    console.log({ data });
+    // console.log({ data });
 
     setUsers(data);
     return data;
   }, []);
+
+  console.log({ users });
 
   useEffect(() => {
     fetchUsers().catch((error) => {

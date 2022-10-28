@@ -2636,7 +2636,7 @@
 
 "@react-navigation/core@^6.4.0":
   version "6.4.0"
-  resolved "https://registry.npmjs.org/@react-navigation/core/-/core-6.4.0.tgz"
+  resolved "https://registry.yarnpkg.com/@react-navigation/core/-/core-6.4.0.tgz#c44d33a8d8ef010a102c7f831fc8add772678509"
   integrity sha512-tpc0Ak/DiHfU3LlYaRmIY7vI4sM/Ru0xCet6runLUh9aABf4wiLgxyFJ5BtoWq6xFF8ymYEA/KWtDhetQ24YiA==
   dependencies:
     "@react-navigation/routers" "^6.1.3"

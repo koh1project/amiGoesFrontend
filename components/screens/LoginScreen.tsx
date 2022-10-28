@@ -31,6 +31,7 @@ const LoginScreen = () => {
       .then((userCredentials) => {
         const user = userCredentials.user;
         console.log('Logged in with: ', user.email);
+        console.log('Logged in userid: ', user.uid);
       })
       .catch((error) => alert('Invalid email or password'));
   };
