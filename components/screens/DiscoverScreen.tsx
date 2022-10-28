@@ -1,10 +1,10 @@
+import * as Location from 'expo-location';
 import { ScrollView } from 'native-base';
-import { useEffect, useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Text } from 'react-native';
 import { PlacesCarousel } from '../../features/discover/components/PlacesCarousel';
 import { getDiscover } from '../../services/discover.service';
 import { GetDiscoverResponse, UserLocation } from '../../types/discover';
-import * as Location from 'expo-location';
 import { SecondaryHeading } from '../texts/Heading';
 
 export const DiscoverScreen: React.FC = () => {

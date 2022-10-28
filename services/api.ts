@@ -30,3 +30,14 @@ export const post = async (
 ) => {
   return axios.post(BASE_URL + url, data);
 };
+
+export const post = async (
+  url: string,
+  data = {},
+  headers = DEFAULT_HEADERS(),
+) => {
+  console.log(BASE_URL + url);
+  return axios.post(BASE_URL + url, data, {
+    headers,
+  });
+};

@@ -9,6 +9,8 @@ export const SCREEN_NAMES = {
   Discover: 'Discover',
   CreateProfileStepOneForm: 'Create Profile: Step 1',
   CreateProfileStepTwoForm: 'Create Profile: Step 2',
+  Camera: 'Camera',
+  Translate: 'Translate',
 };
 
 export const INITIAL_SCREEN = Constants.expoConfig.extra.INITIAL_SCREEN;

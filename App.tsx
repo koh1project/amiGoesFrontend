@@ -2,14 +2,18 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NativeBaseProvider } from 'native-base';
 import { Header } from './components/headers/Header';
+import CameraScreen from './components/screens/CameraScreen';
 import { StepOneForm } from './components/screens/createProfile/StepOneForm';
 import { StepTwoForm } from './components/screens/createProfile/StepTwoForm';
 import { DiscoverScreen } from './components/screens/DiscoverScreen';
 import IndexScreen from './components/screens/IndexScreen';
 import LoginScreen from './components/screens/LoginScreen';
 import SignupScreen from './components/screens/SignupScreen';
+import TranslateScreen from './components/screens/TranslateScreen';
 import { INITIAL_SCREEN, SCREEN_NAMES } from './const';
+
 const Stack = createNativeStackNavigator();
+console.log(INITIAL_SCREEN);
 
 export default function App() {
   return (
@@ -42,6 +46,11 @@ export default function App() {
           name={SCREEN_NAMES.CreateProfileStepTwoForm}
           component={StepTwoForm}
         />
+         <Stack.Screen
+            name={SCREEN_NAMES.Translate}
+            component={TranslateScreen}
+          />
+          <Stack.Screen name={SCREEN_NAMES.Camera} component={CameraScreen} />
       </NavigationContainer>
     </NativeBaseProvider>
   );
