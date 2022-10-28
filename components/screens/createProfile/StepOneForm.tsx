@@ -1,9 +1,8 @@
 import { useNavigation } from '@react-navigation/core';
-import React, { useState, useEffect } from 'react'
-import DateTimePicker from '@react-native-community/datetimepicker'
-import SelectList from 'react-native-dropdown-select-list'
-import { StyleSheet, TextInput, Text, View, TouchableOpacity, SafeAreaView, ScrollView, Keyboard, Platform } from  'react-native'
-import { auth } from '../../../firebase'
+import React, { useState, useEffect } from 'react';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import SelectList from 'react-native-dropdown-select-list';
+import { StyleSheet, TextInput, Text, View, TouchableOpacity, SafeAreaView, ScrollView, Keyboard, Platform } from 'react-native';
 import { PrimaryButton } from '../../buttons/PrimaryButton';
 import { Input } from '../../form/Input';
 
