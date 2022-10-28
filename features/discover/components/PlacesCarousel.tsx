@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import {
   Text,
   Box,
@@ -10,9 +10,9 @@ import {
 } from 'native-base';
 
 import { Place, UserLocation } from '../../../types/discover';
+import { GOOGLE_MAPS_API_KEY } from '../../../const';
 
 import { getDistance } from 'geolib';
-// import { PlaceImage } from './PlaceImage';
 
 type CarouselProps = {
   places: Place[];
@@ -23,6 +23,16 @@ export const PlacesCarousel: React.FC<CarouselProps> = ({
   places,
   userLocation,
 }) => {
+  const [uri, setUri] = useState<string>('');
+  useEffect(() => {
+    const fetchImage = async () => {
+      const response = await fetch(uri);
+      setUri(response.url);
+    };
+
+    fetchImage();
+  }, [[places]]);
+
   const formatDistance = useCallback((distance: number) => {
     try {
       return distance > 1000
@@ -35,32 +45,37 @@ export const PlacesCarousel: React.FC<CarouselProps> = ({
   }, []);
   const calculateDistance = useCallback<
     (placeLatitude: number, placeLongitude: number) => number
-  >((placeLatitude, placeLongitude) => {
-    if (
-      !userLocation ||
-      !userLocation.coords ||
-      !userLocation.coords.latitude ||
-      !userLocation.coords.longitude
-    ) {
-      return 0;
-    }
+  >(
+    (placeLatitude, placeLongitude) => {
+      console.log(userLocation);
+      if (
+        !userLocation ||
+        !userLocation.coords ||
+        !userLocation.coords.latitude ||
+        !userLocation.coords.longitude
+      ) {
+        console.log('calculateDistance Return 0');
+        return 0;
+      }
 
-    try {
-      return getDistance(
-        {
-          latitude: placeLatitude,
-          longitude: placeLongitude,
-        },
-        {
-          latitude: userLocation?.coords.latitude,
-          longitude: userLocation?.coords.longitude,
-        },
-      );
-    } catch (error) {
-      console.error(error);
-      return 0;
-    }
-  }, []);
+      try {
+        return getDistance(
+          {
+            latitude: placeLatitude,
+            longitude: placeLongitude,
+          },
+          {
+            latitude: userLocation?.coords.latitude,
+            longitude: userLocation?.coords.longitude,
+          },
+        );
+      } catch (error) {
+        console.error(error);
+        return 0;
+      }
+    },
+    [userLocation],
+  );
 
   if (!places || places.length === 0) {
     return <Text>No places</Text>;
@@ -101,7 +116,7 @@ export const PlacesCarousel: React.FC<CarouselProps> = ({
       );
     } catch (error) {
       console.log('error: ', error);
-      return <> </>;
+      return <></>;
     }
   };
 
@@ -137,12 +152,11 @@ export const PlacesCarousel: React.FC<CarouselProps> = ({
             >
               <Box>
                 <AspectRatio w="100%" ratio={16 / 9}>
-                  {/* <PlaceImage
-                    photoreference={place.photos[0].photo_reference}
-                  /> */}
                   <Image
                     source={{
-                      uri: 'https://www.holidify.com/images/cmsuploads/compressed/Bangalore_citycover_20190613234056.jpg',
+                      uri: `https://maps.googleapis.com/maps/api/place/photo?photo_reference=${
+                        place.photos[0].photo_reference
+                      }&maxwidth=${400}&maxheight=${300}&key=${GOOGLE_MAPS_API_KEY}`,
                     }}
                     alt="image"
                   />
