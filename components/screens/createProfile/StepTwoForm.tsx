@@ -1,19 +1,88 @@
 import { useNavigation } from '@react-navigation/core';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { post } from '../../../services/api';
 import { CREATE_USERPROFILE_ENDPOINT } from '../../../services/userProfile.service';
-import { StyleSheet, TextInput, Text, View, TouchableOpacity, SafeAreaView, ScrollView, Keyboard, Platform } from 'react-native';
+import { Text, View } from 'react-native';
+import MultiSelect from 'react-native-multiple-select'
 import { PrimaryButton } from '../../buttons/PrimaryButton';
 import { Input } from '../../form/Input';
 import { authUser } from '../../../services/userProfile.service';
 
+const languagesOptions = [
+    {
+        id: 'English',
+        name: 'English'
+    },
+    {
+        id: 'Spanish',
+        name: 'Spanish'
+    },
+    {
+        id: 'French',
+        name: 'French'
+    },
+    {
+        id: 'German',
+        name: 'German'
+    },
+    {
+        id: 'Italian',
+        name: 'Italian'
+    },
+    {
+        id: 'Portuguese',
+        name: 'Portuguese'
+    },
+];
+
+const hobbiesOptions = [
+    {
+        id: 'Sports',
+        name: 'Sports'
+    },
+    {
+        id: 'Music',
+        name: 'Music'
+    },
+    {
+        id: 'Reading',
+        name: 'Reading'
+    },
+    {
+        id: 'Cooking',
+        name: 'Cooking'
+    },
+    {
+        id: 'Dancing',
+        name: 'Dancing'
+    },
+    {
+        id: 'Writing',
+        name: 'Writing'
+    },
+    {
+        id: 'Art',
+        name: 'Art'
+    },
+    {
+        id: 'Photography',
+        name: 'Photography'
+    },
+    {
+        id: 'Other',
+        name: 'Other'
+    },
+];
+
 export const StepTwoForm: React.FC = ({ route }) => {
     //console.log(user);
+    const multiSelect = useRef(null);
+    const multiSelectHobbies = useRef(null);
+    const [languages, setLanguagesArray] = useState([]);
+    const [hobbies, setHobbiesArray] = useState([]);
     const user = authUser();
     const navigation = useNavigation();
     const inputs = route.params;
-    const [languagesArray, setLanguagesArray] = useState([]);
-    const [hobbiesArray, setHobbiesArray] = useState([]);
     const [profileInfo, setProfileInfo] = useState({
         _id: user.uid,
         name: inputs.inputs.name,
@@ -29,35 +98,39 @@ export const StepTwoForm: React.FC = ({ route }) => {
             phoneNumber: inputs.inputs.emergencyPhoneNumber,
             relationship: inputs.inputs.emergencyRelationship,
         },
+        languages: languages,
+        hobbies: hobbies,
         homeCountry: '',
-        languages: [],
         bio: '',
-        hobbies: [],
     });
 
     const handleOnChange = (text, input) => {
-        //if ((input === 'homeCountry') || (input === 'bio')) {
             setProfileInfo(prevState => ({...prevState, [input]: text}));
-       // }
     }
 
-    const handleHobbiesArray = (text) => {
-        setHobbiesArray(prevState => [...prevState, text]);
+    const onSelectedLanguagesChange = selectedItems => {
+        const replaceArray = [...languages, ...selectedItems];
+        setLanguagesArray(replaceArray);
     }
 
-    const handleLanguagesArray = (text) => {
-        setLanguagesArray(prevState => [...prevState, text]);
+    const onSelectedHobbiesChange = selectedItems => {
+        const replaceArray = [...hobbies, ...selectedItems];
+        setHobbiesArray(replaceArray);
     }
 
     const handleOnSubmit = () => {
-        setProfileInfo(prevState => ({...prevState, languages: languagesArray}));
-        setProfileInfo(prevState => ({...prevState, hobbies: hobbiesArray}));
-        console.log(profileInfo);
-        createProfile();
+        const data = {
+            ...profileInfo,languages: languages,
+            hobbies: hobbies,
+        };
+        // const jsonData = JSON.stringify(data);
+        // console.log("Json Data: ",jsonData);
+        createProfile(data);
     }
 
-    const createProfile = async () => {
-        const result = await post(CREATE_USERPROFILE_ENDPOINT.post, profileInfo);
+    const createProfile = async (data) => {
+        console.log(data);
+        const result = await post(CREATE_USERPROFILE_ENDPOINT.post, data);
         console.log('Response from backend: ', result.data);
         if (result.data) {
             alert('Profile created successfully!');
@@ -72,39 +145,53 @@ export const StepTwoForm: React.FC = ({ route }) => {
                 <Input 
                     label='Home Coutry' 
                     placeholder='Ex. Mexico' 
-                    // error={errors.emergencyName}
-                    // onFocus={() => {
-                    //     handleError(null, 'homeCountry');
-                    // }}
                     onChangeText={text => handleOnChange(text, 'homeCountry')}
                     />
-                <Input 
-                    label='Languages' 
-                    placeholder='Ex. Spanish, English'
-                    // error={errors.languages}
-                    // onFocus={() => {
-                    //     handleError(null, 'languages');
-                    // }}
-                    onChangeText={text => handleLanguagesArray(text.split(', '))} 
-                    />
+                <View><Text>Languages</Text></View>
+                <MultiSelect 
+                    hideTags
+                    items={languagesOptions}
+                    uniqueKey="id"
+                    ref={multiSelect}
+                    onSelectedItemsChange={onSelectedLanguagesChange}
+                    displayKey='name'
+                    tagRemoveIconColor='#f8f8f8'
+                    tagTextColor='#f8f8f8'
+                    selectedItemTextColor='#3fa8ae'
+                    selectedItemIconColor='#3fa8ae'
+                    itemTextColor='#000'
+                    submitButtonColor='#3fa8ae'
+                    tagContainerStyle={{borderRadius: 10, backgroundColor: '#a4a5a3', borderColor: '#a4a5a3'}}
+                    submitButtonText='Done'
+                />
+                <View>
+                    {multiSelect.current ? multiSelect.current.getSelectedItemsExt(languages) : null}
+                </View>
                 <Input 
                     label='About Me' 
                     placeholder='Write a bit about yourself'
-                    // error={errors.bio}
-                    // onFocus={() => {
-                    //     handleError(null, 'bio');
-                    // }}
                     onChangeText={text => handleOnChange(text, 'bio')} 
                     />
-                <Input 
-                    label='Hobbies' 
-                    placeholder='Ex. Soccer, Music'
-                    // error={errors.bio}
-                    // onFocus={() => {
-                    //     handleError(null, 'bio');
-                    // }}
-                    onChangeText={text => handleHobbiesArray(text.split(', '))}
-                    />
+                <View><Text>Hobbies</Text></View>
+                <MultiSelect 
+                    hideTags
+                    items={hobbiesOptions}
+                    uniqueKey="id"
+                    ref={multiSelectHobbies}
+                    onSelectedItemsChange={onSelectedHobbiesChange}
+                    displayKey='name'
+                    tagRemoveIconColor='#f8f8f8'
+                    tagTextColor='#f8f8f8'
+                    selectedItemTextColor='#3fa8ae'
+                    selectedItemIconColor='#3fa8ae'
+                    itemTextColor='#000'
+                    submitButtonColor='#3fa8ae'
+                    tagContainerStyle={{borderRadius: 10, backgroundColor: '#a4a5a3', borderColor: '#a4a5a3'}}
+                    submitButtonText='Done'
+                />
+                <View>
+                    {multiSelectHobbies.current ? multiSelectHobbies.current.getSelectedItemsExt(hobbies) : null}
+                </View>
             </View>
             <View>
                 <PrimaryButton
