@@ -43,20 +43,20 @@ export default function App() {
             component={ConnectFilterScreen}
             options={{ headerShown: false }}
           />
-        </Stack.Navigator>
-        <Stack.Screen
-          name={SCREEN_NAMES.CreateProfileStepOneForm}
-          component={StepOneForm}
-        />
-        <Stack.Screen
-          name={SCREEN_NAMES.CreateProfileStepTwoForm}
-          component={StepTwoForm}
-        />
-         <Stack.Screen
+          <Stack.Screen
+            name={SCREEN_NAMES.CreateProfileStepOneForm}
+            component={StepOneForm}
+          />
+          <Stack.Screen
+            name={SCREEN_NAMES.CreateProfileStepTwoForm}
+            component={StepTwoForm}
+          />
+          <Stack.Screen
             name={SCREEN_NAMES.Translate}
             component={TranslateScreen}
           />
           <Stack.Screen name={SCREEN_NAMES.Camera} component={CameraScreen} />
+        </Stack.Navigator>
       </NavigationContainer>
     </NativeBaseProvider>
   );

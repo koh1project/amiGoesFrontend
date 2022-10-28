@@ -23,21 +23,16 @@ export const get = async <T = any>(
   }
 };
 
-export const post = async (
+export const post = async <T>(
   url: string,
-  data: any,
+  data: T,
   headers = DEFAULT_HEADERS(),
 ) => {
-  return axios.post(BASE_URL + url, data);
-};
-
-export const post = async (
-  url: string,
-  data = {},
-  headers = DEFAULT_HEADERS(),
-) => {
-  console.log(BASE_URL + url);
-  return axios.post(BASE_URL + url, data, {
-    headers,
-  });
+  try {
+    return axios.post(BASE_URL + url, data, {
+      headers,
+    });
+  } catch (e) {
+    console.log(e);
+  }
 };

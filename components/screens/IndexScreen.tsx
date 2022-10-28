@@ -4,6 +4,7 @@ import React from 'react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
+import { SCREEN_NAMES } from '../../const';
 import { auth } from '../../firebase';
 import { url } from '../../url';
 import { PrimaryButton } from '../buttons/PrimaryButton';
@@ -72,7 +73,17 @@ const IndexScreen = () => {
       />
       <PrimaryButton
         label="Create Profile"
-        onPress={() => navigation.navigate('Create Profile: Step 1' as never)}
+        onPress={() =>
+          navigation.navigate(SCREEN_NAMES.CreateProfileStepOneForm)
+        }
+      />
+      <PrimaryButton
+        label="Translate"
+        onPress={() => navigation.navigate(SCREEN_NAMES.Translate)}
+      />
+      <PrimaryButton
+        label="Connect"
+        onPress={() => navigation.navigate(SCREEN_NAMES.ConnectFilter)}
       />
     </View>
   );

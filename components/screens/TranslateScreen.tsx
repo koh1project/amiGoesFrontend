@@ -12,7 +12,7 @@ const TranslateScreen = ({ navigation, route }) => {
   return (
     <View style={styles.container}>
       {route.params?.translation ? (
-        <View>
+        <View style={{ padding: 10 }}>
           <Text>{route.params.translation}</Text>
         </View>
       ) : (
