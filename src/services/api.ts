@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { BASE_URL } from '../const';
+import { BASE_URL } from '../utils/const';
 
 const DEFAULT_HEADERS = () => {
   return {

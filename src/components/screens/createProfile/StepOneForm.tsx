@@ -12,7 +12,7 @@ import {
   View,
 } from 'react-native';
 import SelectList from 'react-native-dropdown-select-list';
-import { SCREEN_NAMES } from '../../../const';
+import { SCREEN_NAMES } from '../../../utils/const';
 import { PrimaryButton } from '../../buttons/PrimaryButton';
 import { Input } from '../../form/Input';
 

@@ -1,5 +1,5 @@
 import type { StackScreenProps } from '@react-navigation/stack';
-import { SCREEN_NAMES } from '../const';
+import { SCREEN_NAMES } from '../../const';
 
 type ScreenTypes = keyof typeof SCREEN_NAMES;
 export type RootStackParamList = {

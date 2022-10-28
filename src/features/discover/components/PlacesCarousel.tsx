@@ -1,8 +1,11 @@
 import {
-  AspectRatio, Box, Heading,
+  AspectRatio,
+  Box,
+  Heading,
   HStack,
   Image,
-  Stack, Text
+  Stack,
+  Text,
 } from 'native-base';
 import React, { FC, useCallback } from 'react';
 

@@ -1,12 +1,14 @@
 import { useNavigation } from '@react-navigation/core';
-import React, { useState, useRef } from 'react';
-import { post } from '../../../services/api';
-import { CREATE_USERPROFILE_ENDPOINT } from '../../../services/userProfile.service';
+import React, { useRef, useState } from 'react';
 import { Text, View } from 'react-native';
 import MultiSelect from 'react-native-multiple-select';
+import { post } from '../../../services/api';
+import {
+  authUser,
+  CREATE_USERPROFILE_ENDPOINT,
+} from '../../../services/userProfile.service';
 import { PrimaryButton } from '../../buttons/PrimaryButton';
 import { Input } from '../../form/Input';
-import { authUser } from '../../../services/userProfile.service';
 
 const languagesOptions = [
   {

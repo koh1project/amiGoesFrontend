@@ -4,9 +4,9 @@ import React from 'react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import { SCREEN_NAMES } from '../../const';
-import { auth } from '../../firebase';
-import { url } from '../../url';
+import { SCREEN_NAMES } from '../../utils/const';
+import { auth } from '../../utils/firebase';
+import { url } from '../../utils/url';
 import { PrimaryButton } from '../buttons/PrimaryButton';
 
 const IndexScreen = () => {
