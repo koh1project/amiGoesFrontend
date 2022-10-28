@@ -1,26 +1,9 @@
 import { post } from './api';
 
 const TRANSLATE_ENDPOINT = {
-  post: '/recognize',
+  post: '/translateImage',
 };
 
-// export const postTranslate = async (language, image) => {
-//   post(TRANSLATE_ENDPOINT.post, { language, image })
-//     .then((response) => {
-//       console.log(response);
-//     })
-//     .catch((error) => {
-//       console.log(error);
-//     });
-// };
-
-export const recognize = async (image) => {
-  console.log(TRANSLATE_ENDPOINT.post);
-  post(TRANSLATE_ENDPOINT.post, image)
-    .then((response) => {
-      console.log(response);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+export const postTranslate = async (language, image) => {
+  return post(TRANSLATE_ENDPOINT.post, { language, image });
 };

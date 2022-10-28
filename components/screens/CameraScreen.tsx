@@ -1,15 +1,17 @@
 import { Camera, CameraType } from 'expo-camera';
 import { useRef, useState } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
-import { recognize } from '../../services/translate.service';
+import { postTranslate } from '../../services/translate.service';
 import { PrimaryButton } from '../buttons/PrimaryButton';
 
-const CameraScreen = () => {
+const CameraScreen = (props) => {
+  const { navigation } = props;
   const cameraRef = useRef();
   const [cameraPermission, requestCameraPermission] =
     Camera.useCameraPermissions();
   const [type, setType] = useState(CameraType.back);
   const [image, setImage] = useState(null);
+  const [output, setOutput] = useState(false);
   const language = 'es';
 
   if (!cameraPermission) {
@@ -17,10 +19,9 @@ const CameraScreen = () => {
   }
 
   const takePhoto = async () => {
-    if (cameraRef) {
+    if (cameraRef.current) {
       try {
         const photo = await cameraRef.current.takePictureAsync();
-        console.log(photo);
         setImage(photo.uri);
       } catch (error) {
         console.log(error);
@@ -29,19 +30,20 @@ const CameraScreen = () => {
   };
 
   const translate = async () => {
-    const result = await recognize('test.JPG');
-    console.log(result);
+    try {
+      const data = await (
+        await postTranslate(language, 'test.JPG')
+      ).data.translatedResult;
+      navigation.navigate('Translate', { translation: data });
+    } catch (error) {
+      console.log(error);
+    }
   };
-
-  // const translatePhoto = () => {
-  //   console.log('Translate photo');
-  //   postTranslate(language, 'test.JPG');
-  // };
 
   return (
     <View style={styles.container}>
       {!image ? (
-        <Camera style={styles.camera} ref={cameraRef} type={type}></Camera>
+        <Camera style={styles.camera} ref={cameraRef} type={type} />
       ) : (
         <Image source={{ uri: image }} style={styles.camera} />
       )}

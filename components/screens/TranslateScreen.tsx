@@ -1,38 +1,23 @@
-import { useIsFocused } from '@react-navigation/native';
-import { Box, Heading, HStack, VStack } from 'native-base';
 import { StyleSheet, Text, View } from 'react-native';
-import IconButton from '../buttons/IconButton';
+
+import TranslateForm from '../forms/TranslateForm';
 
 const TranslateScreen = ({ navigation, route }) => {
-  const isFocused = useIsFocused();
-
-  const openCamera = () => {
-    navigation.navigate('Camera');
-  };
+  // useEffect(() => {
+  //   if (route.params?.translation) {
+  //     console.log('HERE IS THE TRANSLATION', route.params.translation);
+  //   }
+  // }, [route.params?.translation]);
 
   return (
     <View style={styles.container}>
-      <VStack>
-        <Heading>Translate</Heading>
-        <Text>
-          The following tool allows you to convert images to text. Please set
-          the language you would like to translate to.
-        </Text>
-        <Box bg="warmGray.200" p="12">
-          {' '}
-          English to Spanish{' '}
-        </Box>
-        <VStack>
-          <Text>Transform a photo into text by uploading or taking one.</Text>
-          <HStack space={3} justifyContent="center">
-            <IconButton
-              text="Upload"
-              onPress={() => navigation.navigate('Camera')}
-            />
-            <IconButton text="Camera" action={openCamera} />
-          </HStack>
-        </VStack>
-      </VStack>
+      {route.params?.translation ? (
+        <View>
+          <Text>{route.params.translation}</Text>
+        </View>
+      ) : (
+        <TranslateForm navigation={navigation} />
+      )}
     </View>
   );
 };
