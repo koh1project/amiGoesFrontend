@@ -26,15 +26,8 @@ if (firebase.apps.length === 0) {
 //const analytics = getAnalytics(app);
 const auth = firebase.auth();
 
-// let user = firebase.auth().currentUser;
-// console.log('user', user);
-// firebase.auth().onAuthStateChanged(function (user) {
-//   if (user) {
-//     console.log('This is the user: ', user);
-//   } else {
-//     // No user is signed in.
-//     console.log('There is no logged in user');
-//   }
-// });
+export const authUser = () => {
+  return auth.currentUser;
+};
 
 export { auth };
