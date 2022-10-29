@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { BASE_URL } from '../const';
+import { BASE_URL } from '../utils/const';
 
 const DEFAULT_HEADERS = () => {
   return {
@@ -20,5 +20,19 @@ export const get = async <T = any>(
   } catch (error) {
     console.error('API GET ERROR', error);
     throw error;
+  }
+};
+
+export const post = async <T>(
+  url: string,
+  data: T,
+  headers = DEFAULT_HEADERS(),
+) => {
+  try {
+    return axios.post(BASE_URL + url, data, {
+      headers,
+    });
+  } catch (e) {
+    console.log(e);
   }
 };

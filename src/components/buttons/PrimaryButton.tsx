@@ -1,11 +1,4 @@
-import {
-  StyleSheet,
-  TextInput,
-  Text,
-  View,
-  KeyboardAvoidingView,
-  TouchableOpacity,
-} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 type ButtonProps = {
   label: string;
   onPress: () => void;
@@ -35,7 +28,7 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: 'gray',
-    width: '100%',
+    // width: '100%',
     padding: 10,
     borderRadius: 30,
     alignItems: 'center',
