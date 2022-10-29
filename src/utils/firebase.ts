@@ -26,12 +26,14 @@ if (firebase.apps.length === 0) {
 //const analytics = getAnalytics(app);
 const auth = firebase.auth();
 
-// console.log('state = unknown (until the callback is invoked)');
-// firebase.auth().onAuthStateChanged((user) => {
+// let user = firebase.auth().currentUser;
+// console.log('user', user);
+// firebase.auth().onAuthStateChanged(function (user) {
 //   if (user) {
-//     console.log('state = definitely signed in');
+//     console.log('This is the user: ', user);
 //   } else {
-//     console.log('state = definitely signed out');
+//     // No user is signed in.
+//     console.log('There is no logged in user');
 //   }
 // });
 

@@ -85,6 +85,12 @@ const IndexScreen = () => {
         label="Connect"
         onPress={() => navigation.navigate(SCREEN_NAMES.ConnectFilter)}
       />
+      <PrimaryButton
+        label="Connected and Blocked Users"
+        onPress={() =>
+          navigation.navigate(SCREEN_NAMES.ConnectedAndBlockedScreen)
+        }
+      />
     </View>
   );
 };

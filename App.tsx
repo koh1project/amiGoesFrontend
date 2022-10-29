@@ -1,16 +1,15 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import LoginScreen from './components/screens/LoginScreen';
-import SignupScreen from './components/screens/SignupScreen';
-import IndexScreen from './components/screens/IndexScreen';
-import { DiscoverScreen } from './components/screens/DiscoverScreen';
-import { SCREEN_NAMES, INITIAL_SCREEN } from './const';
-import { Header } from './components/headers/Header';
+import LoginScreen from './src/components/screens/LoginScreen';
+import SignupScreen from './src/components/screens/SignupScreen';
+import IndexScreen from './src/components/screens/IndexScreen';
+import { DiscoverScreen } from './src/components/screens/DiscoverScreen';
+import { SCREEN_NAMES, INITIAL_SCREEN } from './src/utils/const';
+import { Header } from './src/components/headers/Header';
 import { NativeBaseProvider } from 'native-base';
-// import ConnectedAndBlockedScreen from './components/screens/ConnectedAndBlockedScreen';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import BlockedUsers from './components/list/BlockedUsers';
-import ConnectedUsers from './components/list/ConnectedUsers';
+import BlockedUsers from './src/components/list/BlockedUsers';
+import ConnectedUsers from './src/components/list/ConnectedUsers';
 const Stack = createNativeStackNavigator();
 
 const TabNavigator = createMaterialTopTabNavigator();
