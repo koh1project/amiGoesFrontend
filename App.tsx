@@ -72,10 +72,15 @@ export default function App() {
               component={StepTwoForm}
             />
             <Stack.Screen
+              options={{ headerShown: false }}
               name={SCREEN_NAMES.Translate}
               component={TranslateScreen}
             />
-            <Stack.Screen name={SCREEN_NAMES.Camera} component={CameraScreen} />
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name={SCREEN_NAMES.Camera}
+              component={CameraScreen}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </NativeBaseProvider>
