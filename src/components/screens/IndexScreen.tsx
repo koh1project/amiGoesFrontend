@@ -2,8 +2,9 @@ import { useNavigation } from '@react-navigation/core';
 import React from 'react';
 
 import axios from 'axios';
+import { Text, View } from 'native-base';
 import { useEffect, useState } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { SCREEN_NAMES } from '../../utils/const';
 import { auth } from '../../utils/firebase';
 import { url } from '../../utils/url';

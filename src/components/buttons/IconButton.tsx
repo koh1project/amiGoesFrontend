@@ -5,7 +5,7 @@ const IconButton = (props) => {
   return (
     <Center>
       <VStack space={4} alignItems="center">
-        <Button size="lg" onPress={action}>
+        <Button variant="primarySmall" onPress={action}>
           {text}
         </Button>
       </VStack>
