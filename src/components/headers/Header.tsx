@@ -1,37 +1,60 @@
 import { useNavigation } from '@react-navigation/core';
-import { Box, ChevronLeftIcon, HStack, StatusBar, Text } from 'native-base';
+import BellIcon from '../../../assets/icons/bell.svg';
+import ChevronLeftIcon from '../../../assets/icons/left.svg';
+import Logo from '../../../assets/images/Logo.svg';
+
+import { Box, HStack, View } from 'native-base';
+
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 
 export const Header: React.FC = () => {
   const navigation = useNavigation();
   return (
-    <>
-      <StatusBar backgroundColor="#2c3e50" barStyle="light-content" />
-      <Box safeAreaTop backgroundColor="#2c3e50">
-        <HStack
-          bg="#2c3e50"
-          py={3}
-          alignItems="center"
-          justifyContent="space-between"
-        >
+    <Box safeAreaTop backgroundColor="#ffffff">
+      <View backgroundColor="green" style={styles.Heading}>
+        <HStack style={styles.header}>
           <TouchableOpacity
             onPress={() => {
               navigation.goBack();
             }}
           >
-            <ChevronLeftIcon color="white" size="sm" />
+            <ChevronLeftIcon style={styles.arrow} />
           </TouchableOpacity>
-          <Text
-            alignSelf="center"
-            color="#ffffff"
-            fontSize={20}
-            fontWeight="bold"
-          >
-            amiGoes
-          </Text>
+          <Logo style={styles.Logo} source={Logo} />
+          <TouchableOpacity>
+            <BellIcon style={styles.bell} />
+          </TouchableOpacity>
         </HStack>
-      </Box>
-    </>
+      </View>
+    </Box>
   );
 };
+
+const styles = StyleSheet.create({
+  Heading: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    paddingTop: 30,
+    paddingBottom: 30,
+    // backgroundColor: 'primary.100',
+    borderBottomLeftRadius: 25,
+    borderBottomRightRadius: 25,
+    height: 84,
+  },
+  Logo: {
+    width: 82.67,
+    height: 22,
+  },
+  header: {
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  arrow: {
+    marginLeft: 20,
+  },
+  bell: {
+    marginRight: 20,
+  },
+});
