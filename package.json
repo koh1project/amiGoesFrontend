@@ -13,6 +13,8 @@
     "prettier-format": "prettier --config .prettierrc '**/*.ts' --write"
   },
   "dependencies": {
+    "@expo-google-fonts/inter": "^0.2.2",
+    "@expo-google-fonts/ubuntu": "^0.2.2",
     "@expo/config-types": "^46.0.2",
     "@googlemaps/google-maps-services-js": "^3.3.16",
     "@react-native-community/datetimepicker": "6.2.0",
@@ -25,6 +27,7 @@
     "dotenv": "^16.0.3",
     "expo": "~46.0.13",
     "expo-camera": "^12.3.0",
+    "expo-font": "^10.2.1",
     "expo-location": "~14.3.0",
     "expo-status-bar": "~1.4.0",
     "firebase": "^8.2.3",

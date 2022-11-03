@@ -1,5 +1,4 @@
-import { Box, Heading, HStack, VStack } from 'native-base';
-import { Text } from 'react-native';
+import { Box, Heading, HStack, Text, VStack } from 'native-base';
 import IconButton from '../buttons/IconButton';
 
 const TranslateForm = (props) => {
@@ -29,6 +28,7 @@ const TranslateForm = (props) => {
               navigation.navigate('Camera', { navigation: navigation })
             }
           />
+
           <IconButton text="Camera" action={openCamera} />
         </HStack>
       </VStack>
