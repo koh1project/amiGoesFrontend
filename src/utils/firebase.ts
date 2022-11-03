@@ -25,5 +25,5 @@ if (firebase.apps.length === 0) {
 }
 //const analytics = getAnalytics(app);
 const auth = firebase.auth();
-
+auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 export { auth };
