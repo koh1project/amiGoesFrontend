@@ -1,10 +1,19 @@
-import { Image, ScrollView, AspectRatio, Flex, Text } from 'native-base';
+import {
+  Image,
+  ScrollView,
+  AspectRatio,
+  Flex,
+  Text,
+  Button,
+} from 'native-base';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { SecondaryHeading, TertiaryHeading } from '../../texts/Heading';
 import { usePlaceProfile } from '../../../features/discover/hooks/usePlaceProfile';
 import { TextDistance } from '../../../features/discover/components/TextDistance';
 import { PlaceProfileMap } from '../../../features/discover/components/PlaceProfileMap';
+import { SCREEN_NAMES } from '../../../utils/const';
 
 type PlaceProfileScreenProps = {
   route: {
@@ -17,7 +26,8 @@ type PlaceProfileScreenProps = {
 export const PlaceProfileScreen: React.FC<PlaceProfileScreenProps> = ({
   route,
 }) => {
-  let { place_id } = route.params;
+  let place_id = route?.params?.place_id;
+  const navigation = useNavigation();
 
   //@NOTE: development purpose, Stanley Park
   if (!place_id) {
@@ -43,6 +53,15 @@ export const PlaceProfileScreen: React.FC<PlaceProfileScreenProps> = ({
           />
         </AspectRatio>
       </TouchableOpacity>
+
+      <Button
+        onPress={() => {
+          navigation.navigate(SCREEN_NAMES.GoNow as never);
+        }}
+      >
+        GO NOW
+      </Button>
+
       <Flex>
         <SecondaryHeading>{place.name}</SecondaryHeading>
       </Flex>

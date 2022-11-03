@@ -8,6 +8,7 @@ export const SCREEN_NAMES = {
   Login: 'Login',
   Discover: 'Discover',
   PlaceProfile: 'PlaceProfile',
+  GoNow: 'GoNow',
   CreateProfileStepOneForm: 'CreateProfileStepOneForm',
   CreateProfileStepTwoForm: 'CreateProfileStepTwoForm',
   Camera: 'Camera',
