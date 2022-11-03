@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/core';
 import React from 'react';
+import * as Notifications from 'expo-notifications';
 
 import axios from 'axios';
 import { Text, View } from 'native-base';
@@ -9,8 +10,34 @@ import { SCREEN_NAMES } from '../../utils/const';
 import { auth } from '../../utils/firebase';
 import { url } from '../../utils/url';
 import { PrimaryButton } from '../buttons/PrimaryButton';
+import { useNotifications } from '../../hooks/useNotifications';
 
 const IndexScreen = () => {
+  const { registerForPushNotificationsAsync, handleNotificationRespose } =
+    useNotifications();
+
+  useEffect(() => {
+    registerForPushNotificationsAsync();
+    Notifications.setNotificationHandler({
+      handleNotification: async () => ({
+        shouldShowAlert: true,
+        shouldPlaySound: true,
+        shouldSetBadge: true,
+      }),
+    });
+
+    const responseListener =
+      Notifications.addNotificationResponseReceivedListener(
+        handleNotificationRespose,
+      );
+
+    return () => {
+      if (responseListener) {
+        Notifications.removeNotificationSubscription(responseListener);
+      }
+    };
+  }, []);
+
   const [token, setToken] = useState('');
 
   const navigation = useNavigation();

@@ -9,6 +9,7 @@ export default (): ExpoConfig => {
     version: '1.0.0',
     orientation: 'portrait',
     icon: './assets/icon.png',
+    scheme: 'com.eevee.amigoes',
     userInterfaceStyle: 'light',
     splash: {
       image: './assets/splash.png',
@@ -23,6 +24,8 @@ export default (): ExpoConfig => {
       supportsTablet: true,
     },
     android: {
+      package: 'com.eevee.amigoes',
+      googleServicesFile: './google-services.json',
       adaptiveIcon: {
         foregroundImage: './assets/adaptive-icon.png',
         backgroundColor: '#FFFFFF',
