@@ -2,10 +2,13 @@ import { Box, Heading, HStack, Text, VStack } from 'native-base';
 import IconButton from '../buttons/IconButton';
 
 const TranslateForm = (props) => {
-  const { navigation } = props;
+  const { navigation, route } = props;
 
   const openCamera = () => {
-    navigation.navigate('Camera', { navigation: navigation });
+    navigation.navigate('Camera', {
+      navigation: navigation,
+      screen: 'Translate',
+    });
   };
 
   return (

@@ -78,6 +78,7 @@ export const customTheme = extendTheme({
         },
         primarySmallLight: {
           bg: 'white',
+          opacity: 1,
           width: '167',
           height: '60',
           _text: {
@@ -115,6 +116,29 @@ export const customTheme = extendTheme({
           height: '60',
           _text: {
             color: 'white',
+          },
+        },
+        primaryCamera: {
+          bg: 'coral',
+          width: '120',
+          height: '60',
+          _text: {
+            color: 'white',
+          },
+          _pressed: {
+            backgroundColor: '#D75A49',
+          },
+        },
+        primaryLightCamera: {
+          bg: 'white',
+          opacity: 1,
+          width: '120',
+          height: '60',
+          _text: {
+            color: 'coral',
+          },
+          _pressed: {
+            backgroundColor: 'coral',
           },
         },
       },

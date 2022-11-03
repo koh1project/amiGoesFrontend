@@ -1,18 +1,29 @@
 import { Camera, CameraType } from 'expo-camera';
-import { useRef, useState } from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { Button } from 'native-base';
+import { useEffect, useRef, useState } from 'react';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import FlipCameraIcon from '../../../assets/icons/switch-camera.svg';
 import { postTranslate } from '../../services/translate.service';
-import { PrimaryButton } from '../buttons/PrimaryButton';
+import { SCREEN_NAMES } from '../../utils/const';
 
 const CameraScreen = (props) => {
-  const { navigation } = props;
+  const { navigation, route } = props;
   const cameraRef = useRef();
   const [cameraPermission, requestCameraPermission] =
     Camera.useCameraPermissions();
   const [type, setType] = useState(CameraType.back);
   const [image, setImage] = useState(null);
   const [output, setOutput] = useState(false);
+  const [screen, setScreen] = useState(route.params.screen);
   const language = 'es';
+
+  useEffect(() => {
+    if (screen === 'Translate') {
+      console.log('HERE IS THE SCREEN', screen, typeof screen);
+    } else {
+      console.log('HERE IS THE SCREEN', screen);
+    }
+  }, [route.params?.screen]);
 
   if (!cameraPermission) {
     requestCameraPermission();
@@ -30,14 +41,19 @@ const CameraScreen = (props) => {
   };
 
   const translate = async () => {
+    console.log('translate');
     try {
       const data = await (
         await postTranslate(language, 'test.JPG')
       ).data.translatedResult;
-      navigation.navigate('Translate', { translation: data });
+      navigation.navigate(SCREEN_NAMES.Translate, { translation: data });
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const switchCamera = () => {
+    setType(type === CameraType.back ? CameraType.front : CameraType.back);
   };
 
   return (
@@ -49,24 +65,40 @@ const CameraScreen = (props) => {
       )}
       <View>
         {!image ? (
-          <PrimaryButton
-            label="Take Photo"
-            onPress={takePhoto}
-            style={[styles.button]}
-          />
+          <View style={styles.mainButtonContainer}>
+            <TouchableOpacity
+              style={styles.cameraButton}
+              onPress={() => {
+                takePhoto();
+              }}
+            ></TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                switchCamera();
+              }}
+              style={styles.icon}
+            >
+              <FlipCameraIcon width={50} height={45.24} />
+            </TouchableOpacity>
+          </View>
         ) : (
           <View style={styles.buttonContainer}>
-            <PrimaryButton
-              label="Retake Photo"
-              onPress={() => setImage(null)}
-              style={[styles.button]}
-            />
+            <Button variant="primaryLightCamera" onPress={() => setImage(null)}>
+              Retake
+            </Button>
 
-            <PrimaryButton
-              label="Translate"
-              onPress={translate}
-              style={[styles.button]}
-            />
+            {screen === 'Translate' ? (
+              <Button variant="primaryCamera" onPress={translate}>
+                Translate
+              </Button>
+            ) : (
+              <Button
+                variant="primaryCamera"
+                onPress={() => console.log('here')}
+              >
+                Submit
+              </Button>
+            )}
           </View>
         )}
       </View>
@@ -85,24 +117,34 @@ const styles = StyleSheet.create({
   camera: {
     flex: 1,
   },
-  button: {
-    height: 50,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'transparent',
-    padding: 10,
-    borderRadius: 30,
-    marginBottom: 10,
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: '700',
-  },
   buttonContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 50,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    backgroundColor: 'black',
+    height: 100,
+    paddingHorizontal: 20,
+  },
+  mainButtonContainer: {
+    justifyContent: 'center',
+    position: 'relative',
+    backgroundColor: 'black',
+    opacity: 1,
+    height: 100,
+  },
+  cameraButton: {
+    backgroundColor: 'white',
+    opacity: 1,
+    borderRadius: 50,
+    margin: 20,
+    width: 70,
+    height: 70,
+    position: 'absolute',
+    bottom: 0,
+    alignSelf: 'center',
+  },
+  icon: {
+    position: 'absolute',
+    right: 20,
   },
 });
