@@ -13,7 +13,7 @@ import { PrimaryButton } from '../buttons/PrimaryButton';
 import { useNotifications } from '../../hooks/useNotifications';
 
 const IndexScreen = () => {
-  const { registerForPushNotificationsAsync, handleNotificationRespose } =
+  const { registerForPushNotificationsAsync, handleNotificationResponse } =
     useNotifications();
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const IndexScreen = () => {
 
     const responseListener =
       Notifications.addNotificationResponseReceivedListener(
-        handleNotificationRespose,
+        handleNotificationResponse,
       );
 
     return () => {
