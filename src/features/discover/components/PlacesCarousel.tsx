@@ -5,12 +5,15 @@ import { Place, UserLocation } from '../../../types/discover';
 
 import { PlaceCard } from './PlaceCard';
 
-type CarouselProps = {
+type PlacesCarouselProps = {
   places: Place[];
   userLocation?: UserLocation;
 };
 
-export const PlacesCarousel: FC<CarouselProps> = ({ places, userLocation }) => {
+export const PlacesCarousel: FC<PlacesCarouselProps> = ({
+  places,
+  userLocation,
+}) => {
   if (!places || places.length === 0) {
     return <Text>No places</Text>;
   }

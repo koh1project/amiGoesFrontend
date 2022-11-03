@@ -1,4 +1,4 @@
-import { Place } from '@googlemaps/google-maps-services-js';
+import { PlaceDetail } from './../types/discover.d';
 import { GetDiscoverResponse } from '../types/discover';
 import { get } from './api';
 
@@ -17,7 +17,7 @@ export const getDiscover = async () => {
 
 export const getPlaceById = async (place_id) => {
   try {
-    return get<Place>(`${DISCOVER_ENDPOINT.get}/${place_id}`);
+    return get<PlaceDetail>(`${DISCOVER_ENDPOINT.get}/${place_id}`);
   } catch (error) {
     console.error('API getDiscover ERROR', error);
     throw error;

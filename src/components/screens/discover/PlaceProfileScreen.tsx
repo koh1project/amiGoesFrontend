@@ -1,40 +1,59 @@
-import { Place } from '@googlemaps/google-maps-services-js';
-import { Text, Image, ScrollView, AspectRatio } from 'native-base';
-import React, { FC, useCallback, useEffect, useState } from 'react';
-import { getPlaceById } from '../../../services/discover.service';
-import { GOOGLE_MAPS_API_KEY } from '../../../utils/const';
+import { Image, ScrollView, AspectRatio, Flex, Text } from 'native-base';
+import React from 'react';
+import { TouchableOpacity } from 'react-native';
+import { SecondaryHeading, TertiaryHeading } from '../../texts/Heading';
+import { usePlaceProfile } from '../../../features/discover/hooks/usePlaceProfile';
+import { TextDistance } from '../../../features/discover/components/TextDistance';
+import { PlaceProfileMap } from '../../../features/discover/components/PlaceProfileMap';
 
-export const PlaceProfileScreen: React.FC<any> = ({ route }) => {
-  const { place_id } = route.params;
-  console.log('place_id: ', place_id);
-
-  const [place, setPlace] = useState<Place>();
-
-  useEffect(() => {
-    const fetchPlace = async () => {
-      const response = await getPlaceById(place_id);
-      setPlace(response.data);
+type PlaceProfileScreenProps = {
+  route: {
+    params: {
+      place_id: string;
     };
-    fetchPlace();
-  }, []);
+  };
+};
+
+export const PlaceProfileScreen: React.FC<PlaceProfileScreenProps> = ({
+  route,
+}) => {
+  let { place_id } = route.params;
+
+  //@NOTE: development purpose, Stanley Park
+  if (!place_id) {
+    place_id = 'ChIJo-QmrYxxhlQRFuIJtJ1jSjY';
+  }
+
+  const { place, photoUrls, photoIndex, handleNextPhoto, userLocation } =
+    usePlaceProfile(place_id);
+
+  if (!place) {
+    return <></>;
+  }
 
   return (
     <ScrollView>
-      {place && (
-        <>
-          <AspectRatio w="100%" ratio={16 / 9}>
-            <Image
-              source={{
-                uri: `https://maps.googleapis.com/maps/api/place/photo?photo_reference=${
-                  place.photos[0].photo_reference
-                }&maxwidth=${400}&maxheight=${300}&key=${GOOGLE_MAPS_API_KEY}`,
-              }}
-              alt="image"
-            />
-          </AspectRatio>
-          <Text>{`Place Profile Page - id:  ${place_id}`}</Text>
-        </>
-      )}
+      <TouchableOpacity onPress={handleNextPhoto}>
+        <AspectRatio w="100%" ratio={16 / 9}>
+          <Image
+            source={{
+              uri: photoUrls[photoIndex],
+            }}
+            alt="image"
+          />
+        </AspectRatio>
+      </TouchableOpacity>
+      <Flex>
+        <SecondaryHeading>{place.name}</SecondaryHeading>
+      </Flex>
+      <Flex>
+        <TextDistance place={place} userLocation={userLocation} />
+        <Text>Open 24 hours</Text>
+      </Flex>
+      <TertiaryHeading>Avg Price</TertiaryHeading>
+      <Text>Free</Text>
+      <Text>{place?.editorial_summary?.overview}</Text>
+      <PlaceProfileMap geometry={place.geometry} />
     </ScrollView>
   );
 };

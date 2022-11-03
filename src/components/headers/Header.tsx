@@ -8,7 +8,7 @@ import { StyleSheet } from 'react-native';
 export const Header: React.FC = () => {
   const navigation = useNavigation();
   return (
-    <Box safeAreaTop backgroundColor="#ffffff">
+    <Box safeAreaTop backgroundColor="#832727">
       {/* <View backgroundColor="green" style={styles.Heading}>
         <HStack style={styles.header}>
           <TouchableOpacity
