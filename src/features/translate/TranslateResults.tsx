@@ -16,8 +16,12 @@ const TranslateResults = (props) => {
         }}
         alt="translation"
       /> */}
-      <Text>{translation}</Text>
-      <Text>{text}</Text>
+      <Text marginLeft={'20px'} marginRight={'20px'} marginBottom={'30px'}>
+        {translation}
+      </Text>
+      <Text marginLeft={'20px'} marginRight={'20px'} marginBottom={'30px'}>
+        {text}
+      </Text>
     </VStack>
   );
 };

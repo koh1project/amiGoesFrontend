@@ -1,5 +1,7 @@
 import { Box, Button, HStack, Text, View, VStack } from 'native-base';
 import { StyleSheet } from 'react-native';
+import Camera from '../../../assets/icons/camera-fill.svg';
+import Upload from '../../../assets/icons/upload.svg';
 import { SCREEN_NAMES } from '../../utils/const';
 
 const TranslateForm = (props) => {
@@ -30,11 +32,11 @@ const TranslateForm = (props) => {
         </Text>
         <HStack marginTop={'11.5px'}>
           <Button variant="cameraBigBtnLight" marginRight={'12px'}>
-            {/* <Upload style={styles.icon} /> */}
+            <Upload style={styles.icon} />
             Upload
           </Button>
           <Button onPress={openCamera} variant="cameraBigBtn">
-            {/* <Camera style={styles.icon} /> */}
+            <Camera style={styles.icon} />
             Camera
           </Button>
         </HStack>

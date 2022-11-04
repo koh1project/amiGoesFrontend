@@ -13,7 +13,7 @@ const CameraScreen = (props) => {
     Camera.useCameraPermissions();
   const [type, setType] = useState(CameraType.back);
   const [image, setImage] = useState(null);
-  const [output, setOutput] = useState(false);
+  const [preview, setPreview] = useState(null);
   const [screen, setScreen] = useState(route.params.screen);
   const language = 'es';
 
@@ -35,6 +35,7 @@ const CameraScreen = (props) => {
         });
         console.log(photo);
         setImage(photo.base64);
+        setPreview(photo.uri);
       } catch (error) {
         console.log(error);
       }
@@ -42,6 +43,7 @@ const CameraScreen = (props) => {
   };
 
   const translate = async () => {
+    console.log('Translate', image);
     try {
       const data = await (await postTranslate(language, image)).data;
       navigation.navigate(SCREEN_NAMES.Translate, {
@@ -62,7 +64,7 @@ const CameraScreen = (props) => {
       {!image ? (
         <Camera style={styles.camera} ref={cameraRef} type={type} />
       ) : (
-        <Image source={{ uri: image }} style={styles.camera} />
+        <Image source={{ uri: preview }} style={styles.camera} />
       )}
       <View>
         {!image ? (
