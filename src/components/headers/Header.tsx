@@ -38,10 +38,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: 30,
     paddingBottom: 30,
-    // backgroundColor: 'primary.100',
     borderBottomLeftRadius: 25,
     borderBottomRightRadius: 25,
     height: 84,
+    marginBottom: 26,
   },
   Logo: {
     width: 82.67,

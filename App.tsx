@@ -55,7 +55,8 @@ export default function App() {
               name={SCREEN_NAMES.Index}
               component={IndexScreen}
               options={{
-                headerShown: false,
+                header: () => <Header />,
+                headerShown: true,
               }}
             />
             <Stack.Screen

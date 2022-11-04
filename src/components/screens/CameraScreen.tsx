@@ -1,6 +1,6 @@
 import { Camera, CameraType } from 'expo-camera';
 import { Button } from 'native-base';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import FlipCameraIcon from '../../../assets/icons/switch-camera.svg';
 import { postTranslate } from '../../services/translate.service';
@@ -17,13 +17,11 @@ const CameraScreen = (props) => {
   const [screen, setScreen] = useState(route.params.screen);
   const language = 'es';
 
-  useEffect(() => {
-    if (screen === 'Translate') {
-      console.log('HERE IS THE SCREEN', screen, typeof screen);
-    } else {
-      console.log('HERE IS THE SCREEN', screen);
-    }
-  }, [route.params?.screen]);
+  // useEffect(() => {
+  //   if (screen === SCREEN_NAMES.TRANSLATE) {
+  //     console.log('Translate Screen');
+  //   } else console.log(screen);
+  // }, [screen]);
 
   if (!cameraPermission) {
     requestCameraPermission();
@@ -87,7 +85,7 @@ const CameraScreen = (props) => {
               Retake
             </Button>
 
-            {screen === 'Translate' ? (
+            {screen === SCREEN_NAMES.Translate ? (
               <Button variant="primaryCamera" onPress={translate}>
                 Translate
               </Button>

@@ -50,6 +50,14 @@ export const customTheme = extendTheme({
           lineHeight: '16',
           color: 'dark',
         },
+        screenTitle: {
+          fontFamily: 'Ubuntu_500Medium',
+          fontSize: '24',
+          lineHeight: '28',
+          color: 'green',
+          marginLeft: '19px',
+          marginBottom: '18px',
+        },
       },
     },
     Button: {
@@ -139,6 +147,34 @@ export const customTheme = extendTheme({
           },
           _pressed: {
             backgroundColor: 'coral',
+          },
+        },
+        cameraBigBtnLight: {
+          bg: 'white',
+          width: '108',
+          height: '132',
+          borderRadius: '6',
+          borderWidth: '1',
+          borderColor: 'coral',
+          _text: {
+            color: 'coral',
+          },
+          _pressed: {
+            backgroundColor: 'lightcoral',
+          },
+        },
+        cameraBigBtn: {
+          bg: 'lightcoral',
+          width: '108',
+          height: '132',
+          borderRadius: '6',
+          borderWidth: '1',
+          borderColor: 'coral',
+          _text: {
+            color: 'coral',
+          },
+          _pressed: {
+            backgroundColor: 'white',
           },
         },
       },
