@@ -49,6 +49,7 @@ const CameraScreen = (props) => {
       navigation.navigate(SCREEN_NAMES.Translate, {
         translation: data.translatedResult,
         text: data.text,
+        image: image,
       });
     } catch (error) {
       console.log(error);
