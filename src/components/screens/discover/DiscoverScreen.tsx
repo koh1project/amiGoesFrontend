@@ -1,15 +1,15 @@
+import * as Location from 'expo-location';
 import { Input, ScrollView, View } from 'native-base';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Text } from 'react-native';
-import { PlacesCarousel } from '../../features/discover/components/PlacesCarousel';
-import { getDiscover } from '../../services/discover.service';
-import { GetDiscoverResponse } from '../../types/discover';
-import { SecondaryHeading } from '../texts/Heading';
-import { useUserLocation } from '../../features/discover/hooks/useUserLocation';
+import { PlacesCarousel } from '../../../features/discover/components/PlacesCarousel';
+import { getDiscover } from '../../../services/discover.service';
+import { GetDiscoverResponse, UserLocation } from '../../../types/discover';
+import { SecondaryHeading } from '../../texts/Heading';
 
 export const DiscoverScreen: React.FC = () => {
   const [places, setPlaces] = useState<GetDiscoverResponse>();
-  const { location } = useUserLocation();
+  const [location, setLocation] = useState<UserLocation>();
 
   const fetchPlaces = useCallback(async () => {
     const result = await getDiscover();
@@ -19,11 +19,31 @@ export const DiscoverScreen: React.FC = () => {
     setPlaces(data);
     return data;
   }, []);
+
+  const readLocation = useCallback(async () => {
+    const { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== 'granted') {
+      return;
+    }
+
+    const location = await Location.getCurrentPositionAsync({});
+    console.log('location: ', location);
+    setLocation(location);
+  }, []);
+
   useEffect(() => {
     fetchPlaces().catch((error) => {
       console.error(error);
     });
   }, [fetchPlaces]);
+
+  useEffect(() => {
+    if (location) {
+      return;
+    }
+
+    readLocation();
+  }, [location, readLocation]);
 
   let content = <></>;
   if (places) {

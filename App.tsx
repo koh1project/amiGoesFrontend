@@ -13,7 +13,9 @@ import CameraScreen from './src/components/screens/CameraScreen';
 import ConnectFilterScreen from './src/components/screens/Connect/ConnectFiltersScreen';
 import { StepOneForm } from './src/components/screens/createProfile/StepOneForm';
 import { StepTwoForm } from './src/components/screens/createProfile/StepTwoForm';
-import { DiscoverScreen } from './src/components/screens/DiscoverScreen';
+import { DiscoverScreen } from './src/components/screens/discover/DiscoverScreen';
+import { GoNowScreen } from './src/components/screens/discover/GoNowScreen';
+import { PlaceProfileScreen } from './src/components/screens/discover/PlaceProfileScreen';
 import IndexScreen from './src/components/screens/IndexScreen';
 import LoginScreen from './src/components/screens/LoginScreen';
 import SignupScreen from './src/components/screens/SignupScreen';
@@ -66,6 +68,16 @@ export default function App() {
                 header: () => <Header />,
                 headerShown: true,
               }}
+            />
+            <Stack.Screen
+              name={SCREEN_NAMES.PlaceProfile}
+              component={PlaceProfileScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name={SCREEN_NAMES.GoNow}
+              component={GoNowScreen}
+              options={{ headerShown: false }}
             />
             <Stack.Screen
               name={SCREEN_NAMES.ConnectFilter}
