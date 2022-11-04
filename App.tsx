@@ -40,7 +40,6 @@ export default function App() {
       <NativeBaseProvider theme={customTheme}>
         <StatusBar barStyle="light-content" backgroundColor="#3FA8AE" />
         <NavigationContainer>
-          <Header />
           <Stack.Navigator initialRouteName={INITIAL_SCREEN}>
             <Stack.Screen
               options={{ headerShown: false }}
@@ -52,27 +51,51 @@ export default function App() {
               name={SCREEN_NAMES.Login}
               component={LoginScreen}
             />
-            <Stack.Screen name={SCREEN_NAMES.Index} component={IndexScreen} />
+            <Stack.Screen
+              name={SCREEN_NAMES.Index}
+              component={IndexScreen}
+              options={{
+                header: () => <Header />,
+                headerShown: true,
+              }}
+            />
             <Stack.Screen
               name={SCREEN_NAMES.Discover}
               component={DiscoverScreen}
-              options={{ headerShown: false }}
+              options={{
+                header: () => <Header />,
+                headerShown: true,
+              }}
             />
             <Stack.Screen
               name={SCREEN_NAMES.ConnectFilter}
               component={ConnectFilterScreen}
-              options={{ headerShown: false }}
+              options={{
+                header: () => <Header />,
+                headerShown: true,
+              }}
             />
             <Stack.Screen
               name={SCREEN_NAMES.CreateProfileStepOneForm}
               component={StepOneForm}
+              options={{
+                header: () => <Header />,
+                headerShown: true,
+              }}
             />
             <Stack.Screen
               name={SCREEN_NAMES.CreateProfileStepTwoForm}
               component={StepTwoForm}
+              options={{
+                header: () => <Header />,
+                headerShown: true,
+              }}
             />
             <Stack.Screen
-              options={{ headerShown: false }}
+              options={{
+                header: () => <Header />,
+                headerShown: true,
+              }}
               name={SCREEN_NAMES.Translate}
               component={TranslateScreen}
             />

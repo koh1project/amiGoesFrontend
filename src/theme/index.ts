@@ -50,6 +50,14 @@ export const customTheme = extendTheme({
           lineHeight: '16',
           color: 'dark',
         },
+        screenTitle: {
+          fontFamily: 'Ubuntu_500Medium',
+          fontSize: '24',
+          lineHeight: '28',
+          color: 'green',
+          marginLeft: '19px',
+          marginBottom: '18px',
+        },
       },
     },
     Button: {
@@ -78,6 +86,7 @@ export const customTheme = extendTheme({
         },
         primarySmallLight: {
           bg: 'white',
+          opacity: 1,
           width: '167',
           height: '60',
           _text: {
@@ -115,6 +124,57 @@ export const customTheme = extendTheme({
           height: '60',
           _text: {
             color: 'white',
+          },
+        },
+        primaryCamera: {
+          bg: 'coral',
+          width: '120',
+          height: '60',
+          _text: {
+            color: 'white',
+          },
+          _pressed: {
+            backgroundColor: '#D75A49',
+          },
+        },
+        primaryLightCamera: {
+          bg: 'white',
+          opacity: 1,
+          width: '120',
+          height: '60',
+          _text: {
+            color: 'coral',
+          },
+          _pressed: {
+            backgroundColor: 'coral',
+          },
+        },
+        cameraBigBtnLight: {
+          bg: 'white',
+          width: '108',
+          height: '132',
+          borderRadius: '6',
+          borderWidth: '1',
+          borderColor: 'coral',
+          _text: {
+            color: 'coral',
+          },
+          _pressed: {
+            backgroundColor: 'lightcoral',
+          },
+        },
+        cameraBigBtn: {
+          bg: 'lightcoral',
+          width: '108',
+          height: '132',
+          borderRadius: '6',
+          borderWidth: '1',
+          borderColor: 'coral',
+          _text: {
+            color: 'coral',
+          },
+          _pressed: {
+            backgroundColor: 'white',
           },
         },
       },

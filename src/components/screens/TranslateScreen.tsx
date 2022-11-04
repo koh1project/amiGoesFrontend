@@ -1,5 +1,7 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Text } from 'native-base';
+import { StyleSheet, View } from 'react-native';
 
+import TranslateResults from '../../features/translate/TranslateResults';
 import TranslateForm from '../forms/TranslateForm';
 
 const TranslateScreen = ({ navigation, route }) => {
@@ -11,9 +13,13 @@ const TranslateScreen = ({ navigation, route }) => {
 
   return (
     <View style={styles.container}>
+      <Text variant="screenTitle">Translate</Text>
       {route.params?.translation ? (
-        <View style={{ padding: 10 }}>
-          <Text>{route.params.translation}</Text>
+        <View>
+          <TranslateResults
+            translation={route.params.translation}
+            text={route.params.text}
+          />
         </View>
       ) : (
         <TranslateForm navigation={navigation} />
@@ -27,6 +33,6 @@ export default TranslateScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: 1,
+    backgroundColor: 'white',
   },
 });
