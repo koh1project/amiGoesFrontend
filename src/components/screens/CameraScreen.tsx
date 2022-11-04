@@ -8,7 +8,7 @@ import { SCREEN_NAMES } from '../../utils/const';
 
 const CameraScreen = (props) => {
   const { navigation, route } = props;
-  const cameraRef = useRef();
+  const cameraRef = useRef<Camera>();
   const [cameraPermission, requestCameraPermission] =
     Camera.useCameraPermissions();
   const [type, setType] = useState(CameraType.back);
@@ -30,22 +30,20 @@ const CameraScreen = (props) => {
   const takePhoto = async () => {
     if (cameraRef.current) {
       try {
-        const photo = await cameraRef.current.takePictureAsync();
-        setImage(photo.uri);
+        const photo = await cameraRef.current.takePictureAsync({
+          base64: true,
+        });
+        console.log(photo);
+        setImage(photo.base64);
       } catch (error) {
         console.log(error);
       }
     }
   };
 
-  {
-    /* TODO: Jatin Upload the real image here */
-  }
-
   const translate = async () => {
-    console.log('translate');
     try {
-      const data = await (await postTranslate(language, 'test.JPG')).data;
+      const data = await (await postTranslate(language, image)).data;
       navigation.navigate(SCREEN_NAMES.Translate, {
         translation: data.translatedResult,
         text: data.text,
