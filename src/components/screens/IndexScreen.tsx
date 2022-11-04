@@ -15,7 +15,8 @@ import { useNotifications } from '../../hooks/useNotifications';
 const IndexScreen = () => {
   const { registerForPushNotificationsAsync, handleNotificationResponse } =
     useNotifications();
-
+  // call useNotifications hook
+  // ******************************************************
   useEffect(() => {
     registerForPushNotificationsAsync();
     Notifications.setNotificationHandler({
@@ -37,6 +38,7 @@ const IndexScreen = () => {
       }
     };
   }, []);
+  // ******************************************************
 
   const [token, setToken] = useState('');
 

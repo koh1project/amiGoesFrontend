@@ -128,8 +128,6 @@ export const StepTwoForm: React.FC = ({ route }) => {
       languages: languages,
       hobbies: hobbies,
     };
-    // const jsonData = JSON.stringify(data);
-    // console.log("Json Data: ",jsonData);
     createProfile(data);
   };
 
@@ -139,7 +137,7 @@ export const StepTwoForm: React.FC = ({ route }) => {
     console.log('Response from backend: ', result.data);
     if (result.data) {
       alert('Profile created successfully!');
-      updateNotificationToken();
+      updateNotificationToken(); // update send notification token to backend
       navigation.navigate('Index' as never);
     }
   };

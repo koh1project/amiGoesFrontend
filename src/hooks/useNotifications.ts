@@ -3,6 +3,8 @@ import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
 
 export const useNotifications = () => {
+  // ask for permission to send notifications
+  // if the user has not already granted permission
   const registerForPushNotificationsAsync = async () => {
     if (Device.isDevice) {
       const { status: existingStatus } =
@@ -43,8 +45,7 @@ export const useNotifications = () => {
   const handleNotificationResponse = (
     response: Notifications.NotificationResponse,
   ) => {
-    const data: { [key: string]: any } =
-      response.notification.request.content.data;
+    const data = response.notification.request.content.data;
     if (data) {
       //this.props.navigation.navigate(data.screen);
       console.log(data);
