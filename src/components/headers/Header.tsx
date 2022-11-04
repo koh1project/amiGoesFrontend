@@ -1,32 +1,29 @@
 import { useNavigation } from '@react-navigation/core';
-// import BellIcon from '../../../assets/icons/bell.svg';
-// import ChevronLeftIcon from '../../../assets/icons/left.svg';
-// import Logo from '../../../assets/images/Logo.svg';
 
-import { Box, HStack, View } from 'native-base';
+import { Box } from 'native-base';
 
 import React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export const Header: React.FC = () => {
   const navigation = useNavigation();
   return (
     <Box safeAreaTop backgroundColor="#ffffff">
-      <View backgroundColor="green" style={styles.Heading}>
+      {/* <View backgroundColor="green" style={styles.Heading}>
         <HStack style={styles.header}>
           <TouchableOpacity
             onPress={() => {
               navigation.goBack();
             }}
           >
-            {/* <ChevronLeftIcon style={styles.arrow} /> */}
+            <ChevronLeftIcon style={styles.arrow} />
           </TouchableOpacity>
-          {/* <Logo style={styles.Logo} source={Logo} /> */}
+          <Logo style={styles.Logo} source={Logo} />
           <TouchableOpacity>
-            {/* <BellIcon style={styles.bell} /> */}
+            <BellIcon style={styles.bell} />
           </TouchableOpacity>
         </HStack>
-      </View>
+      </View> */}
     </Box>
   );
 };
