@@ -10,17 +10,22 @@ import {
 import React, { FC } from 'react';
 import { Place, UserLocation } from '../../../types/discover';
 import { TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+
 import { GOOGLE_MAPS_API_KEY, SCREEN_NAMES } from '../../../utils/const';
 import { TextDistance } from './TextDistance';
+import { NavigationProp } from '@react-navigation/native';
 
 type PlaceCardProps = {
   place: Place;
   userLocation?: UserLocation;
+  navigation: NavigationProp<any>;
 };
 
-export const PlaceCard: FC<PlaceCardProps> = ({ place, userLocation }) => {
-  const navigation = useNavigation();
+export const PlaceCard: FC<PlaceCardProps> = ({
+  place,
+  userLocation,
+  navigation,
+}) => {
   let photo_reference;
   if (place.photos) {
     photo_reference = place.photos[0].photo_reference;

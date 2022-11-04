@@ -1,13 +1,15 @@
-import { FC, useRef } from 'react';
-import MapView, { Marker, Region } from 'react-native-maps';
+import { FC, useRef, useState } from 'react';
+import MapView, { Callout, Circle, Marker, Region } from 'react-native-maps';
 
-import { View } from 'native-base';
+import { Image, View, Text } from 'native-base';
 import { StyleSheet, Dimensions } from 'react-native';
 import { useGoNow } from '../hooks/useGoNow';
 
-type GoNowMapProps = any;
+type GoNowMapProps = {
+  circleRadius: number;
+};
 
-export const GoNowMap: FC<GoNowMapProps> = () => {
+export const GoNowMap: FC<GoNowMapProps> = ({ circleRadius }) => {
   const { userLocation } = useGoNow();
   const mapRef = useRef<MapView>(null);
   const { width, height } = Dimensions.get('window');
@@ -27,6 +29,25 @@ export const GoNowMap: FC<GoNowMapProps> = () => {
 
   const { latitude, longitude } = userLocation.coords;
 
+  const mockData = [
+    {
+      name: 'Mary',
+      photoUrl: '../../../../assets/amigoes/marry.png',
+      coordinate: {
+        latitude: latitude + 0.001,
+        longitude: longitude + 0.001,
+      },
+    },
+    {
+      name: 'Sara',
+      photoUrl: '../../../../assets/amigoes/marry.png',
+      coordinate: {
+        latitude: latitude - 0.001,
+        longitude: longitude - 0.001,
+      },
+    },
+  ];
+
   return (
     <View style={styles.container}>
       <MapView
@@ -39,15 +60,43 @@ export const GoNowMap: FC<GoNowMapProps> = () => {
         }}
         ref={mapRef}
         showsUserLocation={true}
-        // followsUserLocation={true}
         onRegionChangeComplete={handleRegionChange}
       >
+        <Circle
+          center={{ latitude, longitude }}
+          radius={circleRadius * 30}
+          fillColor="rgba(0, 0, 0, 0.1)"
+          strokeColor="rgba(0, 0, 0, 0.1)"
+        />
         <Marker
           coordinate={{
             latitude,
             longitude,
           }}
         />
+        {mockData.map((amigoes, index) => (
+          <Marker
+            key={index}
+            coordinate={amigoes.coordinate}
+            title={amigoes.name}
+            description={amigoes.name}
+          >
+            <Image
+              source={require('../../../../assets/amigoes/marry.png')}
+              style={{ width: 50, height: 50 }}
+              resizeMethod={'resize'}
+            />
+            <Text
+              style={{
+                backgroundColor: '#FFFFFF',
+                textAlign: 'center',
+                borderRadius: 20,
+              }}
+            >
+              {amigoes.name}
+            </Text>
+          </Marker>
+        ))}
       </MapView>
     </View>
   );
@@ -57,7 +106,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    // justifyContent: 'center',
     borderRadius: 10,
     width: '90%',
   },
