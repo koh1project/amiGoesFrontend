@@ -1,5 +1,5 @@
 import { Text } from 'native-base';
-import { StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 
 import TranslateResults from '../../features/translate/TranslateResults';
 import TranslateForm from '../forms/TranslateForm';
@@ -12,19 +12,22 @@ const TranslateScreen = ({ navigation, route }) => {
   // }, [route.params?.translation]);
 
   return (
-    <View style={styles.container}>
-      <Text variant="screenTitle">Translate</Text>
-      {route.params?.translation ? (
-        <View>
-          <TranslateResults
-            translation={route.params.translation}
-            text={route.params.text}
-          />
-        </View>
-      ) : (
-        <TranslateForm navigation={navigation} />
-      )}
-    </View>
+    <ScrollView style={styles.container}>
+      <View>
+        <Text variant="screenTitle">Translate</Text>
+        {route.params?.translation ? (
+          <View>
+            <TranslateResults
+              translation={route.params.translation}
+              text={route.params.text}
+              image={route.params.image}
+            />
+          </View>
+        ) : (
+          <TranslateForm navigation={navigation} />
+        )}
+      </View>
+    </ScrollView>
   );
 };
 

@@ -38,6 +38,11 @@ export const customTheme = extendTheme({
           fontSize: '20',
           lineHeight: '24',
         },
+        h4: {
+          fontFamily: 'Ubuntu_500Medium',
+          fontSize: '14',
+          lineHeight: '18',
+        },
         body: {
           fontFamily: 'Ubuntu_400Regular',
           fontSize: '14',
@@ -124,6 +129,17 @@ export const customTheme = extendTheme({
           height: '60',
           _text: {
             color: 'white',
+          },
+        },
+        menu: {
+          bg: 'lightgreen',
+          width: '162',
+          height: '50',
+          _text: {
+            color: 'black',
+          },
+          _pressed: {
+            backgroundColor: 'green',
           },
         },
         primaryCamera: {
