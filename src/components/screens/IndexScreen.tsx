@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/core';
 import React from 'react';
 
 import axios from 'axios';
-import { View, VStack } from 'native-base';
+import { Button, View, VStack } from 'native-base';
 import { useState } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import Amigos from '../../../assets/icons/amigos-icon.svg';
@@ -104,6 +104,9 @@ const IndexScreen = () => {
           <TouchableOpacity style={styles.menuItem}>
             <MenuItem text="My amigoes" icon={<Amigos style={styles.icon} />} />
           </TouchableOpacity>
+          <Button variant="menu" marginTop="20px">
+            Account
+          </Button>
         </VStack>
         <VStack style={styles.column2}>
           <TouchableOpacity
@@ -135,6 +138,9 @@ const IndexScreen = () => {
               icon={<Favorites style={styles.icon} />}
             />
           </TouchableOpacity>
+          <Button variant="menu" marginTop="20px">
+            How to Use
+          </Button>
         </VStack>
       </View>
 
@@ -170,7 +176,6 @@ const styles = StyleSheet.create({
     // marginBottom: 10,
   },
   container: {
-    marginTop: 20,
     display: 'flex',
     flexDirection: 'column',
     flexWrap: 'wrap',
@@ -179,14 +184,14 @@ const styles = StyleSheet.create({
 
   column1: {
     marginLeft: 20,
-    marginRight: 12,
+    marginRight: 6,
   },
   column2: {
-    marginLeft: 12,
+    marginLeft: 6,
     marginRight: 20,
   },
 
   menuItem: {
-    marginBottom: 44,
+    marginBottom: 24,
   },
 });

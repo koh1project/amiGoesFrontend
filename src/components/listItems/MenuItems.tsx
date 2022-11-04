@@ -9,9 +9,7 @@ const MenuItem = (props) => {
     <Box style={styles.container}>
       <Box style={styles.iconContainer}>
         {icon}
-        <Text variant={'menu'} style={styles.text}>
-          {text}
-        </Text>
+        <Text variant={'menu'}>{text}</Text>
       </Box>
 
       <MenuIcon style={styles.menuIcon} />
@@ -32,13 +30,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignSelf: 'center',
     alignItems: 'center',
-    // alignItems: 'center',
-    // marginTop: 20,
-    // marginBottom: 10,
-    // backgroundColor: 'red',
-    // marginBottom: 10,
     marginTop: 20,
-
     width: 100,
     height: 100,
   },
@@ -48,9 +40,5 @@ const styles = StyleSheet.create({
     bottom: -20,
     height: 40,
     width: 40,
-  },
-  text: {
-    // alignSelf: 'center',
-    // marginTop: 10,
   },
 });

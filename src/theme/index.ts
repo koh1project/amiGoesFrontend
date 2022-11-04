@@ -131,6 +131,17 @@ export const customTheme = extendTheme({
             color: 'white',
           },
         },
+        menu: {
+          bg: 'lightgreen',
+          width: '162',
+          height: '50',
+          _text: {
+            color: 'black',
+          },
+          _pressed: {
+            backgroundColor: 'green',
+          },
+        },
         primaryCamera: {
           bg: 'coral',
           width: '120',
