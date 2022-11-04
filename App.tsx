@@ -11,6 +11,7 @@ import { NativeBaseProvider, StatusBar } from 'native-base';
 import { Header } from './src/components/headers/Header';
 import CameraScreen from './src/components/screens/CameraScreen';
 import ConnectFilterScreen from './src/components/screens/Connect/ConnectFiltersScreen';
+import { ConnectUsers } from './src/components/screens/Connect/ConnectUsers';
 import { StepOneForm } from './src/components/screens/createProfile/StepOneForm';
 import { StepTwoForm } from './src/components/screens/createProfile/StepTwoForm';
 import { DiscoverScreen } from './src/components/screens/discover/DiscoverScreen';
@@ -86,6 +87,11 @@ export default function App() {
                 header: () => <Header />,
                 headerShown: true,
               }}
+            />
+            <Stack.Screen
+              name={SCREEN_NAMES.ConnectUsers}
+              component={ConnectUsers}
+              options={{ headerShown: true, header: () => <Header /> }}
             />
             <Stack.Screen
               name={SCREEN_NAMES.CreateProfileStepOneForm}
