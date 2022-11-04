@@ -12,6 +12,7 @@ export const SCREEN_NAMES = {
   Camera: 'Camera',
   Translate: 'Translate',
   ConnectFilter: 'ConnectFilter',
+  ConnectUsers: 'ConnectUsers',
 } as const;
 
 export const INITIAL_SCREEN = Constants.expoConfig.extra.INITIAL_SCREEN;
