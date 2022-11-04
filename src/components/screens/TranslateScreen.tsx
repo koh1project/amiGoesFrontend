@@ -1,6 +1,7 @@
 import { Text } from 'native-base';
 import { StyleSheet, View } from 'react-native';
 
+import TranslateResults from '../../features/translate/TranslateResults';
 import TranslateForm from '../forms/TranslateForm';
 
 const TranslateScreen = ({ navigation, route }) => {
@@ -15,7 +16,10 @@ const TranslateScreen = ({ navigation, route }) => {
       <Text variant="screenTitle">Translate</Text>
       {route.params?.translation ? (
         <View>
-          <Text>{route.params.translation}</Text>
+          <TranslateResults
+            translation={route.params.translation}
+            text={route.params.text}
+          />
         </View>
       ) : (
         <TranslateForm navigation={navigation} />

@@ -38,13 +38,18 @@ const CameraScreen = (props) => {
     }
   };
 
+  {
+    /* TODO: Jatin Upload the real image here */
+  }
+
   const translate = async () => {
     console.log('translate');
     try {
-      const data = await (
-        await postTranslate(language, 'test.JPG')
-      ).data.translatedResult;
-      navigation.navigate(SCREEN_NAMES.Translate, { translation: data });
+      const data = await (await postTranslate(language, 'test.JPG')).data;
+      navigation.navigate(SCREEN_NAMES.Translate, {
+        translation: data.translatedResult,
+        text: data.text,
+      });
     } catch (error) {
       console.log(error);
     }

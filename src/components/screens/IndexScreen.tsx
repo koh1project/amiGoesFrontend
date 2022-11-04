@@ -5,12 +5,12 @@ import axios from 'axios';
 import { View, VStack } from 'native-base';
 import { useState } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
-import Amigos from '../../../assets/images/amigos.svg';
-import Connect from '../../../assets/images/connect.svg';
-import Discover from '../../../assets/images/discover.svg';
-import Favorites from '../../../assets/images/favorites.svg';
-import Profile from '../../../assets/images/profile.svg';
-import Translate from '../../../assets/images/translate.svg';
+import Amigos from '../../../assets/icons/amigos-icon.svg';
+import Connect from '../../../assets/icons/connect-icon.svg';
+import Discover from '../../../assets/icons/discover-icon.svg';
+import Favorites from '../../../assets/icons/favorites-icon.svg';
+import Profile from '../../../assets/icons/profile-icon.svg';
+import Translate from '../../../assets/icons/translate-icon.svg';
 import { SCREEN_NAMES } from '../../utils/const';
 import { auth } from '../../utils/firebase';
 import { url } from '../../utils/url';
@@ -167,16 +167,13 @@ export default IndexScreen;
 
 const styles = StyleSheet.create({
   icon: {
-    height: 68,
-    marginBottom: 10,
-    backgroundColor: 'white',
+    // marginBottom: 10,
   },
   container: {
     marginTop: 20,
     display: 'flex',
     flexDirection: 'column',
     flexWrap: 'wrap',
-    // justifyContent: 'space-between',
     flex: 1,
   },
 
