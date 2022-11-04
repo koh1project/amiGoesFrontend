@@ -1,23 +1,22 @@
-import DateTimePicker, {
-  DateTimePickerEvent,
-} from '@react-native-community/datetimepicker';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { Text, VStack } from 'native-base';
 
 type TimePickerProps = {
   title: string;
-  onChange: (e: DateTimePickerEvent) => void;
+  value: Date;
+  onChange: (e: Date) => void;
 };
-const TimePicker = ({ title, onChange }: TimePickerProps) => {
+const TimePicker = ({ title, value, onChange }: TimePickerProps) => {
   return (
     <VStack flex={1} style={{ alignContent: 'flex-start' }}>
       <Text>{title}</Text>
       <DateTimePicker
         display="inline"
         testID="dateTimePicker"
-        value={new Date()}
+        value={value}
         mode="time"
-        onChange={(e) => {
-          onChange(e);
+        onChange={(e, date) => {
+          onChange(date);
         }}
       />
     </VStack>
