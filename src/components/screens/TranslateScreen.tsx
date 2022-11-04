@@ -12,8 +12,8 @@ const TranslateScreen = ({ navigation, route }) => {
   // }, [route.params?.translation]);
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
+    <ScrollView style={styles.container}>
+      <View>
         <Text variant="screenTitle">Translate</Text>
         {route.params?.translation ? (
           <View>

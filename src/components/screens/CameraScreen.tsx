@@ -51,6 +51,7 @@ const CameraScreen = (props) => {
         text: data.text,
         image: image,
       });
+      setImage(null);
     } catch (error) {
       console.log(error);
     }
