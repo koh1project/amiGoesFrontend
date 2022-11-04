@@ -8,6 +8,7 @@ import {
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NativeBaseProvider, StatusBar } from 'native-base';
+import { useEffect, useState } from 'react';
 import { Header } from './src/components/headers/Header';
 import CameraScreen from './src/components/screens/CameraScreen';
 import ConnectFilterScreen from './src/components/screens/Connect/ConnectFiltersScreen';
@@ -17,6 +18,7 @@ import { DiscoverScreen } from './src/components/screens/DiscoverScreen';
 import IndexScreen from './src/components/screens/IndexScreen';
 import LoginScreen from './src/components/screens/LoginScreen';
 import SignupScreen from './src/components/screens/SignupScreen';
+import SplashScreen from './src/components/screens/SplashScreen';
 import TranslateScreen from './src/components/screens/TranslateScreen';
 import { customTheme } from './src/theme';
 
@@ -26,6 +28,8 @@ import { INITIAL_SCREEN, SCREEN_NAMES } from './src/utils/const';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
+  const [isReady, setIsReady] = useState(false);
+
   const [fontsLoaded] = useFonts({
     Ubuntu_300Light,
     Ubuntu_400Regular,
@@ -33,8 +37,19 @@ export default function App() {
     Ubuntu_700Bold,
   });
 
-  if (!fontsLoaded) {
-    return null;
+  useEffect(() => {
+    setTimeout(() => {
+      setIsReady(true);
+    }, 6000);
+  }, []);
+
+  if (!isReady && fontsLoaded) {
+    return (
+      <NativeBaseProvider theme={customTheme}>
+        <StatusBar barStyle="light-content" backgroundColor="#EE6653" />
+        <SplashScreen />
+      </NativeBaseProvider>
+    );
   } else {
     return (
       <NativeBaseProvider theme={customTheme}>
