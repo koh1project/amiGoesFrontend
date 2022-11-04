@@ -9,6 +9,7 @@ import {
 } from '../../../services/userProfile.service';
 import { PrimaryButton } from '../../buttons/PrimaryButton';
 import { Input } from '../../form/Input';
+import { useNotificationsToken } from '../../../hooks/useNotificationsToken';
 
 const languagesOptions = [
   {
@@ -77,6 +78,7 @@ const hobbiesOptions = [
 ];
 
 export const StepTwoForm: React.FC = ({ route }) => {
+  const { updateNotificationToken } = useNotificationsToken();
   //console.log(user);
   const multiSelect = useRef(null);
   const multiSelectHobbies = useRef(null);
@@ -126,8 +128,6 @@ export const StepTwoForm: React.FC = ({ route }) => {
       languages: languages,
       hobbies: hobbies,
     };
-    // const jsonData = JSON.stringify(data);
-    // console.log("Json Data: ",jsonData);
     createProfile(data);
   };
 
@@ -137,6 +137,7 @@ export const StepTwoForm: React.FC = ({ route }) => {
     console.log('Response from backend: ', result.data);
     if (result.data) {
       alert('Profile created successfully!');
+      updateNotificationToken(); // update send notification token to backend
       navigation.navigate('Index' as never);
     }
   };

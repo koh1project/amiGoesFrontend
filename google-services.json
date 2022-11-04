@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "510730280591",
+    "project_id": "amigoes4985",
+    "storage_bucket": "amigoes4985.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:510730280591:android:817a91d8a27aaf932e5afa",
+        "android_client_info": {
+          "package_name": "com.eevee.amigoes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "510730280591-pd5e63q05tjge852lvkornr3ovn1vv8i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7-WwrDL21GcYLOBKaigbymMxdd4mVEV4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "510730280591-pd5e63q05tjge852lvkornr3ovn1vv8i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

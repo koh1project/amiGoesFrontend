@@ -30,11 +30,14 @@ const LoginScreen = () => {
       .then((userCredentials) => {
         const user = userCredentials.user;
       })
-      .catch((error) => alert('Invalid email or password'));
+      .catch((error) => {
+        console.log(error);
+        alert('Invalid email or password');
+      });
   };
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="padding">
+    <KeyboardAvoidingView style={styles.container} behavior="height">
       <View style={styles.inputContainer}>
         <Text style={styles.text}>Email</Text>
         <TextInput

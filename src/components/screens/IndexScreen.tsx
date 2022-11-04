@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/core';
-import React from 'react';
+import * as Notifications from 'expo-notifications';
+import React, { useEffect } from 'react';
 
 import axios from 'axios';
 import { View, VStack } from 'native-base';
@@ -11,12 +12,40 @@ import Discover from '../../../assets/icons/discover-icon.svg';
 import Favorites from '../../../assets/icons/favorites-icon.svg';
 import Profile from '../../../assets/icons/profile-icon.svg';
 import Translate from '../../../assets/icons/translate-icon.svg';
+import { useNotifications } from '../../hooks/useNotifications';
 import { SCREEN_NAMES } from '../../utils/const';
 import { auth } from '../../utils/firebase';
 import { url } from '../../utils/url';
 import MenuItem from '../listItems/MenuItems';
 
 const IndexScreen = () => {
+  const { registerForPushNotificationsAsync, handleNotificationResponse } =
+    useNotifications();
+  // call useNotifications hook
+  // ******************************************************
+  useEffect(() => {
+    registerForPushNotificationsAsync();
+    Notifications.setNotificationHandler({
+      handleNotification: async () => ({
+        shouldShowAlert: true,
+        shouldPlaySound: true,
+        shouldSetBadge: true,
+      }),
+    });
+
+    const responseListener =
+      Notifications.addNotificationResponseReceivedListener(
+        handleNotificationResponse,
+      );
+
+    return () => {
+      if (responseListener) {
+        Notifications.removeNotificationSubscription(responseListener);
+      }
+    };
+  }, []);
+  // ******************************************************
+
   const [token, setToken] = useState('');
 
   const navigation = useNavigation();
