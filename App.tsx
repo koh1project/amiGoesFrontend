@@ -11,8 +11,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NativeBaseProvider, StatusBar } from 'native-base';
 import { useEffect, useState } from 'react';
 import { Header } from './src/components/headers/Header';
-import BlockedUsers from './src/components/list/BlockedUsers';
-import ConnectedUsers from './src/components/list/ConnectedUsers';
 import CameraScreen from './src/components/screens/CameraScreen';
 import ConnectFilterScreen from './src/components/screens/Connect/ConnectFiltersScreen';
 import { ConnectUsers } from './src/components/screens/Connect/ConnectUsers';
@@ -31,13 +29,15 @@ import { customTheme } from './src/theme';
 
 import { RootStackParamList } from './src/types/navigation';
 import { INITIAL_SCREEN, SCREEN_NAMES } from './src/utils/const';
+import ConnectedUsersScreen from './src/components/screens/myAmigoes/ConnectedUsersScreen';
+import BlockedUsersScreen from './src/components/screens/myAmigoes/BlockedUsersScreen';
 
 const TabNavigator = createMaterialTopTabNavigator();
-function ConnectedAndBlockedScreen() {
+function MyAmigoesTabNavigator() {
   return (
     <TabNavigator.Navigator>
-      <TabNavigator.Screen name="Connected" component={ConnectedUsers} />
-      <TabNavigator.Screen name="Blocked" component={BlockedUsers} />
+      <TabNavigator.Screen name="Connected" component={ConnectedUsersScreen} />
+      <TabNavigator.Screen name="Blocked" component={BlockedUsersScreen} />
     </TabNavigator.Navigator>
   );
 }
@@ -152,9 +152,12 @@ export default function App() {
               component={CameraScreen}
             />
             <Stack.Screen
-              name={SCREEN_NAMES.ConnectedAndBlockedScreen}
-              component={ConnectedAndBlockedScreen}
-              options={{ headerShown: false }}
+              component={MyAmigoesTabNavigator}
+              options={{
+                header: () => <Header />,
+                headerShown: true,
+              }}
+              name={SCREEN_NAMES.ConnectedUsersScreen}
             />
           </Stack.Navigator>
         </NavigationContainer>

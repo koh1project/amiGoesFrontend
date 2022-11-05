@@ -2,7 +2,7 @@ import { get } from './api';
 import { GetBlockedUsersResponse } from '../types/blockedUsers';
 
 const BLOCKED_USERS_ENDPOINT = {
-  get: '/blocked',
+  get: '/blocked/',
 };
 
 export const getBlockedUsers = async () => {

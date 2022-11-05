@@ -17,7 +17,6 @@ import { SCREEN_NAMES } from '../../utils/const';
 import { auth } from '../../utils/firebase';
 import { url } from '../../utils/url';
 import MenuItem from '../listItems/MenuItems';
-import ConnectedAndBlockedScreen from './ConnectedandBlockedScreen';
 
 const IndexScreen = () => {
   const { registerForPushNotificationsAsync, handleNotificationResponse } =
@@ -131,7 +130,12 @@ const IndexScreen = () => {
           >
             <MenuItem text="Profile" icon={<Profile style={styles.icon} />} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.menuItem}>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate(SCREEN_NAMES.ConnectedUsersScreen as never)
+            }
+            style={styles.menuItem}
+          >
             <MenuItem text="My amigoes" icon={<Amigos style={styles.icon} />} />
           </TouchableOpacity>
           <Button variant="menu" marginTop="20px">
@@ -160,17 +164,6 @@ const IndexScreen = () => {
               text="Translate"
               icon={<Translate style={styles.icon} />}
             />
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate(
-                SCREEN_NAMES.ConnectedAndBlockedScreen as never,
-              )
-            }
-            style={styles.menuItem}
-          >
-            <MenuItem text="Translate" icon={<ConnectedAndBlockedScreen />} />
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.menuItem}>

@@ -14,7 +14,8 @@ export const SCREEN_NAMES = {
   Camera: 'Camera',
   Translate: 'Translate',
   ConnectFilter: 'ConnectFilter',
-  ConnectedAndBlockedScreen: 'ConnectedAndBlockedScreen',
+  ConnectedUsersScreen: 'ConnectedUsersScreen',
+  BlockedUsersScreen: 'BlockedUsersScreen',
   ConnectUsers: 'ConnectUsers',
 } as const;
 

@@ -3,7 +3,7 @@ import { Text, View } from 'native-base';
 // import { getBlockedUsers } from '../../services/blockedUsers.service';
 // import { GetBlockedUsersResponse } from '../../types/blockedUsers';
 
-const BlockedUsers = () => {
+const BlockedUsersScreen = () => {
   // const [users, setUsers] = useState<GetBlockedUsersResponse>();
 
   // const fetchUsers = useCallback(async () => {
@@ -28,4 +28,4 @@ const BlockedUsers = () => {
   );
 };
 
-export default BlockedUsers;
+export default BlockedUsersScreen;

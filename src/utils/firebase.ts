@@ -26,9 +26,5 @@ if (firebase.apps.length === 0) {
 //const analytics = getAnalytics(app);
 const auth = firebase.auth();
 
-// export const authUser = () => {
-//   return auth.currentUser;
-// };
-
 auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 export { auth };

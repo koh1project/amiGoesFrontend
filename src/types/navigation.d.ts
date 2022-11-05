@@ -14,6 +14,7 @@ export type RootStackParamList = {
   Translate: undefined;
   ConnectFilter: undefined;
   ConnectUsers: ConnectFilters;
+  ConnectedAndBlockedScreen: undefined;
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =
