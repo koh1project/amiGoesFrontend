@@ -36,3 +36,17 @@ export const post = async <T>(
     console.log(e);
   }
 };
+
+export const patch = async <T>(
+  url: string,
+  data: T,
+  headers = DEFAULT_HEADERS(),
+) => {
+  try {
+    return axios.patch(BASE_URL + url, data, {
+      headers,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};

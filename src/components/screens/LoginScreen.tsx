@@ -8,22 +8,21 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+
+import { useAuth } from '../../hooks/useAuth';
 import { auth } from '../../utils/firebase';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const user = useAuth();
   const navigation = useNavigation();
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        navigation.navigate('Index');
-      }
-    });
-    return unsubscribe;
-  }, []);
+    if (user) {
+      navigation.navigate('Index');
+    }
+  }, [user]);
 
   const handleLogin = () => {
     auth
@@ -31,11 +30,14 @@ const LoginScreen = () => {
       .then((userCredentials) => {
         const user = userCredentials.user;
       })
-      .catch((error) => alert('Invalid email or password'));
+      .catch((error) => {
+        console.log(error);
+        alert('Invalid email or password');
+      });
   };
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="padding">
+    <KeyboardAvoidingView style={styles.container} behavior="height">
       <View style={styles.inputContainer}>
         <Text style={styles.text}>Email</Text>
         <TextInput

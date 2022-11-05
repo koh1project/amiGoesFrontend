@@ -1,9 +1,19 @@
 import type { StackScreenProps } from '@react-navigation/stack';
-import { SCREEN_NAMES } from '../../const';
+import { SCREEN_NAMES } from '../utils/const';
+import { ConnectFilters } from './models';
 
 type ScreenTypes = keyof typeof SCREEN_NAMES;
 export type RootStackParamList = {
-  [key in ScreenTypes]: undefined;
+  Index: undefined;
+  Signup: undefined;
+  Login: undefined;
+  Discover: undefined;
+  CreateProfileStepOneForm: undefined;
+  CreateProfileStepTwoForm: undefined;
+  Camera: undefined;
+  Translate: undefined;
+  ConnectFilter: undefined;
+  ConnectUsers: ConnectFilters;
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =

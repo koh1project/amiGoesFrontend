@@ -1,9 +1,10 @@
 import { useNavigation } from '@react-navigation/core';
-// import BellIcon from '../../../assets/icons/bell.svg';
-// import ChevronLeftIcon from '../../../assets/icons/left.svg';
-// import Logo from '../../../assets/images/Logo.svg';
 
 import { Box, HStack, View } from 'native-base';
+import ChevronLeftIcon from '../../../assets/icons/left.svg';
+
+import BellIcon from '../../../assets/icons/bell.svg';
+import Logo from '../../../assets/images/Logo.svg';
 
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
@@ -38,10 +39,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: 30,
     paddingBottom: 30,
-    // backgroundColor: 'primary.100',
     borderBottomLeftRadius: 25,
     borderBottomRightRadius: 25,
     height: 84,
+    marginBottom: 26,
   },
   Logo: {
     width: 82.67,

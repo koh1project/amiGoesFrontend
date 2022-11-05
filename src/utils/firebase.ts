@@ -30,4 +30,5 @@ const auth = firebase.auth();
 //   return auth.currentUser;
 // };
 
+auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 export { auth };
