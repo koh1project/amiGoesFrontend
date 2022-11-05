@@ -7,21 +7,21 @@ import { GetConnectedUsersResponse } from '../../types/connectedUsers';
 const ConnectedUsers = () => {
   const [users, setUsers] = useState<GetConnectedUsersResponse>();
 
-  const fetchUsers = useCallback(async () => {
-    const result = await getConnectedUsers();
+  // const fetchUsers = useCallback(async () => {
+  //   const result = await getConnectedUsers();
 
-    const { data } = result;
-    setUsers(data);
-    return data;
-  }, []);
+  //   const { data } = result;
+  //   setUsers(data);
+  //   return data;
+  // }, []);
 
   // console.log({ users });
 
-  useEffect(() => {
-    fetchUsers().catch((error) => {
-      console.error(error);
-    });
-  }, [fetchUsers]);
+  // useEffect(() => {
+  //   fetchUsers().catch((error) => {
+  //     console.error(error);
+  //   });
+  // }, [fetchUsers]);
 
   // const userId = async () => {
   //   const id = await useGetUserId();
