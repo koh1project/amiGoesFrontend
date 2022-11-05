@@ -23,7 +23,7 @@ const ConnectedUsersScreen = () => {
   const fetchUsers = async () => {
     const result = await getConnectedUsers(userId.uid);
     const { data } = result;
-    console.log(result);
+    // console.log(result);
     setConnectedUsers(data);
     return data;
   };

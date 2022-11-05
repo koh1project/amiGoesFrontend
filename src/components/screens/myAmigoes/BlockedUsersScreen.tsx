@@ -1,30 +1,41 @@
-import { Text, View } from 'native-base';
-// import { useCallback, useEffect, useState } from 'react';
-// import { getBlockedUsers } from '../../services/blockedUsers.service';
-// import { GetBlockedUsersResponse } from '../../types/blockedUsers';
+import { Text } from 'native-base';
+import React, { useEffect, useState } from 'react';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import { useAuth } from '../../../hooks/useAuth';
+import { getBlockedUsers } from '../../../services/blockedUsers.service';
+import { GetBlockedUsersResponse } from '../../../types/blockedUsers';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
+});
 
 const BlockedUsersScreen = () => {
-  // const [users, setUsers] = useState<GetBlockedUsersResponse>();
+  const userId = useAuth();
 
-  // const fetchUsers = useCallback(async () => {
-  //   const result = await getBlockedUsers();
-  //   const { data } = result;
-  //   // console.log({ data });
+  const [blockedUsers, setBlockedUsers] = useState<GetBlockedUsersResponse>();
 
-  //   setUsers(data);
-  //   return data;
-  // }, []);
+  const fetchUsers = async () => {
+    const result = await getBlockedUsers(userId.uid);
+    const { data } = result;
+    console.log(result);
+    setBlockedUsers(data);
+    return data;
+  };
 
-  // useEffect(() => {
-  //   fetchUsers().catch((error) => {
-  //     console.error(error);
-  //   });
-  // }, [fetchUsers]);
-
+  useEffect(() => {
+    if (userId) {
+      fetchUsers();
+    }
+  }, [userId]);
   return (
-    <View>
-      <Text>Blocked Users</Text>
-    </View>
+    <ScrollView style={styles.container}>
+      <View>
+        <Text>Blocked Users Screen</Text>
+      </View>
+    </ScrollView>
   );
 };
 
