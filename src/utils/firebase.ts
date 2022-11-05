@@ -26,8 +26,8 @@ if (firebase.apps.length === 0) {
 //const analytics = getAnalytics(app);
 const auth = firebase.auth();
 
-export const authUser = () => {
-  return auth.currentUser;
-};
+// export const authUser = () => {
+//   return auth.currentUser;
+// };
 
 export { auth };

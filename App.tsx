@@ -5,10 +5,13 @@ import {
   Ubuntu_700Bold,
   useFonts,
 } from '@expo-google-fonts/ubuntu';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NativeBaseProvider, Stack, StatusBar } from 'native-base';
+import { NativeBaseProvider, StatusBar } from 'native-base';
 import { Header } from './src/components/headers/Header';
+import BlockedUsers from './src/components/list/BlockedUsers';
+import ConnectedUsers from './src/components/list/ConnectedUsers';
 import CameraScreen from './src/components/screens/CameraScreen';
 import ConnectFilterScreen from './src/components/screens/Connect/ConnectFiltersScreen';
 import { StepOneForm } from './src/components/screens/createProfile/StepOneForm';
@@ -18,9 +21,7 @@ import IndexScreen from './src/components/screens/IndexScreen';
 import LoginScreen from './src/components/screens/LoginScreen';
 import SignupScreen from './src/components/screens/SignupScreen';
 import TranslateScreen from './src/components/screens/TranslateScreen';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import BlockedUsers from './src/components/list/BlockedUsers';
-import ConnectedUsers from './src/components/list/ConnectedUsers';
+
 import { customTheme } from './src/theme';
 
 import { RootStackParamList } from './src/types/navigation';
@@ -35,6 +36,8 @@ function ConnectedAndBlockedScreen() {
     </TabNavigator.Navigator>
   );
 }
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -92,11 +95,11 @@ export default function App() {
               name={SCREEN_NAMES.Camera}
               component={CameraScreen}
             />
-                      <Stack.Screen
-            name={SCREEN_NAMES.ConnectedAndBlockedScreen}
-            component={ConnectedAndBlockedScreen}
-            options={{ headerShown: false }}
-          />
+            <Stack.Screen
+              name={SCREEN_NAMES.ConnectedAndBlockedScreen}
+              component={ConnectedAndBlockedScreen}
+              options={{ headerShown: false }}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </NativeBaseProvider>

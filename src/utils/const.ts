@@ -7,8 +7,13 @@ export const SCREEN_NAMES = {
   Signup: 'Signup',
   Login: 'Login',
   Discover: 'Discover',
+  CreateProfileStepOneForm: 'CreateProfileStepOneForm',
+  CreateProfileStepTwoForm: 'CreateProfileStepTwoForm',
+  Camera: 'Camera',
+  Translate: 'Translate',
+  ConnectFilter: 'ConnectFilter',
   ConnectedAndBlockedScreen: 'ConnectedAndBlockedScreen',
-};
+} as const;
 
 export const INITIAL_SCREEN = Constants.expoConfig.extra.INITIAL_SCREEN;
 

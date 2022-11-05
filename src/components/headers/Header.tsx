@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/core';
-import BellIcon from '../../../assets/icons/bell.svg';
-import ChevronLeftIcon from '../../../assets/icons/left.svg';
-import Logo from '../../../assets/images/Logo.svg';
+// import BellIcon from '../../../assets/icons/bell.svg';
+// import ChevronLeftIcon from '../../../assets/icons/left.svg';
+// import Logo from '../../../assets/images/Logo.svg';
 
 import { Box, HStack, View } from 'native-base';
 
@@ -19,11 +19,11 @@ export const Header: React.FC = () => {
               navigation.goBack();
             }}
           >
-            <ChevronLeftIcon style={styles.arrow} />
+            {/* <ChevronLeftIcon style={styles.arrow} /> */}
           </TouchableOpacity>
-          <Logo style={styles.Logo} source={Logo} />
+          {/* <Logo style={styles.Logo} source={Logo} /> */}
           <TouchableOpacity>
-            <BellIcon style={styles.bell} />
+            {/* <BellIcon style={styles.bell} /> */}
           </TouchableOpacity>
         </HStack>
       </View>

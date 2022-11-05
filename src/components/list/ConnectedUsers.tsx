@@ -1,29 +1,16 @@
 import { Text, View } from 'native-base';
+// import useGetUserId from '../../utils/useGetUserId';
 import { useCallback, useEffect, useState } from 'react';
 import { getConnectedUsers } from '../../services/connectedUsers.service';
 import { GetConnectedUsersResponse } from '../../types/connectedUsers';
-import { authUser } from '../../utils/firebase';
 
 const ConnectedUsers = () => {
   const [users, setUsers] = useState<GetConnectedUsersResponse>();
-  const [userId, setUserId] = useState<string>();
-
-  const loggedInUserId = async () => {
-    const loggedinUser = await authUser();
-
-    const { uid } = loggedinUser;
-    // console.log({ uid });
-    setUserId(uid);
-    return uid;
-  };
-
-  console.log(userId);
 
   const fetchUsers = useCallback(async () => {
     const result = await getConnectedUsers();
 
     const { data } = result;
-    // console.log({ data });
     setUsers(data);
     return data;
   }, []);
@@ -36,12 +23,12 @@ const ConnectedUsers = () => {
     });
   }, [fetchUsers]);
 
-  useEffect(() => {
-    loggedInUserId().catch((error) => {
-      console.error(error);
-    });
-  }, [loggedInUserId]);
+  // const userId = async () => {
+  //   const id = await useGetUserId();
+  //   console.log({ id });
+  // };
 
+  // userId();
   return (
     <View>
       <Text>Connected Users</Text>
