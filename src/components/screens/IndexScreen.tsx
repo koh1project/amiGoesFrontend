@@ -13,6 +13,7 @@ import Favorites from '../../../assets/icons/favorites-icon.svg';
 import Profile from '../../../assets/icons/profile-icon.svg';
 import Translate from '../../../assets/icons/translate-icon.svg';
 import { useNotifications } from '../../hooks/useNotifications';
+import i18n from '../../localization/Localization';
 import { SCREEN_NAMES } from '../../utils/const';
 import { auth } from '../../utils/firebase';
 import { url } from '../../utils/url';
@@ -102,7 +103,7 @@ const IndexScreen = () => {
             style={styles.menuItem}
           >
             <MenuItem
-              text="Discover"
+              text={i18n.t('IndexScreen.Discover')}
               icon={<Discover style={styles.icon} />}
               style={styles.icon}
             />
@@ -115,7 +116,10 @@ const IndexScreen = () => {
             }
             style={styles.menuItem}
           >
-            <MenuItem text="Profile" icon={<Profile style={styles.icon} />} />
+            <MenuItem
+              text={i18n.t('IndexScreen.Profile')}
+              icon={<Profile style={styles.icon} />}
+            />
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() =>
@@ -123,7 +127,10 @@ const IndexScreen = () => {
             }
             style={styles.menuItem}
           >
-            <MenuItem text="My amigoes" icon={<Amigos style={styles.icon} />} />
+            <MenuItem
+              text={i18n.t('IndexScreen.My_Amigoes')}
+              icon={<Amigos style={styles.icon} />}
+            />
           </TouchableOpacity>
           <Button variant="menu" marginTop="20px">
             Account
@@ -137,7 +144,7 @@ const IndexScreen = () => {
             style={styles.menuItem}
           >
             <MenuItem
-              text="Connect"
+              text={i18n.t('IndexScreen.Connect')}
               icon={<Connect style={styles.icon} />}
               style={styles.icon}
             />
@@ -148,19 +155,19 @@ const IndexScreen = () => {
             style={styles.menuItem}
           >
             <MenuItem
-              text="Translate"
+              text={i18n.t('IndexScreen.Translate')}
               icon={<Translate style={styles.icon} />}
             />
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.menuItem}>
             <MenuItem
-              text="Favorites"
+              text={i18n.t('IndexScreen.Favorites')}
               icon={<Favorites style={styles.icon} />}
             />
           </TouchableOpacity>
           <Button variant="menu" marginTop="20px">
-            How to Use
+            {i18n.t('IndexScreen.HowToUse_Button')}
           </Button>
         </VStack>
       </View>

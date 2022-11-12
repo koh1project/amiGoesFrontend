@@ -25,7 +25,6 @@ export function AuthContextProvider({ children }: PropsWithChildren) {
       }
     });
     i18n.locale = Localization.locale;
-    console.log(Localization.locale);
   }, []);
 
   return (
