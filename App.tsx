@@ -5,6 +5,7 @@ import {
   Ubuntu_700Bold,
   useFonts,
 } from '@expo-google-fonts/ubuntu';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NativeBaseProvider, StatusBar } from 'native-base';
@@ -23,10 +24,23 @@ import LoginScreen from './src/components/screens/LoginScreen';
 import SignupScreen from './src/components/screens/SignupScreen';
 import SplashScreen from './src/components/screens/SplashScreen';
 import TranslateScreen from './src/components/screens/TranslateScreen';
+
 import { customTheme } from './src/theme';
 
 import { RootStackParamList } from './src/types/navigation';
 import { INITIAL_SCREEN, SCREEN_NAMES } from './src/utils/const';
+import ConnectedUsersScreen from './src/components/screens/myAmigoes/ConnectedUsersScreen';
+import BlockedUsersScreen from './src/components/screens/myAmigoes/BlockedUsersScreen';
+
+const TabNavigator = createMaterialTopTabNavigator();
+function MyAmigoesTabNavigator() {
+  return (
+    <TabNavigator.Navigator>
+      <TabNavigator.Screen name="Connected" component={ConnectedUsersScreen} />
+      <TabNavigator.Screen name="Blocked" component={BlockedUsersScreen} />
+    </TabNavigator.Navigator>
+  );
+}
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -136,6 +150,14 @@ export default function App() {
               options={{ headerShown: false }}
               name={SCREEN_NAMES.Camera}
               component={CameraScreen}
+            />
+            <Stack.Screen
+              component={MyAmigoesTabNavigator}
+              options={{
+                header: () => <Header />,
+                headerShown: true,
+              }}
+              name={SCREEN_NAMES.ConnectedUsersScreen}
             />
           </Stack.Navigator>
         </NavigationContainer>

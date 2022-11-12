@@ -130,7 +130,12 @@ const IndexScreen = () => {
           >
             <MenuItem text="Profile" icon={<Profile style={styles.icon} />} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.menuItem}>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate(SCREEN_NAMES.ConnectedUsersScreen as never)
+            }
+            style={styles.menuItem}
+          >
             <MenuItem text="My amigoes" icon={<Amigos style={styles.icon} />} />
           </TouchableOpacity>
           <Button variant="menu" marginTop="20px">
