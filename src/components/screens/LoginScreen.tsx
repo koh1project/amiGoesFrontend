@@ -19,7 +19,6 @@ const LoginScreen = () => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    console.log(user);
     if (user && user?.uid) {
       navigation.navigate('Index');
     }
@@ -33,7 +32,7 @@ const LoginScreen = () => {
         navigation.navigate('Index');
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
         alert('Invalid email or password');
       });
   };

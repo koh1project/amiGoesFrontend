@@ -2,10 +2,10 @@ import { Input, ScrollView, View } from 'native-base';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Text } from 'react-native';
 import { PlacesCarousel } from '../../features/discover/components/PlacesCarousel';
+import { useUserLocation } from '../../features/discover/hooks/useUserLocation';
 import { getDiscover } from '../../services/discover.service';
 import { GetDiscoverResponse } from '../../types/discover';
 import { SecondaryHeading } from '../texts/Heading';
-import { useUserLocation } from '../../features/discover/hooks/useUserLocation';
 
 export const DiscoverScreen: React.FC = () => {
   const [places, setPlaces] = useState<GetDiscoverResponse>();
@@ -14,8 +14,6 @@ export const DiscoverScreen: React.FC = () => {
   const fetchPlaces = useCallback(async () => {
     const result = await getDiscover();
     const { data } = result;
-    console.log({ data });
-
     setPlaces(data);
     return data;
   }, []);

@@ -70,11 +70,8 @@ const IndexScreen = () => {
           Authorization: authHeader,
         },
       })
-      .then((response) => {
-        console.log(response.data); // response.data is the data from the backend
-      })
+      .then((response) => {})
       .catch((error) => {
-        console.log('error: ', error);
         handleSignout(); // sign out if token is invalid
       });
   };

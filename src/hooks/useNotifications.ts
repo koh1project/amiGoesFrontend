@@ -19,7 +19,6 @@ export const useNotifications = () => {
         return;
       }
       const token = (await Notifications.getExpoPushTokenAsync()).data;
-      console.log('TOKEN: ', token);
       //this.setState({ expoPushToken: token });
     } else {
       alert('Must use physical device for Push Notifications');
@@ -37,7 +36,6 @@ export const useNotifications = () => {
 
   // notification listener while the app is in foreground
   const handleNotification = (notification: Notifications.Notification) => {
-    console.log(notification);
     //this.setState({ notification: notification });
   };
 
@@ -48,7 +46,6 @@ export const useNotifications = () => {
     const data = response.notification.request.content.data;
     if (data) {
       //this.props.navigation.navigate(data.screen);
-      console.log(data);
     }
   };
 

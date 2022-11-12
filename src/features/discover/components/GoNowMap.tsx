@@ -1,8 +1,8 @@
-import { FC, useRef, useState } from 'react';
-import MapView, { Callout, Circle, Marker, Region } from 'react-native-maps';
+import { FC, useRef } from 'react';
+import MapView, { Circle, Marker, Region } from 'react-native-maps';
 
-import { Image, View, Text } from 'native-base';
-import { StyleSheet, Dimensions } from 'react-native';
+import { Image, Text, View } from 'native-base';
+import { Dimensions, StyleSheet } from 'react-native';
 import { useGoNow } from '../hooks/useGoNow';
 
 type GoNowMapProps = {
@@ -22,9 +22,7 @@ export const GoNowMap: FC<GoNowMapProps> = ({ circleRadius }) => {
   }
 
   const handleRegionChange = async (region: Region) => {
-    console.log(region);
     const mapBoundaries = await mapRef.current.getMapBoundaries();
-    console.log(mapBoundaries);
   };
 
   const { latitude, longitude } = userLocation.coords;

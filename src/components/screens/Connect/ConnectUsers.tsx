@@ -22,10 +22,9 @@ export const ConnectUsers = () => {
   const [amigoes, setAmigoes] = useState<Amigo[]>([]);
 
   const getConnectUsers = async () => {
-    console.log(user);
     if (user) {
       const response = await connectUsers(user?.uid).catch((err) =>
-        console.log(err),
+        console.error(err),
       );
       if (response && response.data) {
         setAmigoes(response.data);
