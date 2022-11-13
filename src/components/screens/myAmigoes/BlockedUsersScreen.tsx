@@ -19,7 +19,6 @@ const BlockedUsersScreen = () => {
   const fetchUsers = async () => {
     const result = await getBlockedUsers(user.uid);
     const { data } = result;
-    console.log(result);
     setBlockedUsers(data);
     return data;
   };

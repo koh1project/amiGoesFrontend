@@ -15,6 +15,9 @@ export type RootStackParamList = {
   ConnectFilter: undefined;
   ConnectUsers: ConnectFilters;
   ConnectedAndBlockedScreen: undefined;
+  PlaceProfile: undefined;
+  GoNow: undefined;
+  ConnectedUsersScreen: undefined;
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =

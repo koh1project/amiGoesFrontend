@@ -14,7 +14,6 @@ export const DiscoverScreen: React.FC = () => {
   const fetchPlaces = useCallback(async () => {
     const result = await getDiscover();
     const { data } = result;
-    console.log({ data });
 
     setPlaces(data);
     return data;
@@ -27,7 +26,6 @@ export const DiscoverScreen: React.FC = () => {
     }
 
     const location = await Location.getCurrentPositionAsync({});
-    console.log('location: ', location);
     setLocation(location);
   }, []);
 

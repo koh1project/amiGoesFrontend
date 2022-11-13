@@ -14,7 +14,6 @@ const styles = StyleSheet.create({
 
 const ConnectedUsersScreen = () => {
   const { user } = useAuthContext();
-  // console.log('userId', userId);
 
   const [connectedUsers, setConnectedUsers] =
     useState<GetConnectedUsersResponse>();
@@ -22,7 +21,6 @@ const ConnectedUsersScreen = () => {
   const fetchUsers = async () => {
     const result = await getConnectedUsers(user.uid);
     const { data } = result;
-    // console.log(result);
     setConnectedUsers(data);
     return data;
   };

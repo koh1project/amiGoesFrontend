@@ -1,3 +1,4 @@
+import * as Localization from 'expo-localization';
 import {
   createContext,
   PropsWithChildren,
@@ -5,6 +6,7 @@ import {
   useEffect,
   useState,
 } from 'react';
+import i18n from '../../localization/Localization';
 import { auth } from '../../utils/firebase';
 
 const AuthContext = createContext(null);
@@ -22,6 +24,7 @@ export function AuthContextProvider({ children }: PropsWithChildren) {
         setUser(null);
       }
     });
+    i18n.locale = Localization.locale;
   }, []);
 
   return (

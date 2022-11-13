@@ -17,12 +17,6 @@ const CameraScreen = (props) => {
   const [screen, setScreen] = useState(route.params.screen);
   const language = 'es';
 
-  // useEffect(() => {
-  //   if (screen === SCREEN_NAMES.TRANSLATE) {
-  //     console.log('Translate Screen');
-  //   } else console.log(screen);
-  // }, [screen]);
-
   if (!cameraPermission) {
     requestCameraPermission();
   }
@@ -33,17 +27,15 @@ const CameraScreen = (props) => {
         const photo = await cameraRef.current.takePictureAsync({
           base64: true,
         });
-        console.log(photo);
         setImage(photo.base64);
         setPreview(photo.uri);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     }
   };
 
   const translate = async () => {
-    console.log('Translate', image);
     try {
       const data = await (await postTranslate(language, image)).data;
       navigation.navigate(SCREEN_NAMES.Translate, {
@@ -53,7 +45,7 @@ const CameraScreen = (props) => {
       });
       setImage(null);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -97,10 +89,7 @@ const CameraScreen = (props) => {
                 Translate
               </Button>
             ) : (
-              <Button
-                variant="primaryCamera"
-                onPress={() => console.log('here')}
-              >
+              <Button variant="primaryCamera" onPress={() => console.log()}>
                 Submit
               </Button>
             )}

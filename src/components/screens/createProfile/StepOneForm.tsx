@@ -12,6 +12,7 @@ import {
   View,
 } from 'react-native';
 import SelectList from 'react-native-dropdown-select-list';
+import { LooseObject } from '../../../types/models';
 import { SCREEN_NAMES } from '../../../utils/const';
 import { PrimaryButton } from '../../buttons/PrimaryButton';
 import { Input } from '../../form/Input';
@@ -33,7 +34,7 @@ export const StepOneForm: React.FC = () => {
     emergencyPhoneNumber: '123456789',
   });
 
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<LooseObject>({});
 
   useEffect(() => {
     onSelectGender(genderSelected);
@@ -65,8 +66,6 @@ export const StepOneForm: React.FC = () => {
       '/' +
       tempDate.getFullYear();
     setText(fDate);
-
-    console.log('Formatted Date: ' + fDate);
 
     setInputs({
       ...inputs,
@@ -157,7 +156,6 @@ export const StepOneForm: React.FC = () => {
           <Text
             style={{
               fontSize: 16,
-              fontWeight: 'medium',
               marginBottom: 8,
             }}
           >
@@ -194,7 +192,6 @@ export const StepOneForm: React.FC = () => {
             <Text
               style={{
                 fontSize: 16,
-                fontWeight: 'medium',
                 marginBottom: 8,
               }}
             >

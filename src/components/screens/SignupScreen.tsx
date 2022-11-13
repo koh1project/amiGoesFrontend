@@ -34,7 +34,6 @@ const SignupScreen = () => {
         .createUserWithEmailAndPassword(email, password)
         .then((userCredentials) => {
           const user = userCredentials.user;
-          console.log('Signed up with: ', user.email);
         })
         .catch((error) => alert(error.message));
     }
