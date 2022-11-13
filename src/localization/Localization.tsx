@@ -10,6 +10,7 @@ const i18n = new I18n({
       My_Amigoes: 'My Amigoes',
       Favorites: 'Favorites',
       HowToUse_Button: 'How to Use',
+      AccountButton: 'Account',
     },
   },
   es: {},

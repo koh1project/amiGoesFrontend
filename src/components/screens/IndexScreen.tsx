@@ -133,7 +133,7 @@ const IndexScreen = () => {
             />
           </TouchableOpacity>
           <Button variant="menu" marginTop="20px">
-            Account
+            {i18n.t('IndexScreen.AccountButton')}
           </Button>
         </VStack>
         <VStack style={styles.column2}>
