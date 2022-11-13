@@ -1,7 +1,7 @@
 import { Camera, CameraType } from 'expo-camera';
-import { Button } from 'native-base';
+import { Button, Spinner, View } from 'native-base';
 import { useRef, useState } from 'react';
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity } from 'react-native';
 import FlipCameraIcon from '../../../assets/icons/switch-camera.svg';
 import { postTranslate } from '../../services/translate.service';
 import { SCREEN_NAMES } from '../../utils/const';
@@ -15,6 +15,7 @@ const CameraScreen = (props) => {
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
   const [screen, setScreen] = useState(route.params.screen);
+  const [loading, setLoading] = useState(false);
   const language = 'es';
 
   if (!cameraPermission) {
@@ -26,6 +27,7 @@ const CameraScreen = (props) => {
       try {
         const photo = await cameraRef.current.takePictureAsync({
           base64: true,
+          quality: 0.5,
         });
         setImage(photo.base64);
         setPreview(photo.uri);
@@ -36,6 +38,7 @@ const CameraScreen = (props) => {
   };
 
   const translate = async () => {
+    setLoading(true);
     try {
       const data = await (await postTranslate(language, image)).data;
       navigation.navigate(SCREEN_NAMES.Translate, {
@@ -44,6 +47,7 @@ const CameraScreen = (props) => {
         image: image,
       });
       setImage(null);
+      setLoading(false);
     } catch (error) {
       console.error(error);
     }
@@ -56,10 +60,18 @@ const CameraScreen = (props) => {
   return (
     <View style={styles.container}>
       {!image ? (
-        <Camera style={styles.camera} ref={cameraRef} type={type} />
+        <Camera
+          style={styles.camera}
+          ref={cameraRef}
+          type={type}
+          ratio="16:9"
+        />
       ) : (
         <Image source={{ uri: preview }} style={styles.camera} />
       )}
+      {loading ? (
+        <Spinner size={70} color="coral" style={styles.loader} />
+      ) : null}
       <View>
         {!image ? (
           <View style={styles.mainButtonContainer}>
@@ -111,6 +123,13 @@ const styles = StyleSheet.create({
   camera: {
     flex: 1,
   },
+  loader: {
+    alignSelf: 'center',
+    top: '50%',
+    bottom: '50%',
+    position: 'absolute',
+  },
+
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -140,5 +159,10 @@ const styles = StyleSheet.create({
   icon: {
     position: 'absolute',
     right: 20,
+  },
+  spinnercontainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

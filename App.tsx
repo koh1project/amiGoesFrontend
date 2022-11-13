@@ -61,7 +61,7 @@ export default function App() {
     }, 6000);
   }, []);
 
-  if (!isReady && fontsLoaded) {
+  if (!isReady || !fontsLoaded) {
     return (
       <NativeBaseProvider theme={customTheme}>
         <StatusBar barStyle="light-content" backgroundColor="#EE6653" />
