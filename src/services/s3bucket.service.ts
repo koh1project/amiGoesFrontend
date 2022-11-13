@@ -5,11 +5,5 @@ const UPLOAD_IMAGE_ENDPOINT = {
 };
 
 export const uploadImage = async (image) => {
-  post(UPLOAD_IMAGE_ENDPOINT.post, { image })
-    .then((response) => {
-      console.log(response);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  post(UPLOAD_IMAGE_ENDPOINT.post, { image });
 };

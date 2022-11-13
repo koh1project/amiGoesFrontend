@@ -9,17 +9,17 @@ import {
   View,
 } from 'react-native';
 
-import { useAuth } from '../../hooks/useAuth';
 import { auth } from '../../utils/firebase';
+import { useAuthContext } from '../auth/AuthContextProvider';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const user = useAuth();
+  const { user } = useAuthContext();
   const navigation = useNavigation();
 
   useEffect(() => {
-    if (user) {
+    if (user && user?.uid) {
       navigation.navigate('Index');
     }
   }, [user]);
@@ -29,9 +29,10 @@ const LoginScreen = () => {
       .signInWithEmailAndPassword(email, password)
       .then((userCredentials) => {
         const user = userCredentials.user;
+        navigation.navigate('Index');
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
         alert('Invalid email or password');
       });
   };

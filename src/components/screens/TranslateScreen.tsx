@@ -5,12 +5,6 @@ import TranslateResults from '../../features/translate/TranslateResults';
 import TranslateForm from '../forms/TranslateForm';
 
 const TranslateScreen = ({ navigation, route }) => {
-  // useEffect(() => {
-  //   if (route.params?.translation) {
-  //     console.log('HERE IS THE TRANSLATION', route.params.translation);
-  //   }
-  // }, [route.params?.translation]);
-
   return (
     <ScrollView style={styles.container}>
       <View>

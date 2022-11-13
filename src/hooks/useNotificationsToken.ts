@@ -15,9 +15,6 @@ export const useNotificationsToken = () => {
     const result = await patch(postUrl, {
       notificationsToken: notificationsToken,
     });
-    if (result.data) {
-      console.log('result.data: ', result.data);
-    }
   };
 
   return {

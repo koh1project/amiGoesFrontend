@@ -33,7 +33,7 @@ export const post = async <T>(
       headers,
     });
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
 };
 
@@ -47,6 +47,6 @@ export const patch = async <T>(
       headers,
     });
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
 };

@@ -13,9 +13,11 @@ import Favorites from '../../../assets/icons/favorites-icon.svg';
 import Profile from '../../../assets/icons/profile-icon.svg';
 import Translate from '../../../assets/icons/translate-icon.svg';
 import { useNotifications } from '../../hooks/useNotifications';
+import i18n from '../../localization/Localization';
 import { SCREEN_NAMES } from '../../utils/const';
 import { auth } from '../../utils/firebase';
 import { url } from '../../utils/url';
+import { useAuthContext } from '../auth/AuthContextProvider';
 import MenuItem from '../listItems/MenuItems';
 
 const IndexScreen = () => {
@@ -23,6 +25,8 @@ const IndexScreen = () => {
     useNotifications();
   // call useNotifications hook
   // ******************************************************
+  const { user } = useAuthContext();
+
   useEffect(() => {
     registerForPushNotificationsAsync();
     Notifications.setNotificationHandler({
@@ -52,24 +56,11 @@ const IndexScreen = () => {
 
   // code to test authentication on backend
   // *************************************
-  // useEffect(() => {
-  //   if (token !== '') {
-  //     fetchData(token);
-  //   } else if (auth.currentUser) {
-  //     auth.currentUser
-  //       .getIdToken(true)
-  //       .then((idToken) => {
-  //         //console.log(idToken);
-  //         setToken(idToken);
-  //       })
-  //       .catch((error) => {
-  //         console.log(error);
-  //         handleSignout();
-  //       });
-  //   } else {
-  //     navigation.navigate('Login');
-  //   }
-  // }, [token]);
+  useEffect(() => {
+    if (user === undefined) {
+      navigation.navigate('Login');
+    }
+  }, [user]);
 
   // fetch data from backend home route
   const fetchData = async (token) => {
@@ -80,11 +71,8 @@ const IndexScreen = () => {
           Authorization: authHeader,
         },
       })
-      .then((response) => {
-        console.log(response.data); // response.data is the data from the backend
-      })
+      .then((response) => {})
       .catch((error) => {
-        console.log('error: ', error);
         handleSignout(); // sign out if token is invalid
       });
   };
@@ -115,7 +103,7 @@ const IndexScreen = () => {
             style={styles.menuItem}
           >
             <MenuItem
-              text="Discover"
+              text={i18n.t('IndexScreen.Discover')}
               icon={<Discover style={styles.icon} />}
               style={styles.icon}
             />
@@ -128,13 +116,24 @@ const IndexScreen = () => {
             }
             style={styles.menuItem}
           >
-            <MenuItem text="Profile" icon={<Profile style={styles.icon} />} />
+            <MenuItem
+              text={i18n.t('IndexScreen.Profile')}
+              icon={<Profile style={styles.icon} />}
+            />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.menuItem}>
-            <MenuItem text="My amigoes" icon={<Amigos style={styles.icon} />} />
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate(SCREEN_NAMES.ConnectedUsersScreen as never)
+            }
+            style={styles.menuItem}
+          >
+            <MenuItem
+              text={i18n.t('IndexScreen.My_Amigoes')}
+              icon={<Amigos style={styles.icon} />}
+            />
           </TouchableOpacity>
           <Button variant="menu" marginTop="20px">
-            Account
+            {i18n.t('IndexScreen.AccountButton')}
           </Button>
         </VStack>
         <VStack style={styles.column2}>
@@ -145,7 +144,7 @@ const IndexScreen = () => {
             style={styles.menuItem}
           >
             <MenuItem
-              text="Connect"
+              text={i18n.t('IndexScreen.Connect')}
               icon={<Connect style={styles.icon} />}
               style={styles.icon}
             />
@@ -156,19 +155,19 @@ const IndexScreen = () => {
             style={styles.menuItem}
           >
             <MenuItem
-              text="Translate"
+              text={i18n.t('IndexScreen.Translate')}
               icon={<Translate style={styles.icon} />}
             />
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.menuItem}>
             <MenuItem
-              text="Favorites"
+              text={i18n.t('IndexScreen.Favorites')}
               icon={<Favorites style={styles.icon} />}
             />
           </TouchableOpacity>
           <Button variant="menu" marginTop="20px">
-            How to Use
+            {i18n.t('IndexScreen.HowToUse_Button')}
           </Button>
         </VStack>
       </View>

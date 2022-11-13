@@ -2,6 +2,8 @@ import { useNavigation } from '@react-navigation/core';
 import React, { useRef, useState } from 'react';
 import { Text, View } from 'react-native';
 import MultiSelect from 'react-native-multiple-select';
+import { useNotificationsToken } from '../../../hooks/useNotificationsToken';
+import i18n from '../../../localization/Localization';
 import { post } from '../../../services/api';
 import {
   authUser,
@@ -9,7 +11,6 @@ import {
 } from '../../../services/userProfile.service';
 import { PrimaryButton } from '../../buttons/PrimaryButton';
 import { Input } from '../../form/Input';
-import { useNotificationsToken } from '../../../hooks/useNotificationsToken';
 
 const languagesOptions = [
   {
@@ -79,7 +80,6 @@ const hobbiesOptions = [
 
 export const StepTwoForm: React.FC = ({ route }) => {
   const { updateNotificationToken } = useNotificationsToken();
-  //console.log(user);
   const multiSelect = useRef(null);
   const multiSelectHobbies = useRef(null);
   const [languages, setLanguagesArray] = useState([]);
@@ -132,9 +132,7 @@ export const StepTwoForm: React.FC = ({ route }) => {
   };
 
   const createProfile = async (data) => {
-    console.log(data);
     const result = await post(CREATE_USERPROFILE_ENDPOINT.post, data);
-    console.log('Response from backend: ', result.data);
     if (result.data) {
       alert('Profile created successfully!');
       updateNotificationToken(); // update send notification token to backend
@@ -147,8 +145,9 @@ export const StepTwoForm: React.FC = ({ route }) => {
       <Text>Talk a bit about yourself</Text>
       <View>
         <Input
-          label="Home Coutry"
+          label={i18n.t('error_description')}
           placeholder="Ex. Mexico"
+          error={''}
           onChangeText={(text) => handleOnChange(text, 'homeCountry')}
         />
         <View>
@@ -181,6 +180,7 @@ export const StepTwoForm: React.FC = ({ route }) => {
         </View>
         <Input
           label="About Me"
+          error={''}
           placeholder="Write a bit about yourself"
           onChangeText={(text) => handleOnChange(text, 'bio')}
         />

@@ -18,12 +18,6 @@ const CameraScreen = (props) => {
   const [loading, setLoading] = useState(false);
   const language = 'es';
 
-  // useEffect(() => {
-  //   if (screen === SCREEN_NAMES.TRANSLATE) {
-  //     console.log('Translate Screen');
-  //   } else console.log(screen);
-  // }, [screen]);
-
   if (!cameraPermission) {
     requestCameraPermission();
   }
@@ -35,12 +29,10 @@ const CameraScreen = (props) => {
           base64: true,
           quality: 0.5,
         });
-
-        // console.log(photo);
         setImage(photo.base64);
         setPreview(photo.uri);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     }
   };
@@ -57,7 +49,7 @@ const CameraScreen = (props) => {
       setImage(null);
       setLoading(false);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -109,10 +101,7 @@ const CameraScreen = (props) => {
                 Translate
               </Button>
             ) : (
-              <Button
-                variant="primaryCamera"
-                onPress={() => console.log('here')}
-              >
+              <Button variant="primaryCamera" onPress={() => console.log()}>
                 Submit
               </Button>
             )}
