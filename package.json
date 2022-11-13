@@ -29,6 +29,7 @@
     "expo-camera": "^12.3.0",
     "expo-device": "~4.3.0",
     "expo-font": "^10.2.1",
+    "expo-image-manipulator": "~10.4.0",
     "expo-location": "~14.3.0",
     "expo-notifications": "~0.16.1",
     "expo-status-bar": "~1.4.0",

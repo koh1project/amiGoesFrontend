@@ -16,14 +16,15 @@ const TranslateResults = (props) => {
 
       <Image
         style={{
-          width: '100%',
+          maxWidth: '100%',
           height: 372,
-          resizeMode: 'contain',
+          resizeMode: 'cover',
           borderWidth: 1,
           marginBottom: 25,
         }}
         source={{ uri: img }}
       />
+
       <Box style={styles.textContainer}>
         <HStack style={styles.language}>
           <Image source={english} style={styles.icon} />
