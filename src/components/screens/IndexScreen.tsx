@@ -172,7 +172,13 @@ const IndexScreen = () => {
               icon={<Favorites style={styles.icon} />}
             />
           </TouchableOpacity>
-          <Button variant="menu" marginTop="20px">
+          <Button
+            variant="menu"
+            marginTop="20px"
+            onPress={() =>
+              navigation.navigate(SCREEN_NAMES.Onboarding as never)
+            }
+          >
             How to Use
           </Button>
         </VStack>
