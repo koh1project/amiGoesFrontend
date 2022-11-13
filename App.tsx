@@ -21,6 +21,7 @@ import { GoNowScreen } from './src/components/screens/discover/GoNowScreen';
 import { PlaceProfileScreen } from './src/components/screens/discover/PlaceProfileScreen';
 import IndexScreen from './src/components/screens/IndexScreen';
 import LoginScreen from './src/components/screens/LoginScreen';
+import Onboarding from './src/components/screens/Onboarding';
 import SignupScreen from './src/components/screens/SignupScreen';
 import SplashScreen from './src/components/screens/SplashScreen';
 import TranslateScreen from './src/components/screens/TranslateScreen';
@@ -75,6 +76,11 @@ export default function App() {
           <StatusBar barStyle="light-content" backgroundColor="#3FA8AE" />
           <NavigationContainer>
             <Stack.Navigator initialRouteName={INITIAL_SCREEN}>
+              <Stack.Screen
+                name={SCREEN_NAMES.Onboarding}
+                component={Onboarding}
+                options={{ headerShown: false }}
+              />
               <Stack.Screen
                 options={{ headerShown: false }}
                 name={SCREEN_NAMES.Signup}
