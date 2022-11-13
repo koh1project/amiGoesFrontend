@@ -16,6 +16,7 @@ import { useNotifications } from '../../hooks/useNotifications';
 import { SCREEN_NAMES } from '../../utils/const';
 import { auth } from '../../utils/firebase';
 import { url } from '../../utils/url';
+import { useAuthContext } from '../auth/AuthContextProvider';
 import MenuItem from '../listItems/MenuItems';
 
 const IndexScreen = () => {
@@ -23,6 +24,8 @@ const IndexScreen = () => {
     useNotifications();
   // call useNotifications hook
   // ******************************************************
+  const { user } = useAuthContext();
+
   useEffect(() => {
     registerForPushNotificationsAsync();
     Notifications.setNotificationHandler({
@@ -52,24 +55,11 @@ const IndexScreen = () => {
 
   // code to test authentication on backend
   // *************************************
-  // useEffect(() => {
-  //   if (token !== '') {
-  //     fetchData(token);
-  //   } else if (auth.currentUser) {
-  //     auth.currentUser
-  //       .getIdToken(true)
-  //       .then((idToken) => {
-  //         //console.log(idToken);
-  //         setToken(idToken);
-  //       })
-  //       .catch((error) => {
-  //         console.log(error);
-  //         handleSignout();
-  //       });
-  //   } else {
-  //     navigation.navigate('Login');
-  //   }
-  // }, [token]);
+  useEffect(() => {
+    if (user === undefined) {
+      navigation.navigate('Login');
+    }
+  }, [user]);
 
   // fetch data from backend home route
   const fetchData = async (token) => {
