@@ -14,7 +14,6 @@ export const Header: React.FC = () => {
   const [showBackButton, setShowBackButton] = useState(true);
   const route = useRoute();
   useEffect(() => {
-    console.log(route.name);
     if (route.name === 'Index') {
       setShowBackButton(false);
     } else {
