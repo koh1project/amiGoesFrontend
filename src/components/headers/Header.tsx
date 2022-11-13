@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/core';
+import { useNavigation, useRoute } from '@react-navigation/core';
 
 import { Box, HStack, View } from 'native-base';
 import ChevronLeftIcon from '../../../assets/icons/left.svg';
@@ -6,11 +6,21 @@ import ChevronLeftIcon from '../../../assets/icons/left.svg';
 import BellIcon from '../../../assets/icons/bell.svg';
 import Logo from '../../../assets/images/Logo.svg';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 
 export const Header: React.FC = () => {
   const navigation = useNavigation();
+  const [showBackButton, setShowBackButton] = useState(true);
+  const route = useRoute();
+  useEffect(() => {
+    console.log(route.name);
+    if (route.name === 'Index') {
+      setShowBackButton(false);
+    } else {
+      setShowBackButton(true);
+    }
+  }, [route]);
   return (
     <Box safeAreaTop backgroundColor="#ffffff">
       <View backgroundColor="green" style={styles.Heading}>
@@ -20,7 +30,7 @@ export const Header: React.FC = () => {
               navigation.goBack();
             }}
           >
-            <ChevronLeftIcon style={styles.arrow} />
+            {showBackButton && <ChevronLeftIcon style={styles.arrow} />}
           </TouchableOpacity>
           <Logo style={styles.Logo} source={Logo} />
           <TouchableOpacity>
