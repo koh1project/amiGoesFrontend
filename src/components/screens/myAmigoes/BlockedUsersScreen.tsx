@@ -3,8 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { getBlockedUsers } from '../../../services/blockedUsers.service';
 import { useAuthContext } from '../../auth/AuthContextProvider';
-
-// import ConnectedUsersList from '../../list/ConnectedUsersList';
+import BlockedUsersList from '../../list/BlockedUsersList';
 
 const BlockedUsersScreen = () => {
   const { user } = useAuthContext();
@@ -23,11 +22,7 @@ const BlockedUsersScreen = () => {
     }
   }, [user]);
 
-  return (
-    <View>
-      <Text>Blocked Users Screen</Text>
-    </View>
-  );
+  return <BlockedUsersList blockedUsers={blockedUsers} />;
 };
 
 export default BlockedUsersScreen;
