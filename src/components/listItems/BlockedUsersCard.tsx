@@ -30,7 +30,13 @@ const BlockedUsersCard = (props) => {
   const { name, gender, age } = props;
 
   return (
-    <View style={styles.container} borderWidth={1} borderColor="#3FA8AE">
+    <View
+      style={styles.container}
+      borderWidth={1}
+      borderColor="#3FA8AE"
+      backgroundColor="#A09E9E"
+      opacity={0.8}
+    >
       <Center>
         <VStack mt={4} mb={4}>
           <Avatar
