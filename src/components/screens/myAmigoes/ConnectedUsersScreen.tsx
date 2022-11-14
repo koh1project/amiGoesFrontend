@@ -1,16 +1,9 @@
 import { Box } from 'native-base';
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { getConnectedUsers } from '../../../services/connectedUsers.service';
 import { useAuthContext } from '../../auth/AuthContextProvider';
 import ConnectedUsersList from '../../list/ConnectedUsersList';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-});
 
 const ConnectedUsersScreen = () => {
   const { user } = useAuthContext();
@@ -30,11 +23,7 @@ const ConnectedUsersScreen = () => {
     }
   }, [user]);
 
-  return (
-    <Box>
-      <ConnectedUsersList connectedUsers={connectedUsers} />;
-    </Box>
-  );
+  return <ConnectedUsersList connectedUsers={connectedUsers} />;
 };
 
 export default ConnectedUsersScreen;

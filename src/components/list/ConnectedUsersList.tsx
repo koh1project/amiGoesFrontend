@@ -1,32 +1,49 @@
-import { FlatList, ScrollView } from 'native-base';
+import { FlatList, HStack, ScrollView, VStack } from 'native-base';
 import React, { useState } from 'react';
 import { useAuthContext } from '../auth/AuthContextProvider';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import ConnectionsCard from '../listItems/ConnectionsCard';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-});
 
 const ConnectedUsersList = (props: any) => {
   const { user } = useAuthContext();
 
+  const styles = StyleSheet.create({
+    container: {
+      paddingHorizontal: 20,
+      paddingVertical: 20,
+      flex: 1,
+      zIndex: 1,
+    },
+  });
+
   const connectedUserId = '';
   return (
-    <FlatList
-      data={props.connectedUsers}
-      renderItem={({ item }: any) =>
-        user.uid === item.userID1._id ? (
-          <ConnectionsCard name={item.userID2.name} />
-        ) : (
-          <ConnectionsCard name={item.userID1.name} />
-        )
-      }
-    />
+    <View style={styles.container}>
+      <FlatList
+        data={props.connectedUsers}
+        numColumns={2}
+        columnWrapperStyle={{
+          justifyContent: 'space-between',
+          marginBottom: 15,
+        }}
+        renderItem={({ item }: any) =>
+          user.uid === item.userID1._id ? (
+            <ConnectionsCard
+              name={item.userID2.name}
+              gender={item.userID2.gender}
+              age={item.userID2.age}
+            />
+          ) : (
+            <ConnectionsCard
+              name={item.userID1.name}
+              gender={item.userID1.gender}
+              age={item.userID1.age}
+            />
+          )
+        }
+      />
+    </View>
   );
 };
 export default ConnectedUsersList;

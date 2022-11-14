@@ -8,8 +8,8 @@ import {
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NativeBaseProvider, StatusBar } from 'native-base';
-import { useEffect, useState } from 'react';
+import { NativeBaseProvider, StatusBar, View } from 'native-base';
+import React, { useEffect, useState } from 'react';
 import { Header } from './src/components/headers/Header';
 import CameraScreen from './src/components/screens/CameraScreen';
 import ConnectFilterScreen from './src/components/screens/Connect/ConnectFiltersScreen';
