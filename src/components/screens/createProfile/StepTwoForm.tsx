@@ -363,5 +363,6 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     justifyContent: 'center',
     marginBottom: 20,
+    marginTop: 20,
   },
 });
