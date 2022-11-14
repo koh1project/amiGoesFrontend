@@ -63,6 +63,12 @@ export const customTheme = extendTheme({
           marginLeft: '19px',
           marginBottom: '18px',
         },
+        disclaimer: {
+          fontFamily: 'Ubuntu_500Medium',
+          fontSize: '12',
+          lineHeight: '14',
+          color: 'dark',
+        },
       },
     },
     Button: {
@@ -116,6 +122,8 @@ export const customTheme = extendTheme({
           bg: 'white',
           width: '335',
           height: '60',
+          borderColor: 'coral',
+          borderWidth: '1px',
           _text: {
             color: 'coral',
           },
