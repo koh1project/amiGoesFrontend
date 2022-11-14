@@ -24,13 +24,17 @@ export const Header: React.FC = () => {
     <Box safeAreaTop backgroundColor="#ffffff">
       <View backgroundColor="green" style={styles.Heading}>
         <HStack style={styles.header}>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.goBack();
-            }}
-          >
-            {showBackButton && <ChevronLeftIcon style={styles.arrow} />}
-          </TouchableOpacity>
+          {showBackButton ? (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.goBack();
+              }}
+            >
+              <ChevronLeftIcon style={styles.arrow} />
+            </TouchableOpacity>
+          ) : (
+            <Box style={styles.placeholder} />
+          )}
           <Logo style={styles.Logo} source={Logo} />
           <TouchableOpacity>
             <BellIcon style={styles.bell} />
@@ -62,6 +66,10 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   arrow: {
+    marginLeft: 20,
+  },
+  placeholder: {
+    width: 20,
     marginLeft: 20,
   },
   bell: {
