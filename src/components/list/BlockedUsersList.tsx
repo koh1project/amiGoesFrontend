@@ -25,21 +25,13 @@ const BlockedUsersList = (props: any) => {
           justifyContent: 'space-between',
           marginBottom: 15,
         }}
-        renderItem={({ item }: any) =>
-          user.uid === item.userID1._id ? (
-            <BlockedUsersCard
-              name={item.userID2.name}
-              gender={item.userID2.gender}
-              age={item.userID2.age}
-            />
-          ) : (
-            <BlockedUsersCard
-              name={item.userID1.name}
-              gender={item.userID1.gender}
-              age={item.userID1.age}
-            />
-          )
-        }
+        renderItem={({ item }: any) => (
+          <BlockedUsersCard
+            name={item.blockedUserID.name}
+            gender={item.blockedUserID.gender}
+            age={item.blockedUserID.age}
+          />
+        )}
       />
     </View>
   );
