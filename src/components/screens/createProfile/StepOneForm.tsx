@@ -303,7 +303,11 @@ export const StepOneForm: React.FC = () => {
           <Text marginBottom="10px">
             Before you start, please make sure you have a government issued ID.
           </Text>
-          <Button variant="primaryLargeLight" marginBottom="24px">
+          <Button
+            variant="primaryLargeLight"
+            marginBottom="24px"
+            alignSelf="center"
+          >
             ID verification
           </Button>
           <Box backgroundColor="lightcoral" style={styles.disclaimer}>

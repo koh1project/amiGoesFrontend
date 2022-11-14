@@ -100,11 +100,16 @@ export const customTheme = extendTheme({
           opacity: 1,
           width: '167',
           height: '60',
+          borderColor: 'coral',
+          borderWidth: '1px',
           _text: {
             color: 'coral',
           },
           _pressed: {
             backgroundColor: 'coral',
+            _text: {
+              color: 'white',
+            },
           },
         },
         primaryLarge: {
@@ -129,6 +134,9 @@ export const customTheme = extendTheme({
           },
           _pressed: {
             backgroundColor: 'coral',
+            _text: {
+              color: 'white',
+            },
           },
         },
         disabled: {
