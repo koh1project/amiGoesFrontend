@@ -59,12 +59,7 @@ const LoginScreen = () => {
           style={styles.input}
           secureTextEntry
         />
-        <Button
-          variant="primaryLarge"
-          onPress={handleLogin}
-          alignSelf="center"
-          marginTop={4}
-        >
+        <Button variant="primaryLarge" onPress={handleLogin} alignSelf="center">
           Login
         </Button>
         <View
@@ -103,12 +98,12 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     alignItems: 'center',
-    flex: 0.45,
+    flex: 0.4,
     justifyContent: 'center',
     width: '100%',
   },
   formContainer: {
-    flex: 0.55,
+    flex: 0.6,
     marginLeft: 20,
     marginRight: 20,
   },
