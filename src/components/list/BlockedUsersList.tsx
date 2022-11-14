@@ -1,12 +1,9 @@
-import { FlatList, HStack, ScrollView, VStack } from 'native-base';
-import React, { useState } from 'react';
-import { useAuthContext } from '../auth/AuthContextProvider';
+import { FlatList } from 'native-base';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import BlockedUsersCard from '../listItems/BlockedUsersCard';
 
 const BlockedUsersList = (props: any) => {
-  const { user } = useAuthContext();
-
   const styles = StyleSheet.create({
     container: {
       paddingHorizontal: 20,
@@ -16,10 +13,12 @@ const BlockedUsersList = (props: any) => {
     },
   });
 
+  //   console.log('blockedUsers', props.blockedUsers);
+
   return (
     <View style={styles.container}>
       <FlatList
-        data={props.connectedUsers}
+        data={props.blockedUsers}
         numColumns={2}
         columnWrapperStyle={{
           justifyContent: 'space-between',
