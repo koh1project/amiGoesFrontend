@@ -1,6 +1,4 @@
-import { Box } from 'native-base';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet } from 'react-native';
 import { getConnectedUsers } from '../../../services/connectedUsers.service';
 import { useAuthContext } from '../../auth/AuthContextProvider';
 import ConnectedUsersList from '../../list/ConnectedUsersList';

@@ -2,23 +2,17 @@ import { Text } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { getBlockedUsers } from '../../../services/blockedUsers.service';
-import { GetBlockedUsersResponse } from '../../../types/blockedUsers';
 import { useAuthContext } from '../../auth/AuthContextProvider';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-});
+// import ConnectedUsersList from '../../list/ConnectedUsersList';
 
 const BlockedUsersScreen = () => {
   const { user } = useAuthContext();
-  const [blockedUsers, setBlockedUsers] = useState<GetBlockedUsersResponse>();
+  const [blockedUsers, setBlockedUsers] = useState();
 
   const fetchUsers = async () => {
     const result = await getBlockedUsers(user.uid);
-    const { data } = result;
+    const { data } = result.data.blockedUsers;
     setBlockedUsers(data);
     return data;
   };
@@ -28,12 +22,11 @@ const BlockedUsersScreen = () => {
       fetchUsers();
     }
   }, [user]);
+
   return (
-    <ScrollView style={styles.container}>
-      <View>
-        <Text>Blocked Users Screen</Text>
-      </View>
-    </ScrollView>
+    <View>
+      <Text>Blocked Users Screen</Text>
+    </View>
   );
 };
 
