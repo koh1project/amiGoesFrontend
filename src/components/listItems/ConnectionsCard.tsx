@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
 });
 
 const ConnectionsCard = (props) => {
-  const { name, gender, age } = props;
+  const { name, gender, age, navigation } = props;
 
   return (
     <View style={styles.container} borderWidth={1} borderColor="#3FA8AE">
@@ -52,7 +52,14 @@ const ConnectionsCard = (props) => {
               {gender}, {age}
             </Text>
 
-            <Link mt={4}>SEE PROFILE</Link>
+            <Link
+              mt={4}
+              onPress={() => {
+                navigation.navigate('UserProfileScreen', { name });
+              }}
+            >
+              SEE PROFILE
+            </Link>
           </Center>
         </VStack>
       </Center>

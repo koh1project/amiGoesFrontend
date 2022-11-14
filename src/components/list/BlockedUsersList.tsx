@@ -13,8 +13,6 @@ const BlockedUsersList = (props: any) => {
     },
   });
 
-  //   console.log('blockedUsers', props.blockedUsers);
-
   return (
     <View style={styles.container}>
       <FlatList

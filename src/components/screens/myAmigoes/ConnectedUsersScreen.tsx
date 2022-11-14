@@ -3,7 +3,7 @@ import { getConnectedUsers } from '../../../services/connectedUsers.service';
 import { useAuthContext } from '../../auth/AuthContextProvider';
 import ConnectedUsersList from '../../list/ConnectedUsersList';
 
-const ConnectedUsersScreen = () => {
+const ConnectedUsersScreen = ({ navigation }) => {
   const { user } = useAuthContext();
 
   const [connectedUsers, setConnectedUsers] = useState();
@@ -22,7 +22,12 @@ const ConnectedUsersScreen = () => {
     }
   }, [user]);
 
-  return <ConnectedUsersList connectedUsers={connectedUsers} />;
+  return (
+    <ConnectedUsersList
+      connectedUsers={connectedUsers}
+      navigation={navigation}
+    />
+  );
 };
 
 export default ConnectedUsersScreen;

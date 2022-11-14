@@ -32,6 +32,7 @@ import BlockedUsersScreen from './src/components/screens/myAmigoes/BlockedUsersS
 import ConnectedUsersScreen from './src/components/screens/myAmigoes/ConnectedUsersScreen';
 import { RootStackParamList } from './src/types/navigation';
 import { INITIAL_SCREEN, SCREEN_NAMES } from './src/utils/const';
+import UserProfileScreen from './src/components/screens/myAmigoes/UserProfileScreen';
 
 const TabNavigator = createMaterialTopTabNavigator();
 function MyAmigoesTabNavigator() {
@@ -160,6 +161,14 @@ export default function App() {
                   headerShown: true,
                 }}
                 name={SCREEN_NAMES.ConnectedUsersScreen}
+              />
+              <Stack.Screen
+                component={UserProfileScreen}
+                options={{
+                  header: () => <Header />,
+                  headerShown: true,
+                }}
+                name={SCREEN_NAMES.UserProfileScreen}
               />
             </Stack.Navigator>
           </NavigationContainer>

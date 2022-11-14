@@ -1,5 +1,5 @@
-import { FlatList, HStack, ScrollView, VStack } from 'native-base';
-import React, { useState } from 'react';
+import { FlatList } from 'native-base';
+import React from 'react';
 import { useAuthContext } from '../auth/AuthContextProvider';
 import { StyleSheet, View } from 'react-native';
 
@@ -32,12 +32,14 @@ const ConnectedUsersList = (props: any) => {
               name={item.userID2.name}
               gender={item.userID2.gender}
               age={item.userID2.age}
+              navigation={props.navigation}
             />
           ) : (
             <ConnectionsCard
               name={item.userID1.name}
               gender={item.userID1.gender}
               age={item.userID1.age}
+              navigation={props.navigation}
             />
           )
         }
