@@ -1,9 +1,9 @@
-import { Text } from 'native-base';
+import { Box } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { getConnectedUsers } from '../../../services/connectedUsers.service';
-import { GetConnectedUsersResponse } from '../../../types/connectedUsers';
 import { useAuthContext } from '../../auth/AuthContextProvider';
+import ConnectedUsersList from '../../list/ConnectedUsersList';
 
 const styles = StyleSheet.create({
   container: {
@@ -15,12 +15,11 @@ const styles = StyleSheet.create({
 const ConnectedUsersScreen = () => {
   const { user } = useAuthContext();
 
-  const [connectedUsers, setConnectedUsers] =
-    useState<GetConnectedUsersResponse>();
+  const [connectedUsers, setConnectedUsers] = useState();
 
   const fetchUsers = async () => {
     const result = await getConnectedUsers(user.uid);
-    const { data } = result;
+    const data = result.data.connectedUsers;
     setConnectedUsers(data);
     return data;
   };
@@ -32,11 +31,9 @@ const ConnectedUsersScreen = () => {
   }, [user]);
 
   return (
-    <ScrollView style={styles.container}>
-      <View>
-        <Text>ConnectedUsersScreen</Text>
-      </View>
-    </ScrollView>
+    <Box>
+      <ConnectedUsersList connectedUsers={connectedUsers} />;
+    </Box>
   );
 };
 
