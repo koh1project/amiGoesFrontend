@@ -10,7 +10,6 @@ const ConnectedUsersScreen = ({ navigation }) => {
 
   const fetchUsers = async () => {
     const result = await getConnectedUsers(user.uid);
-    // console.log(result.data.connectedUsers);
     const data = result.data.connectedUsers;
     setConnectedUsers(data);
     return data;

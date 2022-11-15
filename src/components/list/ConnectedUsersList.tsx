@@ -33,6 +33,12 @@ const ConnectedUsersList = (props: any) => {
               gender={item.userID2.gender}
               age={item.userID2.age}
               navigation={props.navigation}
+              homeCountry={item.userID2.homeCountry}
+              createdAt={item.createdAt}
+              languages={item.userID2.languages}
+              bio={item.userID2.bio}
+              hobbies={item.userID2.hobbies}
+              phoneNumber={item.userID2.contact.phoneNumber}
             />
           ) : (
             <ConnectionsCard
@@ -40,6 +46,12 @@ const ConnectedUsersList = (props: any) => {
               gender={item.userID1.gender}
               age={item.userID1.age}
               navigation={props.navigation}
+              homeCountry={item.userID1.homeCountry}
+              createdAt={item.createdAt}
+              languages={item.userID1.languages}
+              bio={item.userID1.bio}
+              hobbies={item.userID1.hobbies}
+              phoneNumber={item.userID1.contact.phoneNumber}
             />
           )
         }

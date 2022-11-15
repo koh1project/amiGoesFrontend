@@ -1,14 +1,4 @@
-import {
-  Box,
-  Center,
-  Flex,
-  HStack,
-  Text,
-  VStack,
-  Avatar,
-  View,
-  Link,
-} from 'native-base';
+import { Center, Text, VStack, Avatar, View, Link } from 'native-base';
 
 import React from 'react';
 import { StyleSheet, Dimensions } from 'react-native';
@@ -24,10 +14,31 @@ const styles = StyleSheet.create({
   genderAge: {
     fontWeight: 'bold',
   },
+  links: {
+    color: '#EE6653',
+    fontSize: 14,
+    fontFamily: 'Ubuntu_700Bold',
+  },
+  linkWrapper: {
+    borderBottomColor: '#EE6653',
+    borderBottomWidth: 2,
+    marginBottom: 1,
+  },
 });
 
 const ConnectionsCard = (props) => {
-  const { name, gender, age, navigation } = props;
+  const {
+    name,
+    gender,
+    age,
+    navigation,
+    homeCountry,
+    createdAt,
+    languages,
+    bio,
+    hobbies,
+    phoneNumber,
+  } = props;
 
   return (
     <View style={styles.container} borderWidth={1} borderColor="#3FA8AE">
@@ -52,14 +63,27 @@ const ConnectionsCard = (props) => {
               {gender}, {age}
             </Text>
 
-            <Link
-              mt={4}
-              onPress={() => {
-                navigation.navigate('UserProfileScreen', { name });
-              }}
-            >
-              SEE PROFILE
-            </Link>
+            <View style={styles.linkWrapper}>
+              <Text
+                style={styles.links}
+                mt={4}
+                onPress={() => {
+                  navigation.navigate('UserProfileScreen', {
+                    name,
+                    gender,
+                    age,
+                    homeCountry,
+                    createdAt,
+                    languages,
+                    bio,
+                    hobbies,
+                    phoneNumber,
+                  });
+                }}
+              >
+                SEE PROFILE
+              </Text>
+            </View>
           </Center>
         </VStack>
       </Center>
