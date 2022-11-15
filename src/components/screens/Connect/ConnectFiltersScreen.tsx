@@ -231,14 +231,15 @@ const ConnectFilterScreen = () => {
               )}
             />
           </VStack>
-          <Button
-            variant={'primarySmall'}
-            onPress={handleApplyFilter}
-            style={{ marginTop: 10 }}
-          >
+        </View>
+        <HStack justifyContent="space-between">
+          <Button variant={'primarySmallOutlined'} onPress={handleApplyFilter}>
+            Reset
+          </Button>
+          <Button variant={'primarySmall'} onPress={handleApplyFilter}>
             Apply
           </Button>
-        </View>
+        </HStack>
       </VStack>
     </ScrollView>
   );

@@ -96,6 +96,23 @@ export const customTheme = extendTheme({
             backgroundColor: '#D75A49',
           },
         },
+        primarySmallOutlined: {
+          bg: 'white',
+          width: '167',
+          height: '60',
+          borderWidth: 2,
+          borderColor: 'coral',
+          _text: {
+            color: 'coral',
+          },
+          _pressed: {
+            borderColor: 'coral',
+            backgroundColor: 'coral',
+            _text: {
+              color: 'white',
+            },
+          },
+        },
         primarySmallLight: {
           bg: 'white',
           opacity: 1,
