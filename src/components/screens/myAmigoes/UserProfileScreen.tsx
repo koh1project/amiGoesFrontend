@@ -83,7 +83,16 @@ const UserProfileScreen = (props) => {
 
         <HStack mt={1} mb={10} space={10}>
           <View style={styles.linkWrapper}>
-            <Text style={styles.links}>EMERGENCY</Text>
+            <Text
+              style={styles.links}
+              onPress={() => {
+                navigation.navigate('EmergencyScreen', {
+                  name,
+                });
+              }}
+            >
+              EMERGENCY
+            </Text>
           </View>
           <View style={styles.linkWrapper}>
             <Text style={styles.links}>BLOCK</Text>

@@ -78,6 +78,7 @@ const ConnectionsCard = (props) => {
                     bio,
                     hobbies,
                     phoneNumber,
+                    navigation,
                   });
                 }}
               >

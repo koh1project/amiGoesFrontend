@@ -33,6 +33,7 @@ import ConnectedUsersScreen from './src/components/screens/myAmigoes/ConnectedUs
 import { RootStackParamList } from './src/types/navigation';
 import { INITIAL_SCREEN, SCREEN_NAMES } from './src/utils/const';
 import UserProfileScreen from './src/components/screens/myAmigoes/UserProfileScreen';
+import EmergencyScreen from './src/components/screens/myAmigoes/EmergencyScreen';
 
 const TabNavigator = createMaterialTopTabNavigator();
 function MyAmigoesTabNavigator() {
@@ -169,6 +170,14 @@ export default function App() {
                   headerShown: true,
                 }}
                 name={SCREEN_NAMES.UserProfileScreen}
+              />
+              <Stack.Screen
+                component={EmergencyScreen}
+                options={{
+                  header: () => <Header />,
+                  headerShown: true,
+                }}
+                name={SCREEN_NAMES.EmergencyScreen}
               />
             </Stack.Navigator>
           </NavigationContainer>
