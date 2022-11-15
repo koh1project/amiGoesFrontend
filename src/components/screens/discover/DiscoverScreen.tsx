@@ -1,11 +1,11 @@
 import * as Location from 'expo-location';
-import { Input, ScrollView, View } from 'native-base';
+import { Input, ScrollView, View, Text, Flex } from 'native-base';
 import React, { useCallback, useEffect, useState } from 'react';
-import { Text } from 'react-native';
 import { PlacesCarousel } from '../../../features/discover/components/PlacesCarousel';
 import { getDiscover } from '../../../services/discover.service';
 import { GetDiscoverResponse, UserLocation } from '../../../types/discover';
 import { SecondaryHeading } from '../../texts/Heading';
+import FilterIcon from '../../../../assets/icons/filter-icon.svg';
 
 export const DiscoverScreen: React.FC = () => {
   const [places, setPlaces] = useState<GetDiscoverResponse>();
@@ -47,7 +47,21 @@ export const DiscoverScreen: React.FC = () => {
   if (places) {
     content = (
       <>
-        <SecondaryHeading>Parks</SecondaryHeading>
+        <Flex
+          direction="row"
+          justifyContent={'space-between'}
+          alignItems={'center'}
+        >
+          <SecondaryHeading>Parks</SecondaryHeading>
+          <Flex
+            direction="row"
+            justifyContent={'space-between'}
+            alignItems={'center'}
+          >
+            <FilterIcon />
+            <Text color="coral">Filter</Text>
+          </Flex>
+        </Flex>
         <PlacesCarousel places={places['parks']} userLocation={location} />
         <SecondaryHeading>Restaurants</SecondaryHeading>
         <PlacesCarousel
