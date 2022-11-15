@@ -11,7 +11,7 @@ export const customTheme = extendTheme({
     danger: '#EA3A3D',
     success: '#33F332',
     white: '#FFFFFF',
-    gray: '"#C3C3C3"',
+    gray: '#C3C3C3',
   },
 
   components: {
@@ -137,6 +137,17 @@ export const customTheme = extendTheme({
             _text: {
               color: 'white',
             },
+          },
+        },
+        disabledLarge: {
+          bg: 'gray',
+          width: '335',
+          height: '60',
+          _text: {
+            color: 'white',
+          },
+          _pressed: {
+            backgroundColor: '#D75A49',
           },
         },
         disabled: {

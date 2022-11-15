@@ -1,6 +1,6 @@
 import { Camera, CameraType } from 'expo-camera';
 import { Button, Spinner, View } from 'native-base';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Image, StyleSheet, TouchableOpacity } from 'react-native';
 import FlipCameraIcon from '../../../assets/icons/switch-camera.svg';
 import { postTranslate } from '../../services/translate.service';
@@ -16,6 +16,7 @@ const CameraScreen = (props) => {
   const [preview, setPreview] = useState(null);
   const [screen, setScreen] = useState(route.params.screen);
   const [loading, setLoading] = useState(false);
+  const verification = route.params.verification;
   const language = 'es';
 
   if (!cameraPermission) {
@@ -52,6 +53,28 @@ const CameraScreen = (props) => {
       console.error(error);
     }
   };
+
+  const submit = async () => {
+    setLoading(true);
+    if (verification === 'id') {
+      console.log('ID');
+      navigation.navigate(SCREEN_NAMES.IDVerification, {
+        imageID: image,
+      });
+    } else {
+      navigation.navigate(SCREEN_NAMES.IDVerification, {
+        imageSelfie: image,
+      });
+    }
+    setImage(null);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    if (verification === 'selfie') {
+      setType(CameraType.front);
+    }
+  }, []);
 
   const switchCamera = () => {
     setType(type === CameraType.back ? CameraType.front : CameraType.back);
@@ -101,7 +124,7 @@ const CameraScreen = (props) => {
                 Translate
               </Button>
             ) : (
-              <Button variant="primaryCamera" onPress={() => console.log()}>
+              <Button variant="primaryCamera" onPress={submit}>
                 Submit
               </Button>
             )}

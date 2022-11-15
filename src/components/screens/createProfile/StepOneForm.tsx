@@ -307,6 +307,7 @@ export const StepOneForm: React.FC = () => {
             variant="primaryLargeLight"
             marginBottom="24px"
             alignSelf="center"
+            onPress={() => navigation.navigate(SCREEN_NAMES.IDVerification)}
           >
             ID verification
           </Button>
