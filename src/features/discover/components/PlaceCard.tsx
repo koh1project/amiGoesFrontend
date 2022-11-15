@@ -9,7 +9,7 @@ import {
 } from 'native-base';
 import React, { FC } from 'react';
 import { Place, UserLocation } from '../../../types/discover';
-import { TouchableOpacity } from 'react-native';
+import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native';
 
 import { GOOGLE_MAPS_API_KEY, SCREEN_NAMES } from '../../../utils/const';
 import { TextDistance } from './TextDistance';
@@ -19,12 +19,14 @@ type PlaceCardProps = {
   place: Place;
   userLocation?: UserLocation;
   navigation: NavigationProp<any>;
+  containerStyle?: StyleProp<ViewStyle>;
 };
 
 export const PlaceCard: FC<PlaceCardProps> = ({
   place,
   userLocation,
   navigation,
+  containerStyle,
 }) => {
   let photo_reference;
   if (place.photos) {
@@ -41,10 +43,12 @@ export const PlaceCard: FC<PlaceCardProps> = ({
           } as never,
         );
       }}
+      style={containerStyle}
     >
       <Box alignItems="center">
         <Box
           maxW="80"
+          w="95%"
           rounded="lg"
           overflow="hidden"
           borderColor="coolGray.200"
@@ -60,6 +64,8 @@ export const PlaceCard: FC<PlaceCardProps> = ({
           _light={{
             backgroundColor: 'gray.50',
           }}
+          minH="280"
+          marginBottom={5}
         >
           {photo_reference && (
             <Box>
