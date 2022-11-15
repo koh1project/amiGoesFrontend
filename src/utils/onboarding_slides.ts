@@ -1,39 +1,40 @@
+import i18n from '../localization/Localization';
+
 export default [
   {
     id: '1',
-    title: 'Welcome',
-    subtitle: 'Get Started!',
-    text: 'amigoes is a community that connects you to other travelers who speak the same language as you.',
+    title: i18n.t('onboarding.title1'),
+    subtitle: i18n.t('onboarding.subtitle1'),
+    text: i18n.t('onboarding.text1'),
     image: require('../../assets/images/onboarding1.png'),
   },
   {
     id: '2',
-    title: 'Connect',
-    subtitle: 'Make amigoes!',
-    text: 'By setting up your choices on Connect, Amigoes will locate nearby travelers who share your interests, personality, and language.',
-    text2:
-      'You get access to their photo and phone number after receiving or being added as an amigo, so yo may schedule a call or a meeting!.',
+    title: i18n.t('onboarding.title2'),
+    subtitle: i18n.t('onboarding.subtitle2'),
+    text: i18n.t('onboarding.text2'),
+    text2: i18n.t('onboarding.text2_2'),
     image: require('../../assets/images/onboarding2.png'),
   },
   {
     id: '3',
-    title: 'Discover',
-    subtitle: 'Explore around!',
-    text: 'On Discover, you can search interesting places around you, and add them as a Favorite, so you can access that information wherever you want.',
+    title: i18n.t('onboarding.title3'),
+    subtitle: i18n.t('onboarding.subtitle3'),
+    text: i18n.t('onboarding.text3'),
     image: require('../../assets/images/onboarding3.png'),
   },
   {
     id: '4',
-    title: 'Translate',
-    subtitle: 'Read any language',
-    text: 'Using the Translate feature, you can simply point your camera to any photo, menu, sign, or on paper, and we will translate it for you instantly.',
+    title: i18n.t('onboarding.title4'),
+    subtitle: i18n.t('onboarding.subtitle4'),
+    text: i18n.t('onboarding.text4'),
     image: require('../../assets/images/onboarding4.png'),
   },
   {
     id: '5',
-    title: 'Always here',
-    subtitle: 'Explore now!',
-    text: 'You can always come back and check this information, by clicking on How to Use.',
+    title: i18n.t('onboarding.title5'),
+    subtitle: i18n.t('onboarding.subtitle5'),
+    text: i18n.t('onboarding.text5'),
     image: require('../../assets/images/onboarding5.png'),
   },
 ];
