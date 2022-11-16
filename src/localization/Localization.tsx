@@ -62,6 +62,21 @@ const i18n = new I18n({
         'Your face must be clearly visible. Avoid shadows and background lights.',
       button2: 'Take Selfie',
     },
+    login: {
+      email: 'Email',
+      password: 'Password',
+      login: 'Login',
+      noAccount: 'New on Amigoes?',
+      signup: 'Create an account',
+    },
+    signup: {
+      email: 'Email',
+      password: 'Password',
+      confirmPassword: 'Confirm Password',
+      signup: 'Sign Up',
+      alreadyHaveAccount: 'Already have an account?',
+      login: 'Login',
+    },
   },
   es: {
     createProfileStepOneForm: {
@@ -114,6 +129,21 @@ const i18n = new I18n({
       description3:
         'Su cara debe ser claramente visible. Evite sombras y luces de fondo.',
       button2: 'Tomar foto de su rostro',
+    },
+    login: {
+      email: 'Correo electrónico',
+      password: 'Contraseña',
+      login: 'Iniciar sesión',
+      noAccount: 'Nuevo en Amigoes?',
+      signup: 'Crear una cuenta',
+    },
+    signup: {
+      email: 'Correo electrónico',
+      password: 'Contraseña',
+      confirmPassword: 'Confirmar contraseña',
+      signup: 'Registrarse',
+      alreadyHaveAccount: '¿Ya tienes una cuenta?',
+      login: 'Iniciar sesión',
     },
   },
 });

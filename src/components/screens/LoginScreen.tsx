@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Image, StyleSheet, TextInput } from 'react-native';
 import mainLogo from '../../../assets/images/mainLogo.png';
 import roundLogo from '../../../assets/images/roundLogo.png';
-
+import i18n from '../../localization/Localization';
 import { auth } from '../../utils/firebase';
 import { useAuthContext } from '../auth/AuthContextProvider';
 
@@ -46,13 +46,13 @@ const LoginScreen = () => {
         />
       </View>
       <View style={styles.formContainer}>
-        <Text variant="h4">Email</Text>
+        <Text variant="h4">{i18n.t('login.email')} </Text>
         <TextInput
           value={email}
           onChangeText={(text) => setEmail(text)}
           style={styles.input}
         />
-        <Text variant="h4">Password</Text>
+        <Text variant="h4">{i18n.t('login.password')} </Text>
         <TextInput
           value={password}
           onChangeText={(text) => setPassword(text)}
@@ -60,7 +60,7 @@ const LoginScreen = () => {
           secureTextEntry
         />
         <Button variant="primaryLarge" onPress={handleLogin} alignSelf="center">
-          Login
+          {i18n.t('login.login')}
         </Button>
         <View
           style={{
@@ -71,7 +71,7 @@ const LoginScreen = () => {
           }}
         >
           <Text variant="disclaimer" marginRight={2}>
-            New on AmiGoes?{' '}
+            {i18n.t('login.noAccount')}
           </Text>
 
           <Link
@@ -79,7 +79,7 @@ const LoginScreen = () => {
               navigation.navigate('Signup');
             }}
           >
-            Create an Account
+            {i18n.t('login.signup')}
           </Link>
         </View>
       </View>

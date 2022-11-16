@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Image, StyleSheet, TextInput } from 'react-native';
 import mainLogo from '../../../assets/images/mainLogo.png';
 import roundLogo from '../../../assets/images/roundLogo.png';
+import i18n from '../../localization/Localization';
 import { auth } from '../../utils/firebase';
 
 const SignupScreen = () => {
@@ -48,20 +49,20 @@ const SignupScreen = () => {
         />
       </View>
       <View style={styles.formContainer}>
-        <Text variant="h4">Email</Text>
+        <Text variant="h4">{i18n.t('signup.email')}</Text>
         <TextInput
           value={email}
           onChangeText={(text) => setEmail(text)}
           style={styles.input}
         />
-        <Text variant="h4">Password</Text>
+        <Text variant="h4">{i18n.t('signup.password')}</Text>
         <TextInput
           value={password}
           onChangeText={(text) => setPassword(text)}
           style={styles.input}
           secureTextEntry
         />
-        <Text variant="h4">Confirm Password</Text>
+        <Text variant="h4">{i18n.t('signup.confirmPassword')}</Text>
         <TextInput
           value={confirmPassword}
           onChangeText={(text) => setConfirmPassword(text)}
@@ -73,7 +74,7 @@ const SignupScreen = () => {
           onPress={handleSignup}
           alignSelf="center"
         >
-          Sign up
+          {i18n.t('signup.signup')}
         </Button>
 
         <View
@@ -85,14 +86,14 @@ const SignupScreen = () => {
           }}
         >
           <Text variant="disclaimer" marginRight={2}>
-            Already have an account?{' '}
+            {i18n.t('signup.alreadyHaveAccount')}
           </Text>
           <Link
             onPress={() => {
               navigation.navigate('Login');
             }}
           >
-            Log in
+            {i18n.t('signup.login')}
           </Link>
         </View>
       </View>
