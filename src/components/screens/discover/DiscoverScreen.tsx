@@ -4,6 +4,7 @@ import {
   NativeSyntheticEvent,
   Text,
   TextInputChangeEventData,
+  StyleSheet,
 } from 'react-native';
 import {
   getDiscover,
@@ -14,6 +15,7 @@ import { useUserLocation } from '../../../features/discover/hooks/useUserLocatio
 import { DiscoverMainPlaces } from '../../../features/discover/components/DiscoverMainPlaces';
 import { SearchResults } from '../../../features/discover/components/SearchResults';
 import { AxiosResponse } from 'axios';
+import { DiscoverFilter } from './DiscoverFilter';
 
 function isPlaceByKeywordArray(
   places: GetDiscoverResponse | Place[],
@@ -25,6 +27,7 @@ export const DiscoverScreen: React.FC = () => {
   const [places, setPlaces] = useState<GetDiscoverResponse | Place[]>();
   const { location } = useUserLocation();
   const [searchKeyword, setSearchKeyword] = useState<string>('');
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const handleSearchChange = useCallback(
     (event: NativeSyntheticEvent<TextInputChangeEventData>) => {
@@ -60,15 +63,16 @@ export const DiscoverScreen: React.FC = () => {
       <DiscoverMainPlaces
         places={places as GetDiscoverResponse}
         location={location}
+        setIsFilterOpen={setIsFilterOpen}
       />
     );
   }
 
   return (
     <View style={{ padding: 10 }}>
-      {/* {isFilterOpen && (
+      {isFilterOpen && (
         <DiscoverFilter handleFilterClose={() => setIsFilterOpen(false)} />
-      )} */}
+      )}
       <Text>Discover</Text>
       <Input
         placeholder="Search"
