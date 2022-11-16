@@ -29,6 +29,7 @@ import TranslateScreen from './src/components/screens/TranslateScreen';
 import { customTheme } from './src/theme';
 
 import { AuthContextProvider } from './src/components/auth/AuthContextProvider';
+import ConnectUserProfile from './src/components/screens/Connect/ConnectUserProfile';
 import BlockedUsersScreen from './src/components/screens/myAmigoes/BlockedUsersScreen';
 import ConnectedUsersScreen from './src/components/screens/myAmigoes/ConnectedUsersScreen';
 import { RootStackParamList } from './src/types/navigation';
@@ -59,7 +60,7 @@ export default function App() {
   useEffect(() => {
     setTimeout(() => {
       setIsReady(true);
-    }, 6000);
+    }, 10);
   }, []);
 
   if (!isReady || !fontsLoaded) {
@@ -166,6 +167,14 @@ export default function App() {
                   headerShown: true,
                 }}
                 name={SCREEN_NAMES.ConnectedUsersScreen}
+              />
+              <Stack.Screen
+                component={ConnectUserProfile}
+                name={SCREEN_NAMES.ConnectUserProfile}
+                options={{
+                  header: () => <Header />,
+                  headerShown: true,
+                }}
               />
             </Stack.Navigator>
           </NavigationContainer>
