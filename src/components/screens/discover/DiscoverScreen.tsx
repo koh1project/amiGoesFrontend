@@ -6,10 +6,13 @@ import { getDiscover } from '../../../services/discover.service';
 import { GetDiscoverResponse, UserLocation } from '../../../types/discover';
 import { SecondaryHeading } from '../../texts/Heading';
 import FilterIcon from '../../../../assets/icons/filter-icon.svg';
+import { StyleSheet, TouchableOpacity } from 'react-native';
+import { DiscoverFilter } from './DiscoverFilter';
 
 export const DiscoverScreen: React.FC = () => {
   const [places, setPlaces] = useState<GetDiscoverResponse>();
   const [location, setLocation] = useState<UserLocation>();
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const fetchPlaces = useCallback(async () => {
     const result = await getDiscover();
@@ -53,14 +56,15 @@ export const DiscoverScreen: React.FC = () => {
           alignItems={'center'}
         >
           <SecondaryHeading>Parks</SecondaryHeading>
-          <Flex
-            direction="row"
-            justifyContent={'space-between'}
-            alignItems={'center'}
+          <TouchableOpacity
+            style={styles.filterContainer}
+            onPress={() => {
+              setIsFilterOpen(true);
+            }}
           >
             <FilterIcon />
             <Text color="coral">Filter</Text>
-          </Flex>
+          </TouchableOpacity>
         </Flex>
         <PlacesCarousel places={places['parks']} userLocation={location} />
         <SecondaryHeading>Restaurants</SecondaryHeading>
@@ -81,9 +85,21 @@ export const DiscoverScreen: React.FC = () => {
 
   return (
     <View style={{ padding: 10 }}>
+      {isFilterOpen && (
+        <DiscoverFilter handleFilterClose={() => setIsFilterOpen(false)} />
+      )}
       <Text>Discover</Text>
       <Input placeholder="Search"></Input>
       <ScrollView>{content}</ScrollView>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  filterContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+});
