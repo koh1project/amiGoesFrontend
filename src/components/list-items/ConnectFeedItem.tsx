@@ -4,13 +4,18 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 import ThumbsUp from '../../../assets/icons/thumbs-up.svg';
 import { FontFamily, ThemeColors } from '../../theme';
 import { Amigo } from '../../types/models';
+
 type ConnectFeedItemProp = {
   amigo: Amigo;
+  handleProfileClick: (id: string) => void;
 };
-export const ConnectFeedItem = ({ amigo }: ConnectFeedItemProp) => {
-  const calculateAge = (birthDate: Date) => {
-    return new Date().getFullYear() - birthDate.getFullYear();
-  };
+export const calculateAge = (birthDate: Date) => {
+  return new Date().getFullYear() - birthDate.getFullYear();
+};
+export const ConnectFeedItem = ({
+  amigo,
+  handleProfileClick,
+}: ConnectFeedItemProp) => {
   return (
     <VStack style={styles.container}>
       <HStack alignItems={'center'} space={1}>
@@ -24,7 +29,7 @@ export const ConnectFeedItem = ({ amigo }: ConnectFeedItemProp) => {
           <Badge
             key={index}
             _text={{ color: 'white', fontFamily: FontFamily.Ubuntu_500Medium }}
-            style={{ backgroundColor: '#3FA8AE', borderRadius: 5 }}
+            style={{ backgroundColor: ThemeColors.green, borderRadius: 5 }}
             colorScheme="success"
             marginBottom={2}
           >
@@ -51,7 +56,7 @@ export const ConnectFeedItem = ({ amigo }: ConnectFeedItemProp) => {
         <Text textAlign={'center'} fontFamily={FontFamily.Ubuntu_500Medium}>
           {amigo.gender}, {calculateAge(new Date(amigo.birthday))}
         </Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => handleProfileClick(amigo._id)}>
           <Text
             style={{
               textAlign: 'center',

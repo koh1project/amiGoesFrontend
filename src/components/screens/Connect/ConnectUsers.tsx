@@ -34,6 +34,10 @@ export const ConnectUsers = () => {
   useEffect(() => {
     getConnectUsers();
   }, [user]);
+
+  const handleProfileClick = (id) => {
+    navigation.navigate('ConnectUserProfile', { userId: id });
+  };
   return (
     <ScrollView flex={1} bg="white" paddingX={2}>
       <VStack space={3}>
@@ -50,7 +54,10 @@ export const ConnectUsers = () => {
           renderItem={({ item, index }) => {
             return (
               <View style={{ flex: 1, marginRight: index % 2 == 0 ? 10 : 0 }}>
-                <ConnectFeedItem amigo={item} />
+                <ConnectFeedItem
+                  amigo={item}
+                  handleProfileClick={handleProfileClick}
+                />
               </View>
             );
           }}
