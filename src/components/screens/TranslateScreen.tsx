@@ -1,5 +1,6 @@
 import { Text } from 'native-base';
 import { ScrollView, StyleSheet, View } from 'react-native';
+import i18n from '../../localization/Localization';
 
 import TranslateResults from '../../features/translate/TranslateResults';
 import TranslateForm from '../forms/TranslateForm';
@@ -8,7 +9,7 @@ const TranslateScreen = ({ navigation, route }) => {
   return (
     <ScrollView style={styles.container}>
       <View>
-        <Text variant="screenTitle">Translate</Text>
+        <Text variant="screenTitle">{i18n.t('TranslateScreen.Title')}</Text>
         {route.params?.translation ? (
           <View>
             <TranslateResults
