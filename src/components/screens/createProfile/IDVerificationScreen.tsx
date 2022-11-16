@@ -1,11 +1,15 @@
-import { Button, Text, View } from 'native-base';
+import { Button, Modal, Text, View } from 'native-base';
 import { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
+import Close from '../../../../assets/icons/close.svg';
 import { compareFaces } from '../../../services/verification.service';
 
 const IDVerificationScreen = ({ navigation, route }) => {
   const [imageID, setImageID] = useState(null);
   const [imageSelfie, setImageSelfie] = useState(null);
+  const [isVerified, setIsVerified] = useState(false);
+  const [color, setColor] = useState(undefined);
+  const [message, setMessage] = useState(undefined);
 
   useEffect(() => {
     if (route.params?.imageID) {
@@ -19,10 +23,23 @@ const IDVerificationScreen = ({ navigation, route }) => {
     }
   }, [route.params?.imageSelfie]);
 
+  const openModal = (color) => {
+    setIsVerified(true);
+    setColor(color);
+  };
+
   const verify = async (imageID, imageSelfie) => {
     try {
       const data = await compareFaces(imageID, imageSelfie);
-      console.log('data', data);
+
+      if (data.data.data.code === 1) {
+        openModal('#C7F0F2');
+        setMessage('ID was verified.');
+      }
+      if (data.data.data.code === 0) {
+        openModal('#EA3A3D');
+        setMessage(data.data.data.message);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -77,6 +94,27 @@ const IDVerificationScreen = ({ navigation, route }) => {
           Take a Selfie
         </Button>
       </View>
+      <Modal
+        isOpen={isVerified}
+        onClose={() => console.log('close')}
+        safeAreaTop={true}
+      >
+        <Modal.Content
+          maxWidth="350"
+          style={styles.disclaimer}
+          backgroundColor={color}
+        >
+          <Close
+            style={styles.close}
+            onPress={() =>
+              navigation.navigate('CreateProfileStepOneForm', {
+                validate: isVerified,
+              })
+            }
+          />
+          <Text variant={'disclaimer'}>{message}</Text>
+        </Modal.Content>
+      </Modal>
     </View>
   );
 };
@@ -87,5 +125,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
+  },
+  disclaimer: {
+    padding: 14,
+    borderRadius: 6,
+    flexDirection: 'row',
+    marginBottom: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignContent: 'center',
+    height: 100,
+  },
+  close: {
+    position: 'absolute',
+    right: 10,
+    top: 10,
   },
 });

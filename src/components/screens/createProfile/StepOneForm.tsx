@@ -1,5 +1,4 @@
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { useNavigation } from '@react-navigation/core';
 import { Box, Button, Text, View } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import {
@@ -16,12 +15,14 @@ import { LooseObject } from '../../../types/models';
 import { SCREEN_NAMES } from '../../../utils/const';
 import { Input } from '../../form/Input';
 
-export const StepOneForm: React.FC = () => {
-  const navigation = useNavigation();
+export const StepOneForm: React.FC = ({ navigation, route }) => {
+  // const navigation = useNavigation();
+
   const [show, setShow] = useState(false);
   const [date, setDate] = useState(new Date());
   const [text, setText] = useState('');
   const [genderSelected, setGenderSelected] = useState('');
+  const [verified, setVerified] = useState(false);
 
   const [inputs, setInputs] = useState({
     name: 'Arvind Smith',
@@ -34,6 +35,12 @@ export const StepOneForm: React.FC = () => {
   });
 
   const [errors, setErrors] = useState<LooseObject>({});
+
+  useEffect(() => {
+    if (route.params?.verified) {
+      setVerified(route.params.verified);
+    }
+  }, [route.params?.verified]);
 
   useEffect(() => {
     onSelectGender(genderSelected);
@@ -304,7 +311,8 @@ export const StepOneForm: React.FC = () => {
             Before you start, please make sure you have a government issued ID.
           </Text>
           <Button
-            variant="primaryLargeLight"
+            variant={verified ? 'primaryLargeLight' : 'disabledLarge'}
+            disabled={!verified}
             marginBottom="24px"
             alignSelf="center"
             onPress={() => navigation.navigate(SCREEN_NAMES.IDVerification)}
