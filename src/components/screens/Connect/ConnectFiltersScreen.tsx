@@ -43,7 +43,7 @@ const ConnectFilterScreen = () => {
   const handleApplyFilter = () => {
     navigation.navigate('ConnectUsers', {
       sliderValue,
-      date: date.toISOString(),
+      date: date,
       to: to.toISOString(),
       from: from.toISOString(),
       preference,
