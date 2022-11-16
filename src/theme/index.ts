@@ -70,6 +70,20 @@ export const customTheme = extendTheme({
           marginLeft: '19px',
           marginBottom: '18px',
         },
+        onboardingTitle: {
+          fontFamily: 'Ubuntu_500Medium',
+          fontSize: '18',
+          lineHeight: '24',
+          color: 'dark',
+          marginBottom: '6px',
+        },
+        onboardingSubtitle: {
+          fontFamily: 'Ubuntu_700Bold',
+          fontSize: '28',
+          lineHeight: '32',
+          color: 'green',
+          marginBottom: '12px',
+        },
       },
     },
     Button: {

@@ -2,6 +2,7 @@ import { Box, HStack, Text, VStack } from 'native-base';
 import { Image, StyleSheet } from 'react-native';
 import english from '../../../assets/icons/en-icon.png';
 import spanish from '../../../assets/icons/es-icon.png';
+import i18n from '../../localization/Localization';
 
 const TranslateResults = (props) => {
   const { translation, text, image } = props;
@@ -10,8 +11,7 @@ const TranslateResults = (props) => {
   return (
     <VStack>
       <Text marginLeft={'20px'} marginRight={'20px'} marginBottom={'30px'}>
-        The following tool allows you to convert images to text. Please set the
-        language you would like to translate to.
+        {i18n.t('TranslateScreen.DescriptionResults')}
       </Text>
 
       <Image
