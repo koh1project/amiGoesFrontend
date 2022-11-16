@@ -13,11 +13,11 @@ import {
   VStack,
 } from 'native-base';
 import React, { useState } from 'react';
-import { Calendar } from 'react-native-calendars';
 import i18n from '../../../localization/Localization';
-import { FontFamily, ThemeColors } from '../../../theme';
+import { ThemeColors } from '../../../theme';
 import { RootStackParamList } from '../../../types/navigation';
 import { ActivitiesList } from '../../../utils/const';
+import AmigoCalendar from '../../AmigoCalendar/AmigoCalendar';
 
 import AmigoSlider from '../../form/AmigoSlider';
 import CustomCheckbox from '../../form/CustomCheckbox';
@@ -106,24 +106,11 @@ const ConnectFilterScreen = () => {
               paddingVertical: 10,
             }}
           >
-            <Calendar
+            <AmigoCalendar
               initialDate={date}
               minDate={new Date().toDateString()}
               onDayPress={(date) => {
                 setDate(date.dateString);
-              }}
-              theme={{
-                calendarBackground: ThemeColors.light,
-                textDisabledColor: ThemeColors.gray,
-                dayTextColor: ThemeColors.dark,
-                selectedDayBackgroundColor: ThemeColors.coral,
-                arrowColor: ThemeColors.green,
-                todayTextColor: ThemeColors.green,
-
-                textSectionTitleColor: ThemeColors.dark,
-                textDayFontFamily: FontFamily.Ubuntu_500Medium,
-                textMonthFontFamily: FontFamily.Ubuntu_500Medium,
-                textDayHeaderFontFamily: FontFamily.Ubuntu_400Regular,
               }}
               // markingType="period"
               markedDates={{
