@@ -13,14 +13,15 @@ export const get = async <T = any>(
   url: string,
   headers = DEFAULT_HEADERS(),
 ) => {
-  try {
-    return axios.get<T>(BASE_URL + url, {
+  return axios
+    .get<T>(BASE_URL + url, {
       headers,
+    })
+    .catch((error) => {
+      if (error.response) {
+        console.error('Api Error', error.response.data);
+      }
     });
-  } catch (error) {
-    console.error('API GET ERROR', error);
-    throw error;
-  }
 };
 
 export const post = async <T>(

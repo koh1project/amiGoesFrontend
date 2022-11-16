@@ -1,18 +1,25 @@
 import { extendTheme } from 'native-base';
 
+export const ThemeColors = {
+  green: '#3FA8AE',
+  coral: '#EE6653',
+  lightgreen: '#C7F0F2',
+  lightcoral: '#FFE4E0',
+  light: '#F8F8F8',
+  dark: '#434343',
+  danger: '#EA3A3D',
+  success: '#33F332',
+  white: '#FFFFFF',
+  gray: '#C3C3C3',
+} as const;
+
+export const FontFamily = {
+  Ubuntu_400Regular: 'Ubuntu_400Regular',
+  Ubuntu_700Bold: 'Ubuntu_700Bold',
+  Ubuntu_500Medium: 'Ubuntu_500Medium',
+} as const;
 export const customTheme = extendTheme({
-  colors: {
-    green: '#3FA8AE',
-    coral: '#EE6653',
-    lightgreen: '#C7F0F2',
-    lightcoral: '#FFE4E0',
-    light: '#F8F8F8',
-    dark: '#434343',
-    danger: '#EA3A3D',
-    success: '#33F332',
-    white: '#FFFFFF',
-    gray: '"#C3C3C3"',
-  },
+  colors: ThemeColors,
 
   components: {
     Text: {
@@ -101,6 +108,23 @@ export const customTheme = extendTheme({
           },
           _pressed: {
             backgroundColor: '#D75A49',
+          },
+        },
+        primarySmallOutlined: {
+          bg: 'white',
+          width: '167',
+          height: '60',
+          borderWidth: 2,
+          borderColor: 'coral',
+          _text: {
+            color: 'coral',
+          },
+          _pressed: {
+            borderColor: 'coral',
+            backgroundColor: 'coral',
+            _text: {
+              color: 'white',
+            },
           },
         },
         primarySmallLight: {
@@ -219,6 +243,24 @@ export const customTheme = extendTheme({
         },
         _pressed: {
           color: '#D75A49',
+        },
+      },
+    },
+    Checkbox: {
+      baseStyle: {
+        borderRadius: 50,
+        p: 1,
+        _checked: {
+          bg: 'coral',
+          borderColor: 'coral',
+          _pressed: {
+            borderColor: 'gray',
+            bg: 'gray',
+          },
+        },
+        _pressed: {
+          borderColor: 'gray',
+          bg: 'gray',
         },
       },
     },

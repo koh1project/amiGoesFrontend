@@ -3,19 +3,24 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import {
   Button,
   Checkbox,
+  FlatList,
   FormControl,
-  Heading,
   HStack,
   Input,
   ScrollView,
-  Slider,
   Text,
   View,
   VStack,
 } from 'native-base';
 import React, { useState } from 'react';
+import i18n from '../../../localization/Localization';
+import { ThemeColors } from '../../../theme';
 import { RootStackParamList } from '../../../types/navigation';
-import DatePicker from '../../DatePicker/DatePicker';
+import { ActivitiesList } from '../../../utils/const';
+import AmigoCalendar from '../../AmigoCalendar/AmigoCalendar';
+
+import AmigoSlider from '../../form/AmigoSlider';
+import CustomCheckbox from '../../form/CustomCheckbox';
 import TimePicker from '../../TimePicker/TimePicker';
 
 type ConnectFilterScreen = NativeStackNavigationProp<
@@ -24,7 +29,7 @@ type ConnectFilterScreen = NativeStackNavigationProp<
 >;
 const ConnectFilterScreen = () => {
   const [sliderValue, setSliderValue] = useState(10);
-  const [date, setDate] = useState<Date>(new Date());
+  const [date, setDate] = useState<string>(new Date().toDateString());
   const [to, setTo] = useState<Date>(new Date());
   const [from, setFrom] = useState<Date>(new Date());
   const [preference, setPreference] = useState<string[]>([]);
@@ -38,7 +43,7 @@ const ConnectFilterScreen = () => {
   const handleApplyFilter = () => {
     navigation.navigate('ConnectUsers', {
       sliderValue,
-      date: date.toISOString(),
+      date: date,
       to: to.toISOString(),
       from: from.toISOString(),
       preference,
@@ -46,53 +51,118 @@ const ConnectFilterScreen = () => {
       preferenceAge,
     });
   };
+
+  const handleCustomCheckboxChange = (value) => {
+    if (activities.includes(value)) {
+      setActivities((prev) => prev.filter((item) => item !== value));
+    } else {
+      setActivities((prev) => [...prev, value]);
+    }
+  };
   return (
-    <ScrollView style={{ padding: 10 }}>
-      <VStack space={5}>
-        <Heading>Connect</Heading>
+    <ScrollView bg="white" style={{ paddingHorizontal: 10 }}>
+      <VStack safeAreaBottom paddingBottom={5} space={5}>
+        <Text color="green" variant={'h1'}>
+          {i18n.t('Nouns.Connect')}
+        </Text>
+        <View>
+          <Text variant="h2" color="green">
+            {i18n.t('ConnectScreen.YourDistancePreference')}
+          </Text>
+          <Text color="black">
+            {i18n.t('ConnectScreen.YourDistanceDescription')}
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'flex-start',
+          }}
+        >
+          <Text>Location</Text>
+          <View>
+            <Text>Vancouver</Text>
+            <Text>{sliderValue}kms</Text>
+          </View>
+        </View>
         <FormControl>
-          <Text>Location {sliderValue} kms</Text>
-          <Slider
-            w="3/4"
-            maxW="300"
-            defaultValue={sliderValue}
-            minValue={1}
-            maxValue={50}
-            step={1}
-            onChange={(v) => setSliderValue(v)}
-          >
-            <Slider.Track>
-              <Slider.FilledTrack />
-            </Slider.Track>
-            <Slider.Thumb />
-          </Slider>
+          <Text>Maximum Distance</Text>
+          <AmigoSlider initialValue={sliderValue} onChange={setSliderValue} />
         </FormControl>
         <View>
-          <DatePicker value={date} onChange={setDate} />
-          <Text>SelectedDate: {date.toDateString()}</Text>
+          <Text variant="h2" color="green">
+            Select Dates
+          </Text>
+          <Text>
+            Select what dates and time are you available to meet new amigoes
+          </Text>
+          <View
+            style={{
+              borderRadius: 24,
+              backgroundColor: ThemeColors.light,
+              marginTop: 20,
+              paddingHorizontal: 20,
+              paddingVertical: 10,
+            }}
+          >
+            <AmigoCalendar
+              initialDate={date}
+              minDate={new Date().toDateString()}
+              onDayPress={(date) => {
+                setDate(date.dateString);
+              }}
+              // markingType="period"
+              markedDates={{
+                [date]: { selected: true, selectedColor: ThemeColors.coral },
+              }}
+            />
+          </View>
         </View>
-        <View>
-          <Text>Select Time</Text>
+        <View
+          style={{
+            borderBottomWidth: 1,
+            borderBottomColor: ThemeColors.gray,
+            paddingBottom: 20,
+          }}
+        >
+          <Text variant={'h2'} color="green.400">
+            Select Time
+          </Text>
           <HStack
             style={{
               width: '100%',
             }}
             space={5}
           >
-            <TimePicker title="To" value={to} onChange={setTo} />
-            <TimePicker title="from" value={from} onChange={setFrom} />
+            <TimePicker title="From" value={to} onChange={setTo} />
+            <TimePicker title="To" value={from} onChange={setFrom} />
           </HStack>
         </View>
-        <View>
-          <Text>Amigoes Preference</Text>
-          <Text>Interested in</Text>
+        <VStack space={2}>
+          <Text variant="h2" color="green">
+            Amigoes Preference
+          </Text>
+          <Text>
+            What do you want to do? Please select your options to find your
+            AmiGoes.
+          </Text>
+          <Text variant={'h3'} style={{ fontSize: 18 }}>
+            Interested In
+          </Text>
           <HStack space={6}>
-            <Checkbox.Group onChange={setPreference} value={preference}>
-              <Checkbox value="male">Male</Checkbox>
+            <Checkbox.Group
+              style={{ flexDirection: 'row' }}
+              onChange={setPreference}
+              value={preference}
+            >
+              <Checkbox mr={5} value="male">
+                Male
+              </Checkbox>
               <Checkbox value="female">Female</Checkbox>
             </Checkbox.Group>
           </HStack>
-        </View>
+        </VStack>
         <View>
           <Text>Age</Text>
           <HStack space={5}>
@@ -126,24 +196,37 @@ const ConnectFilterScreen = () => {
         </View>
         <View>
           <VStack space={4}>
-            <Heading>Activities</Heading>
+            <Text variant="h2" color="green">
+              Activities
+            </Text>
             <Text>
               What would you like to do? This is how we will find your amigoes
               for next activity
             </Text>
-            <Checkbox.Group value={activities} onChange={setActivities}>
-              <Checkbox value="walk">Walk</Checkbox>
-              <Checkbox value="coffee">Coffee</Checkbox>
-              <Checkbox value="dinner">Dinner</Checkbox>
-              <Checkbox value="movie">Movie</Checkbox>
-              <Checkbox value="shopping">Shopping</Checkbox>
-              <Checkbox value="sports">Sports</Checkbox>
-            </Checkbox.Group>
+            <Text variant={'h4'}>Choose one or several</Text>
+
+            <FlatList
+              data={ActivitiesList}
+              numColumns={2}
+              renderItem={({ item }) => (
+                <CustomCheckbox
+                  onChange={handleCustomCheckboxChange}
+                  title={item}
+                  isChecked={activities.includes(item.toLowerCase())}
+                  value={item.toLowerCase()}
+                />
+              )}
+            />
           </VStack>
-          <Button onPress={handleApplyFilter} style={{ marginTop: 10 }}>
+        </View>
+        <HStack justifyContent="space-between">
+          <Button variant={'primarySmallOutlined'} onPress={handleApplyFilter}>
+            Reset
+          </Button>
+          <Button variant={'primarySmall'} onPress={handleApplyFilter}>
             Apply
           </Button>
-        </View>
+        </HStack>
       </VStack>
     </ScrollView>
   );
