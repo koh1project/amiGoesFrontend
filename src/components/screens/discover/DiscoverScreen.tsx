@@ -1,4 +1,4 @@
-import { Input, ScrollView, View } from 'native-base';
+import { Badge, Input, ScrollView, View } from 'native-base';
 import React, { useCallback, useEffect, useState } from 'react';
 import {
   NativeSyntheticEvent,
@@ -16,6 +16,7 @@ import { DiscoverMainPlaces } from '../../../features/discover/components/Discov
 import { SearchResults } from '../../../features/discover/components/SearchResults';
 import { AxiosResponse } from 'axios';
 import { DiscoverFilter } from './DiscoverFilter';
+import { SearchKeywordForm } from './SearchKeywordForm';
 
 function isPlaceByKeywordArray(
   places: GetDiscoverResponse | Place[],
@@ -27,7 +28,8 @@ export const DiscoverScreen: React.FC = () => {
   const [places, setPlaces] = useState<GetDiscoverResponse | Place[]>();
   const { location } = useUserLocation();
   const [searchKeyword, setSearchKeyword] = useState<string>('');
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [isFilterOpen, setIsFilterOpen] = useState(true);
+  const [filterItems, setFilterItems] = useState<string[]>([]);
 
   const handleSearchChange = useCallback(
     (event: NativeSyntheticEvent<TextInputChangeEventData>) => {
@@ -71,24 +73,45 @@ export const DiscoverScreen: React.FC = () => {
   return (
     <View style={{ padding: 10 }}>
       {isFilterOpen && (
-        <DiscoverFilter handleFilterClose={() => setIsFilterOpen(false)} />
+        <DiscoverFilter
+          handleFilterClose={() => setIsFilterOpen(false)}
+          setFilterItems={setFilterItems}
+        />
       )}
       <Text>Discover</Text>
-      <Input
-        placeholder="Search"
-        onChange={handleSearchChange}
-        value={searchKeyword}
-      ></Input>
+      <SearchKeywordForm
+        handleSearchChange={handleSearchChange}
+        searchKeyword={searchKeyword}
+      />
+      <View style={styles.filterItemContainer}>
+        {filterItems.map((item, index) => (
+          <Badge
+            key={index}
+            _text={{ color: 'white' }}
+            style={styles.filterItem}
+            colorScheme="success"
+          >
+            {item}
+          </Badge>
+        ))}
+      </View>
       <ScrollView>{content}</ScrollView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  filterContainer: {
+  filterItemContainer: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-start',
+    flexWrap: 'wrap',
     alignItems: 'center',
+  },
+  filterItem: {
+    flexGrow: 1,
+    flexShrink: 0,
+    backgroundColor: '#3FA8AE',
+    height: 50,
   },
 });
