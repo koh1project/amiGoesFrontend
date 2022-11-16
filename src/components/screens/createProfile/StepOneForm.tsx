@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import SelectList from 'react-native-dropdown-select-list';
 import Info from '../../../../assets/icons/info.svg';
+import i18n from '../../../localization/Localization';
 import { LooseObject } from '../../../types/models';
 import { SCREEN_NAMES } from '../../../utils/const';
 import { Input } from '../../form/Input';
@@ -142,7 +143,7 @@ export const StepOneForm: React.FC = ({ navigation, route }) => {
     <SafeAreaView>
       <ScrollView style={styles.container}>
         <Text style={styles.title} color="green">
-          Your primary information
+          {i18n.t('createProfileStepOneForm.title')}
         </Text>
         <Text
           textAlign="center"
@@ -150,15 +151,12 @@ export const StepOneForm: React.FC = ({ navigation, route }) => {
           marginRight="50px"
           marginBottom="21px"
         >
-          Primary information is important to keep our community safe, and this
-          is why amigoes makes it mandatory. Don't worry, all sensitive
-          information is not stored by us, and is only used to verify your
-          identity.
+          {i18n.t('createProfileStepOneForm.description')}
         </Text>
         <View>
           <View style={{ marginHorizontal: 20 }}>
             <Input
-              label="Name*"
+              label={i18n.t('createProfileStepOneForm.name')}
               placeholder="Ex. John Smith"
               error={errors.name}
               value={inputs.name}
@@ -167,7 +165,9 @@ export const StepOneForm: React.FC = ({ navigation, route }) => {
               }}
               onChangeText={(text) => handleOnChange(text, 'name')}
             />
-            <Text style={styles.label}>Birthday*</Text>
+            <Text style={styles.label}>
+              {i18n.t('createProfileStepOneForm.birthDate')}
+            </Text>
             <TouchableOpacity onPress={() => setShow(true)}>
               <View
                 style={[
@@ -196,7 +196,9 @@ export const StepOneForm: React.FC = ({ navigation, route }) => {
               />
             )}
             <View style={{ marginBottom: 10 }}>
-              <Text style={styles.label}>Gender*</Text>
+              <Text style={styles.label}>
+                {i18n.t('createProfileStepOneForm.gender')}
+              </Text>
               <View
                 style={[
                   styles.inputContainer,
@@ -228,7 +230,7 @@ export const StepOneForm: React.FC = ({ navigation, route }) => {
             </View>
             <Input
               keyboardType="numeric"
-              label="Phone number*"
+              label={i18n.t('createProfileStepOneForm.phoneNumber')}
               placeholder="Ex. 987 654 3210"
               value={inputs.phoneNumber}
               error={errors.phoneNumber}
@@ -249,10 +251,10 @@ export const StepOneForm: React.FC = ({ navigation, route }) => {
                 marginTop: 24,
               }}
             >
-              Emergency Contact
+              {i18n.t('createProfileStepOneForm.emergencyContact')}
             </Text>
             <Input
-              label="Name*"
+              label={i18n.t('createProfileStepOneForm.name')}
               placeholder="Ex. John Smith"
               value={inputs.emergencyName}
               error={errors.emergencyName}
@@ -262,7 +264,7 @@ export const StepOneForm: React.FC = ({ navigation, route }) => {
               onChangeText={(text) => handleOnChange(text, 'emergencyName')}
             />
             <Input
-              label="Relationship*"
+              label={i18n.t('createProfileStepOneForm.relationship')}
               placeholder="Ex. Son"
               value={inputs.emergencyRelationship}
               error={errors.emergencyRelationship}
@@ -275,7 +277,7 @@ export const StepOneForm: React.FC = ({ navigation, route }) => {
             />
             <Input
               keyboardType="numeric"
-              label="Phone number*"
+              label={i18n.t('createProfileStepOneForm.phoneNumber')}
               placeholder="Ex. 987 654 3210"
               error={errors.emergencyPhoneNumber}
               value={inputs.emergencyPhoneNumber}
@@ -289,7 +291,7 @@ export const StepOneForm: React.FC = ({ navigation, route }) => {
             <Box backgroundColor="lightcoral" style={styles.disclaimer}>
               <Info width={24} height={24} />
               <Text variant="disclaimer" marginLeft={11} marginRight={18}>
-                It's important to have a contact to call in case of emergency.
+                {i18n.t('createProfileStepOneForm.disclaimer')}
               </Text>
             </Box>
           </View>
@@ -305,10 +307,10 @@ export const StepOneForm: React.FC = ({ navigation, route }) => {
               marginTop: 24,
             }}
           >
-            Government ID*
+            {i18n.t('createProfileStepOneForm.id')}
           </Text>
           <Text marginBottom="10px">
-            Before you start, please make sure you have a government issued ID.
+            {i18n.t('createProfileStepOneForm.idDescription')}
           </Text>
           <Button
             variant={verified ? 'primaryLargeLight' : 'disabledLarge'}
@@ -317,13 +319,12 @@ export const StepOneForm: React.FC = ({ navigation, route }) => {
             alignSelf="center"
             onPress={() => navigation.navigate(SCREEN_NAMES.IDVerification)}
           >
-            ID verification
+            {i18n.t('createProfileStepOneForm.verify')}
           </Button>
           <Box backgroundColor="lightcoral" style={styles.disclaimer}>
             <Info width={24} height={24} />
             <Text variant="disclaimer" marginLeft={11} marginRight={18}>
-              Your ID information is important to keep our community safe.
-              Amigoes doesn't store any sensitive data.
+              {i18n.t('createProfileStepOneForm.disclaimerID')}
             </Text>
           </Box>
         </View>
@@ -333,8 +334,7 @@ export const StepOneForm: React.FC = ({ navigation, route }) => {
           alignSelf="center"
           marginBottom="24px"
         >
-          {' '}
-          Next{' '}
+          {i18n.t('createProfileStepOneForm.next')}
         </Button>
       </ScrollView>
     </SafeAreaView>

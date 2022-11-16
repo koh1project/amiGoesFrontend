@@ -2,8 +2,8 @@ import { Button, Modal, Text, View } from 'native-base';
 import { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import Close from '../../../../assets/icons/close.svg';
+import i18n from '../../../localization/Localization';
 import { compareFaces } from '../../../services/verification.service';
-
 const IDVerificationScreen = ({ navigation, route }) => {
   const [imageID, setImageID] = useState(null);
   const [imageSelfie, setImageSelfie] = useState(null);
@@ -59,17 +59,11 @@ const IDVerificationScreen = ({ navigation, route }) => {
 
   return (
     <View style={styles.container}>
-      <Text variant="screenTitle">ID Verification</Text>
+      <Text variant="screenTitle"> {i18n.t('idVerification.title')}</Text>
       <View style={{ marginHorizontal: 20 }}>
-        <Text>
-          {' '}
-          We need to determine if the identity document is authentic and belongs
-          to you.
-        </Text>
+        <Text>{i18n.t('idVerification.description')}</Text>
         <Text style={{ marginTop: 20 }}>
-          {' '}
-          Place ID on a plain dark surface and make sure all four corners are
-          visible.
+          {i18n.t('idVerification.description2')}
         </Text>
         <Button
           variant="primaryLargeLight"
@@ -77,12 +71,10 @@ const IDVerificationScreen = ({ navigation, route }) => {
           alignSelf="center"
           marginTop="20px"
         >
-          Take ID Photo
+          {i18n.t('idVerification.button1')}
         </Button>
         <Text style={{ marginTop: 20 }}>
-          {' '}
-          Your face must be clearly visible. Avoid shadows and background
-          lights.
+          {i18n.t('idVerification.description3')}
         </Text>
         <Button
           variant={!imageID ? 'disabledLarge' : 'primaryLargeLight'}
@@ -91,7 +83,7 @@ const IDVerificationScreen = ({ navigation, route }) => {
           marginTop="20px"
           disabled={!imageID}
         >
-          Take a Selfie
+          {i18n.t('idVerification.button2')}
         </Button>
       </View>
       <Modal

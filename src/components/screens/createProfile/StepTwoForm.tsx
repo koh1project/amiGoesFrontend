@@ -6,6 +6,7 @@ import { Image, ScrollView, StyleSheet } from 'react-native';
 import MultiSelect from 'react-native-multiple-select';
 import placeholder from '../../../../assets/images/placeholder.png';
 import { useNotificationsToken } from '../../../hooks/useNotificationsToken';
+import i18n from '../../../localization/Localization';
 import { post } from '../../../services/api';
 import {
   authUser,
@@ -161,7 +162,7 @@ export const StepTwoForm: React.FC = ({ route }) => {
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.title} color="green">
-        Talk a bit about yourself
+        {i18n.t('createProfileStepTwoForm.title')}
       </Text>
       <Text
         textAlign="center"
@@ -169,8 +170,7 @@ export const StepTwoForm: React.FC = ({ route }) => {
         marginRight="50px"
         marginBottom="21px"
       >
-        You can always come back to fill these information later, by clicking on
-        Profile.
+        {i18n.t('createProfileStepTwoForm.subtitle')}
       </Text>
 
       {image ? (
@@ -185,21 +185,22 @@ export const StepTwoForm: React.FC = ({ route }) => {
         onPress={pickImage}
         marginBottom="25px"
       >
-        Add photo
+        {i18n.t('createProfileStepTwoForm.uploadPhoto')}
       </Button>
 
       <View style={{ marginHorizontal: 20 }}>
         <Input
-          label="Home country"
+          label={i18n.t('createProfileStepTwoForm.country')}
           placeholder="Ex. Mexico"
           error={''}
           onChangeText={(text) => handleOnChange(text, 'homeCountry')}
         />
         <View>
-          <Text style={styles.label}>Languages</Text>
+          <Text style={styles.label}>
+            {i18n.t('createProfileStepTwoForm.languages')}
+          </Text>
           <Text marginBottom="12px">
-            What languages do you speak? This is how we'll match with amigoes
-            that you can share some chit-chat
+            {i18n.t('createProfileStepTwoForm.languagesSubtitle')}
           </Text>
         </View>
         <MultiSelect
@@ -210,7 +211,7 @@ export const StepTwoForm: React.FC = ({ route }) => {
           uniqueKey="id"
           ref={multiSelect}
           onSelectedItemsChange={onSelectedLanguagesChange}
-          selectText="Select languages"
+          selectText={i18n.t('createProfileStepTwoForm.selectLanguages')}
           displayKey="name"
           tagRemoveIconColor="#f8f8f8"
           tagTextColor="white"
@@ -252,14 +253,15 @@ export const StepTwoForm: React.FC = ({ route }) => {
             ? multiSelect.current.getSelectedItemsExt(languages)
             : null}
         </View>
-        <Text style={styles.label}>About</Text>
+        <Text style={styles.label}>
+          {i18n.t('createProfileStepTwoForm.about')}
+        </Text>
         <Text marginBottom={-3}>
-          Talk a bit about yourself, your personality, what you like to do in
-          your free time.
+          {i18n.t('createProfileStepTwoForm.aboutSubtitle')}
         </Text>
         <Input
           error={''}
-          placeholder="Tell me something about you"
+          placeholder={i18n.t('createProfileStepTwoForm.aboutplaceholder')}
           onChangeText={(text) => handleOnChange(text, 'bio')}
           label={undefined}
         />
@@ -274,7 +276,7 @@ export const StepTwoForm: React.FC = ({ route }) => {
           uniqueKey="id"
           ref={multiSelectHobbies}
           onSelectedItemsChange={onSelectedHobbiesChange}
-          selectText="Select hobbies"
+          selectText={i18n.t('createProfileStepTwoForm.selectHobbies')}
           displayKey="name"
           tagRemoveIconColor="#f8f8f8"
           tagTextColor="white"
@@ -323,10 +325,10 @@ export const StepTwoForm: React.FC = ({ route }) => {
           marginRight="6px"
           onPress={navigation.goBack}
         >
-          Back
+          {i18n.t('createProfileStepTwoForm.back')}
         </Button>
         <Button variant="primarySmall" onPress={handleOnSubmit}>
-          Next
+          {i18n.t('createProfileStepTwoForm.next')}
         </Button>
         {/* <PrimaryButton label="Next" onPress={handleOnSubmit} /> */}
       </View>
