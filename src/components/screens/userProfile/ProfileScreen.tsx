@@ -30,7 +30,7 @@ export const ProfileScreen: React.FC = () => {
           size="2xl"
           alignSelf={'center'}
           source={{
-            uri: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
+            uri: profile.profilePicture,
           }}
         />
         <Text>{profile.name}</Text>
