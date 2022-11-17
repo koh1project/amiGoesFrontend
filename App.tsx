@@ -29,6 +29,7 @@ import TranslateScreen from './src/components/screens/TranslateScreen';
 import { customTheme } from './src/theme';
 
 import { AuthContextProvider } from './src/components/auth/AuthContextProvider';
+import IDVerificationScreen from './src/components/screens/createProfile/IDVerificationScreen';
 import ConnectUserProfile from './src/components/screens/Connect/ConnectUserProfile';
 import BlockedUsersScreen from './src/components/screens/myAmigoes/BlockedUsersScreen';
 import ConnectedUsersScreen from './src/components/screens/myAmigoes/ConnectedUsersScreen';
@@ -171,10 +172,20 @@ export default function App() {
               <Stack.Screen
                 component={ConnectUserProfile}
                 name={SCREEN_NAMES.ConnectUserProfile}
+
                 options={{
                   header: () => <Header />,
                   headerShown: true,
                 }}
+                />
+               <Stack.Screen
+                component={IDVerificationScreen}
+                name={SCREEN_NAMES.IDVerification}
+                 options={{
+                  header: () => <Header />,
+                  headerShown: true,
+                }}
+
               />
             </Stack.Navigator>
           </NavigationContainer>

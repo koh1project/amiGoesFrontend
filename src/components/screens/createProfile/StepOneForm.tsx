@@ -1,5 +1,5 @@
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { useNavigation } from '@react-navigation/core';
+import { Box, Button, Text, View } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import {
   Keyboard,
@@ -7,22 +7,23 @@ import {
   SafeAreaView,
   ScrollView,
   StyleSheet,
-  Text,
   TouchableOpacity,
-  View,
 } from 'react-native';
 import SelectList from 'react-native-dropdown-select-list';
+import Info from '../../../../assets/icons/info.svg';
+import i18n from '../../../localization/Localization';
 import { LooseObject } from '../../../types/models';
 import { SCREEN_NAMES } from '../../../utils/const';
-import { PrimaryButton } from '../../buttons/PrimaryButton';
 import { Input } from '../../form/Input';
 
-export const StepOneForm: React.FC = () => {
-  const navigation = useNavigation();
+export const StepOneForm: React.FC = ({ navigation, route }) => {
+  // const navigation = useNavigation();
+
   const [show, setShow] = useState(false);
   const [date, setDate] = useState(new Date());
   const [text, setText] = useState('');
   const [genderSelected, setGenderSelected] = useState('');
+  const [verified, setVerified] = useState(false);
 
   const [inputs, setInputs] = useState({
     name: 'Arvind Smith',
@@ -35,6 +36,12 @@ export const StepOneForm: React.FC = () => {
   });
 
   const [errors, setErrors] = useState<LooseObject>({});
+
+  useEffect(() => {
+    if (route.params?.verified) {
+      setVerified(route.params.verified);
+    }
+  }, [route.params?.verified]);
 
   useEffect(() => {
     onSelectGender(genderSelected);
@@ -134,100 +141,120 @@ export const StepOneForm: React.FC = () => {
 
   return (
     <SafeAreaView>
-      <ScrollView>
-        <Text>Your primary information</Text>
-        <Text>
-          Primary information is important to keep our community safe, and this
-          is why amigoes makes it mandatory. Don't worry, all sensitive
-          information is not stored by us, and is only used to verify your
-          identity.
+      <ScrollView style={styles.container}>
+        <Text style={styles.title} color="green">
+          {i18n.t('createProfileStepOneForm.title')}
         </Text>
-        <View style={{ marginHorizontal: 20 }}>
-          <Input
-            label="Name"
-            placeholder="Ex. John Smith"
-            error={errors.name}
-            value={inputs.name}
-            onFocus={() => {
-              handleError(null, 'name');
-            }}
-            onChangeText={(text) => handleOnChange(text, 'name')}
-          />
-          <Text
-            style={{
-              fontSize: 16,
-              marginBottom: 8,
-            }}
-          >
-            Birth Date
-          </Text>
-          <TouchableOpacity onPress={() => setShow(true)}>
-            <View
-              style={[
-                styles.inputContainer,
-                {
-                  borderColor: errors.birthDate ? 'red' : 'gray',
-                  borderWidth: 1,
-                },
-              ]}
-            >
-              <Text style={styles.input}>{text}</Text>
-            </View>
-            {errors.birthDate && (
-              <Text style={{ color: 'red' }}>{errors.birthDate}</Text>
-            )}
-          </TouchableOpacity>
-          {show && (
-            <DateTimePicker
-              testID="dateTimePicker"
-              mode="date"
-              display="default"
-              value={date}
-              minimumDate={new Date(1920, 1, 1)}
-              maximumDate={new Date(2004, 1, 1)}
-              onChange={onDateChange}
+        <Text
+          textAlign="center"
+          marginLeft="50px"
+          marginRight="50px"
+          marginBottom="21px"
+        >
+          {i18n.t('createProfileStepOneForm.description')}
+        </Text>
+        <View>
+          <View style={{ marginHorizontal: 20 }}>
+            <Input
+              label={i18n.t('createProfileStepOneForm.name')}
+              placeholder="Ex. John Smith"
+              error={errors.name}
+              value={inputs.name}
+              onFocus={() => {
+                handleError(null, 'name');
+              }}
+              onChangeText={(text) => handleOnChange(text, 'name')}
             />
-          )}
-          <View style={{ marginBottom: 10 }}>
+            <Text style={styles.label}>
+              {i18n.t('createProfileStepOneForm.birthDate')}
+            </Text>
+            <TouchableOpacity onPress={() => setShow(true)}>
+              <View
+                style={[
+                  styles.inputContainer,
+                  {
+                    borderColor: errors.birthDate ? 'red' : 'gray',
+                    borderWidth: 1,
+                  },
+                ]}
+              >
+                <Text style={styles.input}>{text}</Text>
+              </View>
+              {errors.birthDate && (
+                <Text style={{ color: 'red' }}>{errors.birthDate}</Text>
+              )}
+            </TouchableOpacity>
+            {show && (
+              <DateTimePicker
+                testID="dateTimePicker"
+                mode="date"
+                display="default"
+                value={date}
+                minimumDate={new Date(1920, 1, 1)}
+                maximumDate={new Date(2004, 1, 1)}
+                onChange={onDateChange}
+              />
+            )}
+            <View style={{ marginBottom: 10 }}>
+              <Text style={styles.label}>
+                {i18n.t('createProfileStepOneForm.gender')}
+              </Text>
+              <View
+                style={[
+                  styles.inputContainer,
+                  {
+                    borderColor: errors.gender ? 'red' : 'gray',
+                    borderWidth: 1,
+                  },
+                ]}
+              >
+                <SelectList
+                  setSelected={setGenderSelected}
+                  data={genderOptions}
+                  search={false}
+                  boxStyles={{
+                    borderRadius: 0,
+                    borderWidth: 0,
+                    backgroundColor: 'transparent',
+                  }}
+                  dropdownStyles={{
+                    borderRadius: 0,
+                    borderWidth: 0,
+                    backgroundColor: 'transparent',
+                  }}
+                />
+              </View>
+              {errors.gender && (
+                <Text style={{ color: 'red' }}>{errors.gender}</Text>
+              )}
+            </View>
+            <Input
+              keyboardType="numeric"
+              label={i18n.t('createProfileStepOneForm.phoneNumber')}
+              placeholder="Ex. 987 654 3210"
+              value={inputs.phoneNumber}
+              error={errors.phoneNumber}
+              onFocus={() => {
+                handleError(null, 'phoneNumber');
+              }}
+              onChangeText={(text) => handleOnChange(text, 'phoneNumber')}
+            />
+          </View>
+          <View backgroundColor="light" style={{ paddingHorizontal: 20 }}>
             <Text
+              color="green"
               style={{
-                fontSize: 16,
-                marginBottom: 8,
+                fontSize: 18,
+                fontFamily: 'Ubuntu_500Medium',
+                lineHeight: 24,
+                marginBottom: 10,
+                marginTop: 24,
               }}
             >
-              Gender
+              {i18n.t('createProfileStepOneForm.emergencyContact')}
             </Text>
-            <View
-              style={[
-                styles.inputContainer,
-                { borderColor: errors.gender ? 'red' : 'gray', borderWidth: 1 },
-              ]}
-            >
-              <SelectList
-                setSelected={setGenderSelected}
-                data={genderOptions}
-                search={false}
-              />
-            </View>
-            {errors.gender && (
-              <Text style={{ color: 'red' }}>{errors.gender}</Text>
-            )}
-          </View>
-          <Input
-            keyboardType="numeric"
-            label="Phone Number"
-            placeholder="Ex. 987 654 3210"
-            value={inputs.phoneNumber}
-            error={errors.phoneNumber}
-            onFocus={() => {
-              handleError(null, 'phoneNumber');
-            }}
-            onChangeText={(text) => handleOnChange(text, 'phoneNumber')}
-          />
-          <View>
-            <Text>Emergency Contact</Text>
             <Input
-              label="Name"
+              label={i18n.t('createProfileStepOneForm.name')}
               placeholder="Ex. John Smith"
               value={inputs.emergencyName}
               error={errors.emergencyName}
@@ -237,7 +264,7 @@ export const StepOneForm: React.FC = () => {
               onChangeText={(text) => handleOnChange(text, 'emergencyName')}
             />
             <Input
-              label="Relationship"
+              label={i18n.t('createProfileStepOneForm.relationship')}
               placeholder="Ex. Son"
               value={inputs.emergencyRelationship}
               error={errors.emergencyRelationship}
@@ -250,7 +277,7 @@ export const StepOneForm: React.FC = () => {
             />
             <Input
               keyboardType="numeric"
-              label="Phone Number"
+              label={i18n.t('createProfileStepOneForm.phoneNumber')}
               placeholder="Ex. 987 654 3210"
               error={errors.emergencyPhoneNumber}
               value={inputs.emergencyPhoneNumber}
@@ -261,22 +288,92 @@ export const StepOneForm: React.FC = () => {
                 handleOnChange(text, 'emergencyPhoneNumber')
               }
             />
+            <Box backgroundColor="lightcoral" style={styles.disclaimer}>
+              <Info width={24} height={24} />
+              <Text variant="disclaimer" marginLeft={11} marginRight={18}>
+                {i18n.t('createProfileStepOneForm.disclaimer')}
+              </Text>
+            </Box>
           </View>
         </View>
-        <PrimaryButton label="Next" onPress={validate} />
+        <View style={{ paddingHorizontal: 20 }}>
+          <Text
+            color="green"
+            style={{
+              fontSize: 18,
+              fontFamily: 'Ubuntu_500Medium',
+              lineHeight: 24,
+              marginBottom: 10,
+              marginTop: 24,
+            }}
+          >
+            {i18n.t('createProfileStepOneForm.id')}
+          </Text>
+          <Text marginBottom="10px">
+            {i18n.t('createProfileStepOneForm.idDescription')}
+          </Text>
+          <Button
+            variant={verified ? 'primaryLargeLight' : 'disabledLarge'}
+            disabled={!verified}
+            marginBottom="24px"
+            alignSelf="center"
+            onPress={() => navigation.navigate(SCREEN_NAMES.IDVerification)}
+          >
+            {i18n.t('createProfileStepOneForm.verify')}
+          </Button>
+          <Box backgroundColor="lightcoral" style={styles.disclaimer}>
+            <Info width={24} height={24} />
+            <Text variant="disclaimer" marginLeft={11} marginRight={18}>
+              {i18n.t('createProfileStepOneForm.disclaimerID')}
+            </Text>
+          </Box>
+        </View>
+        <Button
+          variant="primaryLarge"
+          onPress={validate}
+          alignSelf="center"
+          marginBottom="24px"
+        >
+          {i18n.t('createProfileStepOneForm.next')}
+        </Button>
       </ScrollView>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'white',
+    marginHorizontal: 0,
+  },
   inputContainer: {
     borderWidth: 1,
-    borderRadius: 5,
-    marginBottom: 10,
+    borderRadius: 6,
+    borderColor: '#C3C3C3',
+    marginBottom: 24,
   },
   input: {
     paddingHorizontal: 24,
     paddingVertical: 12,
+  },
+  title: {
+    fontSize: 24,
+    fontFamily: 'Ubuntu_500Medium',
+    lineHeight: 28,
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  label: {
+    fontSize: 14,
+    fontFamily: 'Ubuntu_500Medium',
+    lineHeight: 18,
+    color: '#434343',
+    marginBottom: 7,
+  },
+  disclaimer: {
+    padding: 14,
+    borderRadius: 6,
+    flexDirection: 'row',
+    marginBottom: 24,
   },
 });

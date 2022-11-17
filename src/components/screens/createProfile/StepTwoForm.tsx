@@ -1,7 +1,10 @@
 import { useNavigation } from '@react-navigation/core';
+import * as ImagePicker from 'expo-image-picker';
+import { Button, Text, View } from 'native-base';
 import React, { useRef, useState } from 'react';
-import { Text, View } from 'react-native';
+import { Image, ScrollView, StyleSheet } from 'react-native';
 import MultiSelect from 'react-native-multiple-select';
+import placeholder from '../../../../assets/images/placeholder.png';
 import { useNotificationsToken } from '../../../hooks/useNotificationsToken';
 import i18n from '../../../localization/Localization';
 import { post } from '../../../services/api';
@@ -9,7 +12,6 @@ import {
   authUser,
   CREATE_USERPROFILE_ENDPOINT,
 } from '../../../services/userProfile.service';
-import { PrimaryButton } from '../../buttons/PrimaryButton';
 import { Input } from '../../form/Input';
 
 const languagesOptions = [
@@ -87,6 +89,7 @@ export const StepTwoForm: React.FC = ({ route }) => {
   const user = authUser();
   const navigation = useNavigation();
   const inputs = route.params;
+  const [image, setImage] = useState(null);
   const [profileInfo, setProfileInfo] = useState({
     _id: user.uid,
     name: inputs.inputs.name,
@@ -132,80 +135,183 @@ export const StepTwoForm: React.FC = ({ route }) => {
   };
 
   const createProfile = async (data) => {
+    console.log(data);
     const result = await post(CREATE_USERPROFILE_ENDPOINT.post, data);
     if (result.data) {
+      console.log(result);
       alert('Profile created successfully!');
       updateNotificationToken(); // update send notification token to backend
       navigation.navigate('Index' as never);
     }
   };
 
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
+  };
+
   return (
-    <View>
-      <Text>Talk a bit about yourself</Text>
-      <View>
+    <ScrollView style={styles.container}>
+      <Text style={styles.title} color="green">
+        {i18n.t('createProfileStepTwoForm.title')}
+      </Text>
+      <Text
+        textAlign="center"
+        marginLeft="50px"
+        marginRight="50px"
+        marginBottom="21px"
+      >
+        {i18n.t('createProfileStepTwoForm.subtitle')}
+      </Text>
+
+      {image ? (
+        <Image source={{ uri: image }} style={styles.image} />
+      ) : (
+        <Image source={placeholder} style={styles.image} />
+      )}
+
+      <Button
+        variant="primaryLargeLight"
+        alignSelf="center"
+        onPress={pickImage}
+        marginBottom="25px"
+      >
+        {i18n.t('createProfileStepTwoForm.uploadPhoto')}
+      </Button>
+
+      <View style={{ marginHorizontal: 20 }}>
         <Input
-          label={i18n.t('error_description')}
+          label={i18n.t('createProfileStepTwoForm.country')}
           placeholder="Ex. Mexico"
           error={''}
           onChangeText={(text) => handleOnChange(text, 'homeCountry')}
         />
         <View>
-          <Text>Languages</Text>
+          <Text style={styles.label}>
+            {i18n.t('createProfileStepTwoForm.languages')}
+          </Text>
+          <Text marginBottom="12px">
+            {i18n.t('createProfileStepTwoForm.languagesSubtitle')}
+          </Text>
         </View>
         <MultiSelect
           hideTags
+          fontFamily="Ubuntu_400Regular"
+          fontSize={14}
           items={languagesOptions}
           uniqueKey="id"
           ref={multiSelect}
           onSelectedItemsChange={onSelectedLanguagesChange}
+          selectText={i18n.t('createProfileStepTwoForm.selectLanguages')}
           displayKey="name"
           tagRemoveIconColor="#f8f8f8"
-          tagTextColor="#f8f8f8"
+          tagTextColor="white"
           selectedItemTextColor="#3fa8ae"
           selectedItemIconColor="#3fa8ae"
-          itemTextColor="#000"
+          itemTextColor="#434343"
           submitButtonColor="#3fa8ae"
-          tagContainerStyle={{
-            borderRadius: 10,
-            backgroundColor: '#a4a5a3',
-            borderColor: '#a4a5a3',
-          }}
           submitButtonText="Done"
+          styleMainWrapper={{
+            marginBottom: 20,
+            borderWidth: 1,
+            borderRadius: 6,
+            borderColor: '#C3C3C3',
+            position: 'relative',
+            paddingHorizontal: 15,
+          }}
+          styleDropdownMenuSubsection={{
+            borderWidth: 0,
+            borderRadius: 6,
+            borderColor: 'transparent',
+            position: 'absolute',
+            top: 0,
+            width: '100%',
+            height: '100%',
+          }}
+          styleItemsContainer={{
+            backgroundColor: 'white',
+            borderColor: 'white',
+            borderLeftWidth: 0,
+          }}
+          tagContainerStyle={{
+            borderRadius: 6,
+            backgroundColor: '#3fa8ae',
+            borderColor: '#3fa8ae',
+          }}
         />
         <View>
           {multiSelect.current
             ? multiSelect.current.getSelectedItemsExt(languages)
             : null}
         </View>
+        <Text style={styles.label}>
+          {i18n.t('createProfileStepTwoForm.about')}
+        </Text>
+        <Text marginBottom={-3}>
+          {i18n.t('createProfileStepTwoForm.aboutSubtitle')}
+        </Text>
         <Input
-          label="About Me"
           error={''}
-          placeholder="Write a bit about yourself"
+          placeholder={i18n.t('createProfileStepTwoForm.aboutplaceholder')}
           onChangeText={(text) => handleOnChange(text, 'bio')}
+          label={undefined}
         />
         <View>
-          <Text>Hobbies</Text>
+          <Text style={styles.label}>Hobbies</Text>
         </View>
         <MultiSelect
           hideTags
+          fontFamily="Ubuntu_400Regular"
+          fontSize={14}
           items={hobbiesOptions}
           uniqueKey="id"
           ref={multiSelectHobbies}
           onSelectedItemsChange={onSelectedHobbiesChange}
+          selectText={i18n.t('createProfileStepTwoForm.selectHobbies')}
           displayKey="name"
           tagRemoveIconColor="#f8f8f8"
-          tagTextColor="#f8f8f8"
+          tagTextColor="white"
           selectedItemTextColor="#3fa8ae"
           selectedItemIconColor="#3fa8ae"
-          itemTextColor="#000"
+          itemTextColor="#434343"
           submitButtonColor="#3fa8ae"
-          tagContainerStyle={{
-            borderRadius: 10,
-            backgroundColor: '#a4a5a3',
-            borderColor: '#a4a5a3',
-          }}
           submitButtonText="Done"
+          styleMainWrapper={{
+            marginBottom: 20,
+            borderWidth: 1,
+            borderRadius: 6,
+            borderColor: '#C3C3C3',
+            position: 'relative',
+            paddingHorizontal: 15,
+          }}
+          styleDropdownMenuSubsection={{
+            borderWidth: 0,
+            borderRadius: 6,
+            borderColor: 'transparent',
+            position: 'absolute',
+            top: 0,
+            width: '100%',
+            height: '100%',
+          }}
+          styleItemsContainer={{
+            backgroundColor: 'white',
+            borderColor: 'white',
+            borderLeftWidth: 0,
+          }}
+          tagContainerStyle={{
+            borderRadius: 6,
+            backgroundColor: '#3fa8ae',
+            borderColor: '#3fa8ae',
+          }}
         />
         <View>
           {multiSelectHobbies.current
@@ -213,9 +319,52 @@ export const StepTwoForm: React.FC = ({ route }) => {
             : null}
         </View>
       </View>
-      <View>
-        <PrimaryButton label="Next" onPress={handleOnSubmit} />
+      <View style={styles.buttonContainer}>
+        <Button
+          variant="primarySmallLight"
+          marginRight="6px"
+          onPress={navigation.goBack}
+        >
+          {i18n.t('createProfileStepTwoForm.back')}
+        </Button>
+        <Button variant="primarySmall" onPress={handleOnSubmit}>
+          {i18n.t('createProfileStepTwoForm.next')}
+        </Button>
+        {/* <PrimaryButton label="Next" onPress={handleOnSubmit} /> */}
       </View>
-    </View>
+    </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  title: {
+    fontSize: 24,
+    fontFamily: 'Ubuntu_500Medium',
+    lineHeight: 28,
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  container: {
+    backgroundColor: 'white',
+    marginHorizontal: 0,
+    flex: 1,
+  },
+  image: {
+    alignSelf: 'center',
+    marginBottom: 20,
+  },
+  label: {
+    fontSize: 14,
+    fontFamily: 'Ubuntu_500Medium',
+    lineHeight: 18,
+    color: '#434343',
+    marginBottom: 7,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    alignContent: 'center',
+    justifyContent: 'center',
+    marginBottom: 20,
+    marginTop: 20,
+  },
+});
