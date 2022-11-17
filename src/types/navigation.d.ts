@@ -18,6 +18,9 @@ export type RootStackParamList = {
   PlaceProfile: undefined;
   GoNow: undefined;
   ConnectedUsersScreen: undefined;
+  ConnectUserProfile: {
+    userId: string;
+  };
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =

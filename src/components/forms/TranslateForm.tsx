@@ -5,6 +5,7 @@ import Camera from '../../../assets/icons/camera-fill.svg';
 import english from '../../../assets/icons/en-icon.png';
 import spanish from '../../../assets/icons/es-icon.png';
 import Upload from '../../../assets/icons/upload.svg';
+import i18n from '../../localization/Localization';
 import { SCREEN_NAMES } from '../../utils/const';
 
 const TranslateForm = (props) => {
@@ -21,8 +22,7 @@ const TranslateForm = (props) => {
     <VStack>
       <View marginLeft={'20px'} marginRight={'20px'}>
         <Text variant="body" marginBottom={'30px'}>
-          The following tool allows you to convert images to text. Please set
-          the language you would like to translate to.
+          {i18n.t('TranslateScreen.Description')}
         </Text>
         <Box style={styles.languages}>
           <VStack style={styles.languageContainer}>
@@ -38,16 +38,16 @@ const TranslateForm = (props) => {
       </View>
       <VStack style={styles.buttonContainer}>
         <Text variant="body">
-          Transform a photo into text by uploading or taking one.
+          {i18n.t('TranslateScreen.UploadPhotoDescription')}
         </Text>
         <HStack marginTop={'11.5px'}>
           <Button variant="cameraBigBtnLight" marginRight={'12px'}>
             <Upload style={styles.icon} />
-            Upload
+            {i18n.t('TranslateScreen.UploadPhoto')}
           </Button>
           <Button onPress={openCamera} variant="cameraBigBtn">
             <Camera style={styles.icon} />
-            Camera
+            {i18n.t('TranslateScreen.TakePhoto')}
           </Button>
         </HStack>
       </VStack>
