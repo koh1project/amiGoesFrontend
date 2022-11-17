@@ -30,7 +30,7 @@ export const GoNowMap: FC<GoNowMapProps> = ({ circleRadius }) => {
   const mockData = [
     {
       name: 'Mary',
-      photoUrl: '../../../../assets/amigoes/marry.png',
+      photoUrl: '../../../../assets/amigoes/person.png',
       coordinate: {
         latitude: latitude + 0.001,
         longitude: longitude + 0.001,
@@ -38,7 +38,7 @@ export const GoNowMap: FC<GoNowMapProps> = ({ circleRadius }) => {
     },
     {
       name: 'Sara',
-      photoUrl: '../../../../assets/amigoes/marry.png',
+      photoUrl: '../../../../assets/amigoes/person.png',
       coordinate: {
         latitude: latitude - 0.001,
         longitude: longitude - 0.001,
@@ -80,7 +80,7 @@ export const GoNowMap: FC<GoNowMapProps> = ({ circleRadius }) => {
             description={amigoes.name}
           >
             <Image
-              source={require('../../../../assets/amigoes/marry.png')}
+              source={require('../../../../assets/amigoes/person.png')}
               style={{ width: 50, height: 50 }}
               resizeMethod={'resize'}
             />

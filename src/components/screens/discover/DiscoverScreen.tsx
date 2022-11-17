@@ -1,10 +1,19 @@
-import { Badge, Input, ScrollView, View } from 'native-base';
+import {
+  Badge,
+  Input,
+  ScrollView,
+  View,
+  VStack,
+  CloseIcon,
+  HStack,
+} from 'native-base';
 import React, { useCallback, useEffect, useState } from 'react';
 import {
   NativeSyntheticEvent,
   Text,
   TextInputChangeEventData,
   StyleSheet,
+  TouchableOpacity,
 } from 'react-native';
 import {
   getDiscover,
@@ -38,12 +47,16 @@ export const DiscoverScreen: React.FC = () => {
     [],
   );
 
+  const handleRemoveFilterItem = (index: number) => {
+    setFilterItems(filterItems.filter((_, i) => i !== index));
+  };
+
   const fetchPlaces = async () => {
     let result: AxiosResponse<GetDiscoverResponse | Place[], any>;
     if (searchKeyword) {
-      result = await getPlacesByKeyword(searchKeyword);
+      result = (await getPlacesByKeyword(searchKeyword)) as AxiosResponse;
     } else {
-      result = await getDiscover();
+      result = (await getDiscover()) as AxiosResponse;
     }
 
     const { data } = result;
@@ -71,7 +84,7 @@ export const DiscoverScreen: React.FC = () => {
   }
 
   return (
-    <View style={{ padding: 10 }}>
+    <View style={{ padding: 10, display: 'flex', flexDirection: 'column' }}>
       {isFilterOpen && (
         <DiscoverFilter
           handleFilterClose={() => setIsFilterOpen(false)}
@@ -83,18 +96,30 @@ export const DiscoverScreen: React.FC = () => {
         handleSearchChange={handleSearchChange}
         searchKeyword={searchKeyword}
       />
-      <View style={styles.filterItemContainer}>
-        {filterItems.map((item, index) => (
-          <Badge
-            key={index}
-            _text={{ color: 'white' }}
-            style={styles.filterItem}
-            colorScheme="success"
-          >
-            {item}
-          </Badge>
-        ))}
-      </View>
+      <VStack style={styles.filterItemContainer}>
+        {filterItems.map(
+          (item, index) =>
+            item && (
+              <Badge
+                key={index}
+                _text={{ color: 'white' }}
+                style={styles.filterItem}
+                colorScheme="success"
+                endIcon={
+                  <TouchableOpacity
+                    onPress={() => {
+                      handleRemoveFilterItem(index);
+                    }}
+                  >
+                    <CloseIcon size="xs" color="#FFFFFF" />
+                  </TouchableOpacity>
+                }
+              >
+                {item}
+              </Badge>
+            ),
+        )}
+      </VStack>
       <ScrollView>{content}</ScrollView>
     </View>
   );
@@ -102,16 +127,18 @@ export const DiscoverScreen: React.FC = () => {
 
 const styles = StyleSheet.create({
   filterItemContainer: {
-    flex: 1,
+    flexGrow: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
     flexWrap: 'wrap',
     alignItems: 'center',
   },
   filterItem: {
-    flexGrow: 1,
-    flexShrink: 0,
+    flexGrow: 0,
+    flexShrink: 1,
     backgroundColor: '#3FA8AE',
     height: 50,
+    display: 'flex',
+    flexDirection: 'row',
   },
 });

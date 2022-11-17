@@ -1,9 +1,9 @@
-import { Button, Box, Heading, HStack, Input, Text, View } from 'native-base';
+import { Button, Box, HStack, Input, Text, View } from 'native-base';
 import React, { FC, useState } from 'react';
-import { Place, UserLocation } from '../../../types/discover';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import CloseIcon from '../../../../assets/icons/close-icon.svg';
-import { useNavigation } from '@react-navigation/native';
+import { DiscoverCalendar } from './DiscoverCalendar';
+import TimePicker from '../../TimePicker/TimePicker';
 
 type DiscoverFilterProps = {
   handleFilterClose: () => void;
@@ -13,12 +13,30 @@ export const DiscoverFilter: FC<DiscoverFilterProps> = ({
   handleFilterClose,
   setFilterItems,
 }) => {
-  // const [to, setTo] = useState<Date>(new Date());
-  // const [from, setFrom] = useState<Date>(new Date());
+  const [dateTo, setDateTo] = useState<Date>(new Date());
+  const [dateFrom, setDateFrom] = useState<Date>(new Date());
+
+  const [dayTo, setDayTo] = useState<string | null>(null);
+  const [dayFrom, setDayFrom] = useState<string | null>(null);
+
   const [locationText, setLocationText] = useState<string>('Vancouver,BC');
 
   const handleApply = () => {
-    setFilterItems([locationText, 'second']);
+    const selectedItems = [];
+    selectedItems.push(locationText);
+
+    if (dayFrom && dayTo) {
+      selectedItems.push(`${dayFrom} to ${dayTo}`);
+    }
+
+    if (dateFrom && dateTo) {
+      selectedItems.push(
+        `${dateFrom.getHours()}:${dateFrom.getMinutes()} to ${dateTo.getHours()}:${dateTo.getMinutes()}`,
+      );
+    }
+
+    setFilterItems(selectedItems);
+
     handleFilterClose();
   };
 
@@ -27,44 +45,49 @@ export const DiscoverFilter: FC<DiscoverFilterProps> = ({
       <TouchableOpacity onPress={handleFilterClose}>
         <CloseIcon />
       </TouchableOpacity>
-      <Input placeholder="Search a park, restaurant..."></Input>
+      <Text>Select Location</Text>
+      <Input
+        placeholder="Search a park, restaurant..."
+        onTextInput={(e) => {
+          setLocationText(e.nativeEvent.text);
+        }}
+      ></Input>
       <View style={styles.flexBetween}>
         <Text>Location</Text>
         <Text>{locationText}</Text>
       </View>
       <Text variant="h2">Select Dates</Text>
       <Box>
-        <Text variant="h3">Calendar</Text>
+        <DiscoverCalendar setDayTo={setDayTo} setDayFrom={setDayFrom} />
       </Box>
       <View>
-        <Text>Select Time</Text>
+        <Text variant="h2">Select Time</Text>
         <HStack
           style={{
             width: '100%',
           }}
           space={5}
         >
-          <Text>Time</Text>
+          <TimePicker title="From" value={dateFrom} onChange={setDateFrom} />
+          <TimePicker title="To" value={dateTo} onChange={setDateTo} />
         </HStack>
       </View>
       <View style={styles.buttonContainer}>
         <Button
           alignSelf={{ base: 'center', md: 'flex-end' }}
-          marginBottom={4}
           borderColor="coral"
           borderWidth={1}
           variant="primaryLargeLight"
           flexShrink={1}
-          onPress={(e) => console.log(e)}
+          onPress={() => handleFilterClose()}
         >
           CLEAR
         </Button>
         <Button
           alignSelf={{ base: 'center', md: 'flex-end' }}
-          marginBottom={4}
           variant="primaryLarge"
           flexShrink={1}
-          onPress={(e) => handleApply()}
+          onPress={handleApply}
         >
           Apply
         </Button>
@@ -85,11 +108,14 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderTopWidth: 1,
     padding: 16,
+    paddingBottom: 0,
   },
   buttonContainer: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    flexGrow: 1,
+    flexShrink: 1,
   },
   flexBetween: {
     display: 'flex',
