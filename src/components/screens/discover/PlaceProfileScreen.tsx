@@ -4,12 +4,16 @@ import {
   AspectRatio,
   Flex,
   Text,
-  Button,
-  CircleIcon,
+  Alert,
+  VStack,
   HStack,
+  CloseIcon,
+  Box,
+  IconButton,
+  CircleIcon,
   View,
 } from 'native-base';
-import React from 'react';
+import React, { useState, FC, useEffect } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { SecondaryHeading, TertiaryHeading } from '../../texts/Heading';
@@ -29,11 +33,23 @@ type PlaceProfileScreenProps = {
   };
 };
 
-export const PlaceProfileScreen: React.FC<PlaceProfileScreenProps> = ({
-  route,
-}) => {
+export const PlaceProfileScreen: FC<PlaceProfileScreenProps> = ({ route }) => {
   let place_id = route?.params?.place_id;
   const navigation = useNavigation();
+
+  const [backedFromGoNow, setBackedFromGoNow] = useState(false);
+
+  const goBackDetection = () => {
+    setBackedFromGoNow(true);
+  };
+
+  useEffect(() => {
+    if (backedFromGoNow) {
+      setTimeout(() => {
+        setBackedFromGoNow(false);
+      }, 4000);
+    }
+  }, [backedFromGoNow]);
 
   //@NOTE: development purpose, Stanley Park
   if (!place_id) {
@@ -49,6 +65,43 @@ export const PlaceProfileScreen: React.FC<PlaceProfileScreenProps> = ({
 
   return (
     <ScrollView>
+      {backedFromGoNow && (
+        <Alert maxW="400" status="info" colorScheme="info">
+          <VStack space={2} flexShrink={1} w="100%">
+            <HStack
+              flexShrink={1}
+              space={2}
+              alignItems="center"
+              justifyContent="space-between"
+            >
+              <HStack flexShrink={1} space={2} alignItems="center">
+                <Alert.Icon />
+                <Text fontSize="md" fontWeight="medium" color="coolGray.800">
+                  Your location is being shared for the next 20 minutes.
+                </Text>
+              </HStack>
+              <IconButton
+                variant="unstyled"
+                _focus={{
+                  borderWidth: 0,
+                }}
+                icon={<CloseIcon size="3" />}
+                _icon={{
+                  color: 'coolGray.600',
+                }}
+              />
+            </HStack>
+            <Box
+              pl="6"
+              _text={{
+                color: '#EE6653',
+              }}
+            >
+              STOP
+            </Box>
+          </VStack>
+        </Alert>
+      )}
       <TouchableOpacity onPress={handleNextPhoto}>
         <AspectRatio w="100%" ratio={16 / 9}>
           <Image
@@ -60,9 +113,8 @@ export const PlaceProfileScreen: React.FC<PlaceProfileScreenProps> = ({
         </AspectRatio>
         <HStack style={styles.dotContainer}>
           {photoUrls.map((url, index) => (
-            <View style={styles.dot}>
+            <View style={styles.dot} key={index}>
               <CircleIcon
-                key={index}
                 size={2}
                 color={
                   index === photoIndex
@@ -75,7 +127,12 @@ export const PlaceProfileScreen: React.FC<PlaceProfileScreenProps> = ({
         </HStack>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate(SCREEN_NAMES.GoNow as never);
+            navigation.navigate(
+              SCREEN_NAMES.GoNow as never,
+              {
+                goBackDetection: goBackDetection,
+              } as never,
+            );
           }}
           style={styles.buttonContainer}
         >

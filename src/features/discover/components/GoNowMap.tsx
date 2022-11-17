@@ -4,6 +4,7 @@ import MapView, { Circle, Marker, Region } from 'react-native-maps';
 import { Image, Text, View } from 'native-base';
 import { Dimensions, StyleSheet } from 'react-native';
 import { useGoNow } from '../hooks/useGoNow';
+import Person from '../../../../assets/amigoes/person.svg';
 
 type GoNowMapProps = {
   circleRadius: number;
@@ -23,6 +24,7 @@ export const GoNowMap: FC<GoNowMapProps> = ({ circleRadius }) => {
 
   const handleRegionChange = async (region: Region) => {
     const mapBoundaries = await mapRef.current.getMapBoundaries();
+    console.log('mapBoundaries: ', mapBoundaries);
   };
 
   const { latitude, longitude } = userLocation.coords;
@@ -71,6 +73,7 @@ export const GoNowMap: FC<GoNowMapProps> = ({ circleRadius }) => {
             latitude,
             longitude,
           }}
+          title="Your location"
         />
         {mockData.map((amigoes, index) => (
           <Marker
@@ -79,11 +82,7 @@ export const GoNowMap: FC<GoNowMapProps> = ({ circleRadius }) => {
             title={amigoes.name}
             description={amigoes.name}
           >
-            <Image
-              source={require('../../../../assets/amigoes/person.png')}
-              style={{ width: 50, height: 50 }}
-              resizeMethod={'resize'}
-            />
+            <Person />
             <Text
               style={{
                 backgroundColor: '#FFFFFF',
