@@ -1,30 +1,29 @@
+import { AxiosResponse } from 'axios';
 import {
   Badge,
-  Input,
+  CloseIcon,
+  Divider,
   ScrollView,
+  Text,
   View,
   VStack,
-  CloseIcon,
-  HStack,
-  Divider,
 } from 'native-base';
 import React, { useCallback, useEffect, useState } from 'react';
 import {
   NativeSyntheticEvent,
-  Text,
-  TextInputChangeEventData,
   StyleSheet,
+  TextInputChangeEventData,
   TouchableOpacity,
 } from 'react-native';
+import { DiscoverMainPlaces } from '../../../features/discover/components/DiscoverMainPlaces';
+import { SearchResults } from '../../../features/discover/components/SearchResults';
+import { useUserLocation } from '../../../features/discover/hooks/useUserLocation';
+import i18n from '../../../localization/Localization';
 import {
   getDiscover,
   getPlacesByKeyword,
 } from '../../../services/discover.service';
 import { GetDiscoverResponse, Place } from '../../../types/discover';
-import { useUserLocation } from '../../../features/discover/hooks/useUserLocation';
-import { DiscoverMainPlaces } from '../../../features/discover/components/DiscoverMainPlaces';
-import { SearchResults } from '../../../features/discover/components/SearchResults';
-import { AxiosResponse } from 'axios';
 import { DiscoverFilter } from './DiscoverFilter';
 import { SearchKeywordForm } from './SearchKeywordForm';
 
@@ -85,44 +84,52 @@ export const DiscoverScreen: React.FC = () => {
   }
 
   return (
-    <View style={{ padding: 10, display: 'flex', flexDirection: 'column' }}>
+    <View
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        backgroundColor: 'white',
+      }}
+    >
       {isFilterOpen && (
         <DiscoverFilter
           handleFilterClose={() => setIsFilterOpen(false)}
           setFilterItems={setFilterItems}
         />
       )}
-      <Text>Discover</Text>
-      <SearchKeywordForm
-        handleSearchChange={handleSearchChange}
-        searchKeyword={searchKeyword}
-      />
-      <Divider my={4} />
-      <VStack style={styles.filterItemContainer}>
-        {filterItems.map(
-          (item, index) =>
-            item && (
-              <Badge
-                key={index}
-                _text={{ color: 'white' }}
-                style={styles.filterItem}
-                colorScheme="success"
-                endIcon={
-                  <TouchableOpacity
-                    onPress={() => {
-                      handleRemoveFilterItem(index);
-                    }}
-                  >
-                    <CloseIcon size="xs" color="#FFFFFF" />
-                  </TouchableOpacity>
-                }
-              >
-                {item}
-              </Badge>
-            ),
-        )}
-      </VStack>
-      <ScrollView>{content}</ScrollView>
+      <Text variant="screenTitle">{i18n.t('Discover.title')}</Text>
+      <View style={styles.container}>
+        <SearchKeywordForm
+          handleSearchChange={handleSearchChange}
+          searchKeyword={searchKeyword}
+        />
+        <Divider my={4} />
+        <VStack style={styles.filterItemContainer}>
+          {filterItems.map(
+            (item, index) =>
+              item && (
+                <Badge
+                  key={index}
+                  _text={{ color: 'white' }}
+                  style={styles.filterItem}
+                  colorScheme="success"
+                  endIcon={
+                    <TouchableOpacity
+                      onPress={() => {
+                        handleRemoveFilterItem(index);
+                      }}
+                    >
+                      <CloseIcon size="xs" color="#FFFFFF" />
+                    </TouchableOpacity>
+                  }
+                >
+                  {item}
+                </Badge>
+              ),
+          )}
+        </VStack>
+        <ScrollView>{content}</ScrollView>
+      </View>
     </View>
   );
 };
@@ -142,5 +149,9 @@ const styles = StyleSheet.create({
     height: 50,
     display: 'flex',
     flexDirection: 'row',
+  },
+  container: {
+    marginLeft: 20,
+    marginRight: 20,
   },
 });

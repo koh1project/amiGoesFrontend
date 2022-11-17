@@ -119,6 +119,19 @@ const i18n = new I18n({
       UploadPhoto: 'Upload',
       DescriptionResults: 'The following image has been translated for you:',
     },
+    Discover: {
+      title: 'Discover',
+      search: 'Search',
+      filter: 'Select location',
+      searchPlaceholder: 'Search for a park, restaurant, etc.',
+      locationTitle: 'Location',
+      date: 'Select dates',
+      time: 'Select time',
+      from: 'From',
+      to: 'To',
+      clear: 'Clear',
+      apply: 'Apply',
+    },
   },
   es: {
     IndexScreen: {
@@ -230,7 +243,20 @@ const i18n = new I18n({
       signup: 'Registrarse',
       alreadyHaveAccount: '¿Ya tienes una cuenta?',
       login: 'Iniciar sesión',
-  },
+    },
+    Discover: {
+      title: 'Descubrir',
+      search: 'Buscar',
+      filter: 'Selecciona ubicación',
+      searchPlaceholder: 'Busca parques, restaurantes, etc.',
+      locationTitle: 'Ubicación',
+      date: 'Selecciona fecha',
+      time: 'Selecciona hora',
+      from: 'Desde',
+      to: 'Hasta',
+      clear: 'Resetear',
+      apply: 'Aplicar',
+    },
   },
 });
 
