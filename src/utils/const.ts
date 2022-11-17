@@ -10,6 +10,7 @@ export const SCREEN_NAMES = {
   PlaceProfile: 'PlaceProfile',
   GoNow: 'GoNow',
   Profile: 'Profile',
+  EditProfile: 'EditProfile',
   CreateProfileStepOneForm: 'CreateProfileStepOneForm',
   CreateProfileStepTwoForm: 'CreateProfileStepTwoForm',
   Camera: 'Camera',

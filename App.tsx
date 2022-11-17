@@ -26,6 +26,7 @@ import SignupScreen from './src/components/screens/SignupScreen';
 import SplashScreen from './src/components/screens/SplashScreen';
 import TranslateScreen from './src/components/screens/TranslateScreen';
 import { ProfileScreen } from './src/components/screens/userProfile/ProfileScreen';
+import { EditProfile } from './src/components/screens/userProfile/EditProfile';
 
 import { customTheme } from './src/theme';
 
@@ -135,6 +136,14 @@ export default function App() {
               <Stack.Screen
                 name={SCREEN_NAMES.Profile}
                 component={ProfileScreen}
+                options={{
+                  header: () => <Header />,
+                  headerShown: true,
+                }}
+              />
+              <Stack.Screen
+                name={SCREEN_NAMES.EditProfile}
+                component={EditProfile}
                 options={{
                   header: () => <Header />,
                   headerShown: true,
