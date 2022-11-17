@@ -6,14 +6,18 @@ import {
   Image,
   Stack,
   Text,
+  Flex,
+  View,
 } from 'native-base';
 import React, { FC } from 'react';
 import { Place, UserLocation } from '../../../types/discover';
-import { TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 
 import { GOOGLE_MAPS_API_KEY, SCREEN_NAMES } from '../../../utils/const';
 import { TextDistance } from './TextDistance';
 import { NavigationProp } from '@react-navigation/native';
+import HeartIcon from '../../../../assets/icons/heart-icon.svg';
+import MapMarkerIcon from '../../../../assets/icons/map-marker-icon.svg';
 
 type PlaceCardProps = {
   place: Place;
@@ -41,6 +45,7 @@ export const PlaceCard: FC<PlaceCardProps> = ({
           } as never,
         );
       }}
+      style={{ flexBasis: '40%', flexGrow: 1, flexShrink: 1 }}
     >
       <Box alignItems="center">
         <Box
@@ -71,6 +76,9 @@ export const PlaceCard: FC<PlaceCardProps> = ({
                   alt="image"
                 />
               </AspectRatio>
+              <TouchableOpacity style={styles.favIcon}>
+                <HeartIcon />
+              </TouchableOpacity>
             </Box>
           )}
           <Stack p="4" space={3}>
@@ -78,7 +86,10 @@ export const PlaceCard: FC<PlaceCardProps> = ({
               <Heading size="md" ml="-1">
                 {place.name}
               </Heading>
-              <TextDistance place={place} userLocation={userLocation} />
+              <View style={styles.distanceContainer}>
+                <MapMarkerIcon />
+                <TextDistance place={place} userLocation={userLocation} />
+              </View>
             </Stack>
             <HStack
               alignItems="center"
@@ -103,3 +114,20 @@ export const PlaceCard: FC<PlaceCardProps> = ({
     </TouchableOpacity>
   );
 };
+
+const styles = StyleSheet.create({
+  favIcon: {
+    position: 'absolute',
+    top: 15,
+    right: 15,
+    zIndex: 10,
+    padding: 3,
+  },
+
+  distanceContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+});

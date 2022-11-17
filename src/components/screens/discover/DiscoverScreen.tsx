@@ -1,75 +1,146 @@
-import * as Location from 'expo-location';
-import { Input, ScrollView, View } from 'native-base';
+import {
+  Badge,
+  Input,
+  ScrollView,
+  View,
+  VStack,
+  CloseIcon,
+  HStack,
+  Divider,
+} from 'native-base';
 import React, { useCallback, useEffect, useState } from 'react';
-import { Text } from 'react-native';
-import { PlacesCarousel } from '../../../features/discover/components/PlacesCarousel';
-import { getDiscover } from '../../../services/discover.service';
-import { GetDiscoverResponse, UserLocation } from '../../../types/discover';
-import { SecondaryHeading } from '../../texts/Heading';
+import {
+  NativeSyntheticEvent,
+  Text,
+  TextInputChangeEventData,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
+import {
+  getDiscover,
+  getPlacesByKeyword,
+} from '../../../services/discover.service';
+import { GetDiscoverResponse, Place } from '../../../types/discover';
+import { useUserLocation } from '../../../features/discover/hooks/useUserLocation';
+import { DiscoverMainPlaces } from '../../../features/discover/components/DiscoverMainPlaces';
+import { SearchResults } from '../../../features/discover/components/SearchResults';
+import { AxiosResponse } from 'axios';
+import { DiscoverFilter } from './DiscoverFilter';
+import { SearchKeywordForm } from './SearchKeywordForm';
+
+function isPlaceByKeywordArray(
+  places: GetDiscoverResponse | Place[],
+): places is Place[] {
+  return Array.isArray(places);
+}
 
 export const DiscoverScreen: React.FC = () => {
-  const [places, setPlaces] = useState<GetDiscoverResponse>();
-  const [location, setLocation] = useState<UserLocation>();
+  const [places, setPlaces] = useState<GetDiscoverResponse | Place[]>();
+  const { location } = useUserLocation();
+  const [searchKeyword, setSearchKeyword] = useState<string>('');
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [filterItems, setFilterItems] = useState<string[]>([]);
 
-  const fetchPlaces = useCallback(async () => {
-    const result = await getDiscover();
-    const { data } = result;
+  const handleSearchChange = useCallback(
+    (event: NativeSyntheticEvent<TextInputChangeEventData>) => {
+      setSearchKeyword(event.nativeEvent.text);
+    },
+    [],
+  );
 
-    setPlaces(data);
-    return data;
-  }, []);
+  const handleRemoveFilterItem = (index: number) => {
+    setFilterItems(filterItems.filter((_, i) => i !== index));
+  };
 
-  const readLocation = useCallback(async () => {
-    const { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== 'granted') {
-      return;
+  const fetchPlaces = async () => {
+    let result: AxiosResponse<GetDiscoverResponse | Place[], any>;
+    if (searchKeyword) {
+      result = (await getPlacesByKeyword(searchKeyword)) as AxiosResponse;
+    } else {
+      result = (await getDiscover()) as AxiosResponse;
     }
 
-    const location = await Location.getCurrentPositionAsync({});
-    setLocation(location);
-  }, []);
-
+    const { data } = result;
+    setPlaces(data);
+    return data;
+  };
   useEffect(() => {
+    setPlaces(undefined);
     fetchPlaces().catch((error) => {
       console.error(error);
     });
-  }, [fetchPlaces]);
-
-  useEffect(() => {
-    if (location) {
-      return;
-    }
-
-    readLocation();
-  }, [location, readLocation]);
+  }, [searchKeyword]);
 
   let content = <></>;
   if (places) {
-    content = (
-      <>
-        <SecondaryHeading>Parks</SecondaryHeading>
-        <PlacesCarousel places={places['parks']} userLocation={location} />
-        <SecondaryHeading>Restaurants</SecondaryHeading>
-        <PlacesCarousel
-          places={places['restaurants']}
-          userLocation={location}
-        />
-        <SecondaryHeading>Entertainment</SecondaryHeading>
-        <PlacesCarousel
-          places={places['entertainment']}
-          userLocation={location}
-        />
-        <SecondaryHeading>Sports</SecondaryHeading>
-        <PlacesCarousel places={places['sports']} userLocation={location} />
-      </>
+    content = isPlaceByKeywordArray(places) ? (
+      <SearchResults places={places as Place[]} userLocation={location} />
+    ) : (
+      <DiscoverMainPlaces
+        places={places as GetDiscoverResponse}
+        location={location}
+        setIsFilterOpen={setIsFilterOpen}
+      />
     );
   }
 
   return (
-    <View style={{ padding: 10 }}>
+    <View style={{ padding: 10, display: 'flex', flexDirection: 'column' }}>
+      {isFilterOpen && (
+        <DiscoverFilter
+          handleFilterClose={() => setIsFilterOpen(false)}
+          setFilterItems={setFilterItems}
+        />
+      )}
       <Text>Discover</Text>
-      <Input placeholder="Search"></Input>
+      <SearchKeywordForm
+        handleSearchChange={handleSearchChange}
+        searchKeyword={searchKeyword}
+      />
+      <Divider my={4} />
+      <VStack style={styles.filterItemContainer}>
+        {filterItems.map(
+          (item, index) =>
+            item && (
+              <Badge
+                key={index}
+                _text={{ color: 'white' }}
+                style={styles.filterItem}
+                colorScheme="success"
+                endIcon={
+                  <TouchableOpacity
+                    onPress={() => {
+                      handleRemoveFilterItem(index);
+                    }}
+                  >
+                    <CloseIcon size="xs" color="#FFFFFF" />
+                  </TouchableOpacity>
+                }
+              >
+                {item}
+              </Badge>
+            ),
+        )}
+      </VStack>
       <ScrollView>{content}</ScrollView>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  filterItemContainer: {
+    flexGrow: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+  },
+  filterItem: {
+    flexGrow: 0,
+    flexShrink: 1,
+    backgroundColor: '#3FA8AE',
+    height: 50,
+    display: 'flex',
+    flexDirection: 'row',
+  },
+});

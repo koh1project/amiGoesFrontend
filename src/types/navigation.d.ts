@@ -20,6 +20,9 @@ export type RootStackParamList = {
   ConnectedUsersScreen: undefined;
   UserProfileScreen: undefined;
   EmergencyScreen: undefined;
+  ConnectUserProfile: {
+    userId: string;
+  };
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =

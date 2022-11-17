@@ -1,6 +1,6 @@
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { Flex, Heading, ScrollView, Spacer, Text, VStack } from 'native-base';
+import { FlatList, ScrollView, Text, View, VStack } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import { connectUsers } from '../../../services/connect.service';
 import { Amigo } from '../../../types/models';
@@ -34,22 +34,42 @@ export const ConnectUsers = () => {
   useEffect(() => {
     getConnectUsers();
   }, [user]);
+
+  const handleProfileClick = (id) => {
+    navigation.navigate('ConnectUserProfile', { userId: id });
+  };
   return (
-    <ScrollView flex={1}>
+    <ScrollView flex={1} bg="white" paddingX={2}>
       <VStack space={3}>
-        <Heading>Here are your Amigoes</Heading>
+        <Text variant={'h2'} color="green">
+          Here are your Amigoes!
+        </Text>
         <Text>
           Your AmiGoes are listed below, if you are interested, click on one to
           see more.
         </Text>
-        <Flex padding={4} width={'100%'} flexDir={'row'} flexWrap="wrap">
+        <FlatList
+          data={amigoes}
+          numColumns={2}
+          renderItem={({ item, index }) => {
+            return (
+              <View style={{ flex: 1, marginRight: index % 2 == 0 ? 10 : 0 }}>
+                <ConnectFeedItem
+                  amigo={item}
+                  handleProfileClick={handleProfileClick}
+                />
+              </View>
+            );
+          }}
+        />
+        {/* <Flex padding={4} width={'100%'} flexDir={'row'} flexWrap="wrap">
           {amigoes.map((amigo, index) => (
             <>
               <ConnectFeedItem amigo={amigo} />
               {index !== amigoes.length - 1 ? <Spacer /> : <></>}
             </>
           ))}
-        </Flex>
+        </Flex> */}
       </VStack>
     </ScrollView>
   );

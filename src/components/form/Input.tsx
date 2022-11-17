@@ -40,14 +40,17 @@ export const Input = ({ label, error, onFocus = () => {}, ...props }) => {
 
 const styles = StyleSheet.create({
   labelText: {
-    fontSize: 16,
-    fontWeight: 'normal',
-    marginBottom: 5,
+    fontSize: 14,
+    fontFamily: 'Ubuntu_500Medium',
+    lineHeight: 18,
+    marginBottom: 7,
+    color: '#434343',
   },
   inputContainer: {
     borderWidth: 1,
-    borderRadius: 5,
-    marginBottom: 10,
+    borderRadius: 6,
+    borderColor: '#C3C3C3',
+    marginBottom: 24,
   },
   input: {
     paddingHorizontal: 24,

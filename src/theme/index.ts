@@ -1,7 +1,25 @@
 import { extendTheme } from 'native-base';
 
+export const ThemeColors = {
+  green: '#3FA8AE',
+  coral: '#EE6653',
+  lightgreen: '#C7F0F2',
+  lightcoral: '#FFE4E0',
+  light: '#F8F8F8',
+  dark: '#434343',
+  danger: '#EA3A3D',
+  success: '#33F332',
+  white: '#FFFFFF',
+  gray: '#C3C3C3',
+} as const;
+
+export const FontFamily = {
+  Ubuntu_400Regular: 'Ubuntu_400Regular',
+  Ubuntu_700Bold: 'Ubuntu_700Bold',
+  Ubuntu_500Medium: 'Ubuntu_500Medium',
+} as const;
 export const customTheme = extendTheme({
-  colors: {
+colors: {
     green: '#3FA8AE',
     coral: '#EE6653',
     lightgreen: '#C7F0F2',
@@ -11,7 +29,7 @@ export const customTheme = extendTheme({
     danger: '#EA3A3D',
     success: '#33F332',
     white: '#FFFFFF',
-    gray: '"#C3C3C3"',
+    gray: '#C3C3C3',
   },
 
   components: {
@@ -63,6 +81,26 @@ export const customTheme = extendTheme({
           marginLeft: '19px',
           marginBottom: '18px',
         },
+        disclaimer: {
+          fontFamily: 'Ubuntu_500Medium',
+          fontSize: '12',
+          lineHeight: '14',
+          color: 'dark',
+        },
+        onboardingTitle: {
+          fontFamily: 'Ubuntu_500Medium',
+          fontSize: '18',
+          lineHeight: '24',
+          color: 'dark',
+          marginBottom: '6px',
+        },
+        onboardingSubtitle: {
+          fontFamily: 'Ubuntu_700Bold',
+          fontSize: '28',
+          lineHeight: '32',
+          color: 'green',
+          marginBottom: '12px',
+        },
       },
     },
     Button: {
@@ -89,16 +127,38 @@ export const customTheme = extendTheme({
             backgroundColor: '#D75A49',
           },
         },
+        primarySmallOutlined: {
+          bg: 'white',
+          width: '167',
+          height: '60',
+          borderWidth: 2,
+          borderColor: 'coral',
+          _text: {
+            color: 'coral',
+          },
+          _pressed: {
+            borderColor: 'coral',
+            backgroundColor: 'coral',
+            _text: {
+              color: 'white',
+            },
+          },
+        },
         primarySmallLight: {
           bg: 'white',
           opacity: 1,
           width: '167',
           height: '60',
+          borderColor: 'coral',
+          borderWidth: '1px',
           _text: {
             color: 'coral',
           },
           _pressed: {
             backgroundColor: 'coral',
+            _text: {
+              color: 'white',
+            },
           },
         },
         primaryLarge: {
@@ -116,11 +176,27 @@ export const customTheme = extendTheme({
           bg: 'white',
           width: '335',
           height: '60',
+          borderColor: 'coral',
+          borderWidth: '1px',
           _text: {
             color: 'coral',
           },
           _pressed: {
             backgroundColor: 'coral',
+            _text: {
+              color: 'white',
+            },
+          },
+        },
+        disabledLarge: {
+          bg: 'gray',
+          width: '335',
+          height: '60',
+          _text: {
+            color: 'white',
+          },
+          _pressed: {
+            backgroundColor: '#D75A49',
           },
         },
         disabled: {
@@ -205,6 +281,24 @@ export const customTheme = extendTheme({
         },
         _pressed: {
           color: '#D75A49',
+        },
+      },
+    },
+    Checkbox: {
+      baseStyle: {
+        borderRadius: 50,
+        p: 1,
+        _checked: {
+          bg: 'coral',
+          borderColor: 'coral',
+          _pressed: {
+            borderColor: 'gray',
+            bg: 'gray',
+          },
+        },
+        _pressed: {
+          borderColor: 'gray',
+          bg: 'gray',
         },
       },
     },
