@@ -45,6 +45,7 @@ export const PlaceCard: FC<PlaceCardProps> = ({
           } as never,
         );
       }}
+      style={{ flexBasis: '40%', flexGrow: 1, flexShrink: 1 }}
     >
       <Box alignItems="center">
         <Box
