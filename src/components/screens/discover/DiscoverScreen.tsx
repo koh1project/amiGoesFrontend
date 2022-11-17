@@ -1,10 +1,20 @@
-import { Input, ScrollView, View } from 'native-base';
+import {
+  Badge,
+  Input,
+  ScrollView,
+  View,
+  VStack,
+  CloseIcon,
+  HStack,
+  Divider,
+} from 'native-base';
 import React, { useCallback, useEffect, useState } from 'react';
 import {
   NativeSyntheticEvent,
   Text,
   TextInputChangeEventData,
   StyleSheet,
+  TouchableOpacity,
 } from 'react-native';
 import {
   getDiscover,
@@ -16,6 +26,7 @@ import { DiscoverMainPlaces } from '../../../features/discover/components/Discov
 import { SearchResults } from '../../../features/discover/components/SearchResults';
 import { AxiosResponse } from 'axios';
 import { DiscoverFilter } from './DiscoverFilter';
+import { SearchKeywordForm } from './SearchKeywordForm';
 
 function isPlaceByKeywordArray(
   places: GetDiscoverResponse | Place[],
@@ -28,6 +39,7 @@ export const DiscoverScreen: React.FC = () => {
   const { location } = useUserLocation();
   const [searchKeyword, setSearchKeyword] = useState<string>('');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [filterItems, setFilterItems] = useState<string[]>([]);
 
   const handleSearchChange = useCallback(
     (event: NativeSyntheticEvent<TextInputChangeEventData>) => {
@@ -36,12 +48,16 @@ export const DiscoverScreen: React.FC = () => {
     [],
   );
 
+  const handleRemoveFilterItem = (index: number) => {
+    setFilterItems(filterItems.filter((_, i) => i !== index));
+  };
+
   const fetchPlaces = async () => {
     let result: AxiosResponse<GetDiscoverResponse | Place[], any>;
     if (searchKeyword) {
-      result = await getPlacesByKeyword(searchKeyword);
+      result = (await getPlacesByKeyword(searchKeyword)) as AxiosResponse;
     } else {
-      result = await getDiscover();
+      result = (await getDiscover()) as AxiosResponse;
     }
 
     const { data } = result;
@@ -69,26 +85,62 @@ export const DiscoverScreen: React.FC = () => {
   }
 
   return (
-    <View style={{ padding: 10 }}>
+    <View style={{ padding: 10, display: 'flex', flexDirection: 'column' }}>
       {isFilterOpen && (
-        <DiscoverFilter handleFilterClose={() => setIsFilterOpen(false)} />
+        <DiscoverFilter
+          handleFilterClose={() => setIsFilterOpen(false)}
+          setFilterItems={setFilterItems}
+        />
       )}
       <Text>Discover</Text>
-      <Input
-        placeholder="Search"
-        onChange={handleSearchChange}
-        value={searchKeyword}
-      ></Input>
+      <SearchKeywordForm
+        handleSearchChange={handleSearchChange}
+        searchKeyword={searchKeyword}
+      />
+      <Divider my={4} />
+      <VStack style={styles.filterItemContainer}>
+        {filterItems.map(
+          (item, index) =>
+            item && (
+              <Badge
+                key={index}
+                _text={{ color: 'white' }}
+                style={styles.filterItem}
+                colorScheme="success"
+                endIcon={
+                  <TouchableOpacity
+                    onPress={() => {
+                      handleRemoveFilterItem(index);
+                    }}
+                  >
+                    <CloseIcon size="xs" color="#FFFFFF" />
+                  </TouchableOpacity>
+                }
+              >
+                {item}
+              </Badge>
+            ),
+        )}
+      </VStack>
       <ScrollView>{content}</ScrollView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  filterContainer: {
-    flex: 1,
+  filterItemContainer: {
+    flexGrow: 1,
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-start',
+    flexWrap: 'wrap',
     alignItems: 'center',
+  },
+  filterItem: {
+    flexGrow: 0,
+    flexShrink: 1,
+    backgroundColor: '#3FA8AE',
+    height: 50,
+    display: 'flex',
+    flexDirection: 'row',
   },
 });

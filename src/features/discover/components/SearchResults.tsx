@@ -28,7 +28,6 @@ export const SearchResults: FC<SearchResultsProps> = ({
             place={place}
             key={index}
             userLocation={userLocation}
-            containerStyle={styles.item}
           />
         );
       })}
@@ -42,9 +41,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'flex-start',
-  },
-  item: {
-    width: '50%',
-    minHeight: 300,
   },
 });
