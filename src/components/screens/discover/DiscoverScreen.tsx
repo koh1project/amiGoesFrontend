@@ -6,6 +6,7 @@ import {
   VStack,
   CloseIcon,
   HStack,
+  Divider,
 } from 'native-base';
 import React, { useCallback, useEffect, useState } from 'react';
 import {
@@ -37,7 +38,7 @@ export const DiscoverScreen: React.FC = () => {
   const [places, setPlaces] = useState<GetDiscoverResponse | Place[]>();
   const { location } = useUserLocation();
   const [searchKeyword, setSearchKeyword] = useState<string>('');
-  const [isFilterOpen, setIsFilterOpen] = useState(true);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [filterItems, setFilterItems] = useState<string[]>([]);
 
   const handleSearchChange = useCallback(
@@ -96,6 +97,7 @@ export const DiscoverScreen: React.FC = () => {
         handleSearchChange={handleSearchChange}
         searchKeyword={searchKeyword}
       />
+      <Divider my={4} />
       <VStack style={styles.filterItemContainer}>
         {filterItems.map(
           (item, index) =>
