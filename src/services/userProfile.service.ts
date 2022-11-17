@@ -1,11 +1,9 @@
 import { get } from './api';
-import { useAuthContext } from '../components/auth/AuthContextProvider';
 // import { auth } from '../utils/firebase';
 
 // export const authUser = () => {
 //   return auth.currentUser;
 // };
-const user = useAuthContext();
 
 export const CREATE_USERPROFILE_ENDPOINT = {
   post: '/amigos/create',
@@ -23,9 +21,9 @@ const GET_USERPROFILE_ENDPOINT = {
   get: '/amigos/',
 };
 
-export const getUserProfile = async () => {
+export const getUserProfile = async (userId) => {
   try {
-    return get((GET_USERPROFILE_ENDPOINT + user.id).get);
+    return get(GET_USERPROFILE_ENDPOINT.get + userId);
   } catch (error) {
     console.error('API getUserProfile ERROR', error);
     throw error;
