@@ -264,6 +264,30 @@ export const customTheme = extendTheme({
         },
       },
     },
+    Badge: {
+      variants: {
+        lightgreen: {
+          background: 'lightgreen',
+          borderRadius: 5,
+          _text: {
+            color: 'green',
+            fontFamily: FontFamily.Ubuntu_500Medium,
+            padding: 2,
+            fontSize: 14,
+          },
+        },
+        green: {
+          backgroundColor: ThemeColors.green,
+          borderRadius: 5,
+          _text: {
+            color: ThemeColors.lightgreen,
+            fontFamily: FontFamily.Ubuntu_500Medium,
+            fontSize: 14,
+            padding: 2,
+          },
+        },
+      },
+    },
   },
 });
 
