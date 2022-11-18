@@ -9,6 +9,8 @@ export const SCREEN_NAMES = {
   Discover: 'Discover',
   PlaceProfile: 'PlaceProfile',
   GoNow: 'GoNow',
+  Profile: 'Profile',
+  EditProfile: 'EditProfile',
   CreateProfileStepOneForm: 'CreateProfileStepOneForm',
   CreateProfileStepTwoForm: 'CreateProfileStepTwoForm',
   Camera: 'Camera',
@@ -37,4 +39,70 @@ export const ActivitiesList = [
   'Shopping',
   'Coffee',
   'Sports',
+];
+
+export const languagesOptions = [
+  {
+    id: 'English',
+    name: 'English',
+  },
+  {
+    id: 'Spanish',
+    name: 'Spanish',
+  },
+  {
+    id: 'French',
+    name: 'French',
+  },
+  {
+    id: 'German',
+    name: 'German',
+  },
+  {
+    id: 'Italian',
+    name: 'Italian',
+  },
+  {
+    id: 'Portuguese',
+    name: 'Portuguese',
+  },
+];
+
+export const hobbiesOptions = [
+  {
+    id: 'Sports',
+    name: 'Sports',
+  },
+  {
+    id: 'Music',
+    name: 'Music',
+  },
+  {
+    id: 'Reading',
+    name: 'Reading',
+  },
+  {
+    id: 'Cooking',
+    name: 'Cooking',
+  },
+  {
+    id: 'Dancing',
+    name: 'Dancing',
+  },
+  {
+    id: 'Writing',
+    name: 'Writing',
+  },
+  {
+    id: 'Art',
+    name: 'Art',
+  },
+  {
+    id: 'Photography',
+    name: 'Photography',
+  },
+  {
+    id: 'Other',
+    name: 'Other',
+  },
 ];

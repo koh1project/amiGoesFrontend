@@ -7,11 +7,13 @@ const ConnectedUsersScreen = ({ navigation }) => {
   const { user } = useAuthContext();
 
   const [connectedUsers, setConnectedUsers] = useState();
+  const [updateConnectedUsers, setUpdateConnectedUsers] = useState(false);
 
   const fetchUsers = async () => {
     const result = await getConnectedUsers(user.uid);
     const data = result.data.connectedUsers;
     setConnectedUsers(data);
+    setUpdateConnectedUsers(false);
     return data;
   };
 
@@ -19,12 +21,14 @@ const ConnectedUsersScreen = ({ navigation }) => {
     if (user) {
       fetchUsers();
     }
-  }, [user]);
+  }, [user, updateConnectedUsers]);
 
   return (
     <ConnectedUsersList
       connectedUsers={connectedUsers}
       navigation={navigation}
+      updateConnectedUsers={updateConnectedUsers}
+      setUpdateConnectedUsers={setUpdateConnectedUsers}
     />
   );
 };

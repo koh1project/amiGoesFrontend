@@ -291,6 +291,7 @@ export const customTheme = extendTheme({
           fontSize: '14',
           lineHeight: '14',
           color: 'coral',
+          textTransform: 'uppercase',
         },
         _pressed: {
           color: '#D75A49',

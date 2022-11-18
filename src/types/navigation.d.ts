@@ -8,6 +8,8 @@ export type RootStackParamList = {
   Signup: undefined;
   Login: undefined;
   Discover: undefined;
+  Profile: undefined;
+  EditProfile: undefined;
   CreateProfileStepOneForm: undefined;
   CreateProfileStepTwoForm: undefined;
   Camera: undefined;
