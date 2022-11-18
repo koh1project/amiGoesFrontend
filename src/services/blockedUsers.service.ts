@@ -50,7 +50,6 @@ export const unBlockUser = async (userId, unBlockedUserId) => {
         UNBLOCK_USER_ENDPOINT.postUnBlockedUserId +
         unBlockedUserId,
     );
-    getBlockedUsers(userId);
   } catch (error) {
     console.error('API blockUser ERROR', error);
     throw error;

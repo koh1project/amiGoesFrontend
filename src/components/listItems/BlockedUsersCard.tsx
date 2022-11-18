@@ -114,6 +114,7 @@ const BlockedUsersCard = (props) => {
                 onPress={() => {
                   userUnBlock();
                   setShowModal(false);
+                  props.setUpdateBlockedUsers(true);
                 }}
                 ml={10}
                 mr={10}
