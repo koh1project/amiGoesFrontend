@@ -68,11 +68,11 @@ const i18n = new I18n({
       title: 'Your primary information',
       description:
         'Primary information is important to keep our community safe, and this is why amigoes makes it mandatory. Do not worry, all sensitive information is not stored by us, and is only used to verify your identity.',
-      name: 'Name*',
+      name: 'Name',
       birthDate: 'Birthdate*',
-      gender: 'Gender*',
+      gender: 'Gender',
       male: 'Male',
-      phoneNumber: 'Phone Number*',
+      phoneNumber: 'Phone Number',
       emergencyContact: 'Emergency Contact*',
       relationship: 'Relationship*',
       disclaimer:
@@ -102,6 +102,7 @@ const i18n = new I18n({
       back: 'Back',
       next: 'Next',
       country: 'Home Country',
+      save: 'Save',
     },
     idVerification: {
       title: 'ID Verification',
@@ -238,11 +239,11 @@ const i18n = new I18n({
       title: 'Su información primaria',
       description:
         'La información primaria es importante para mantener nuestra comunidad segura, y es por eso que amigoes lo hace obligatorio. No te preocupes, toda la información sensible no se almacena por nosotros, y solo se usa para verificar su identidad.',
-      name: 'Nombre*',
+      name: 'Nombre',
       birthDate: 'Fecha de nacimiento*',
-      gender: 'Género*',
+      gender: 'Género',
       male: 'Masculino',
-      phoneNumber: 'Número de teléfono*',
+      phoneNumber: 'Número de teléfono',
       emergencyContact: 'Contacto de emergencia*',
       relationship: 'Relación*',
       disclaimer:
@@ -273,6 +274,7 @@ const i18n = new I18n({
       back: 'Atrás',
       next: 'Siguiente',
       country: 'País de origen',
+      save: 'Guardar',
     },
     idVerification: {
       title: 'Verificación de identifidad',

@@ -25,6 +25,9 @@ import Onboarding from './src/components/screens/Onboarding';
 import SignupScreen from './src/components/screens/SignupScreen';
 import SplashScreen from './src/components/screens/SplashScreen';
 import TranslateScreen from './src/components/screens/TranslateScreen';
+import { ProfileScreen } from './src/components/screens/userProfile/ProfileScreen';
+import { EditProfile } from './src/components/screens/userProfile/EditProfile';
+
 import i18n from './src/localization/Localization';
 import { customTheme } from './src/theme';
 
@@ -145,6 +148,22 @@ export default function App() {
                 name={SCREEN_NAMES.ConnectUsers}
                 component={ConnectUsers}
                 options={{ headerShown: true, header: () => <Header /> }}
+              />
+              <Stack.Screen
+                name={SCREEN_NAMES.Profile}
+                component={ProfileScreen}
+                options={{
+                  header: () => <Header />,
+                  headerShown: true,
+                }}
+              />
+              <Stack.Screen
+                name={SCREEN_NAMES.EditProfile}
+                component={EditProfile}
+                options={{
+                  header: () => <Header />,
+                  headerShown: true,
+                }}
               />
               <Stack.Screen
                 name={SCREEN_NAMES.CreateProfileStepOneForm}
