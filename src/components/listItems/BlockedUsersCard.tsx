@@ -8,9 +8,12 @@ import {
   Avatar,
   View,
   Link,
+  ScrollView,
+  Modal,
+  Button,
 } from 'native-base';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Dimensions } from 'react-native';
 import i18n from '../../localization/Localization';
 
@@ -29,6 +32,7 @@ const styles = StyleSheet.create({
 
 const BlockedUsersCard = (props) => {
   const { name, gender, age } = props;
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <View
@@ -59,10 +63,66 @@ const BlockedUsersCard = (props) => {
               {gender}, {age}
             </Text>
 
-            <Link mt={4}> {i18n.t('ConnectionsScreen.SeeProfile')}</Link>
+            <Link
+              mt={4}
+              onPress={() => {
+                setShowModal(true);
+              }}
+            >
+              {' '}
+              {i18n.t('ConnectionsScreen.SeeProfile')}
+            </Link>
           </Center>
         </VStack>
       </Center>
+      <Modal isOpen={showModal} onClose={() => setShowModal(false)} size="lg">
+        <Modal.Content maxWidth="350">
+          <Modal.Body>
+            <VStack space={3} mt={2} mb={5}>
+              <Text
+                variant="h3"
+                color="#3FA8AE"
+                ml={5}
+                mr={5}
+                padding={3}
+                textAlign="center"
+              >
+                {i18n.t('BlockedUsersScreen.PopupWarning')}
+              </Text>
+              <Text variant="body" ml={5} mr={5} padding={3} textAlign="center">
+                {i18n.t('BlockedUsersScreen.PopupDescription1')} {name}{' '}
+                {i18n.t('BlockedUsersScreen.PopupDescription2')}
+              </Text>
+              <Button
+                onPress={() => {
+                  setShowModal(false);
+                }}
+                ml={10}
+                mr={10}
+                pt={5}
+                pb={5}
+                bg="#EE6653"
+              >
+                {i18n.t('BlockedUsersScreen.PopupYes')}
+              </Button>
+              <Button
+                onPress={() => {
+                  setShowModal(false);
+                }}
+                ml={10}
+                mr={10}
+                pt={5}
+                pb={5}
+                borderColor="#EE6653"
+                variant="outline"
+                colorScheme="orange"
+              >
+                {i18n.t('BlockedUsersScreen.PopupNo')}
+              </Button>
+            </VStack>
+          </Modal.Body>
+        </Modal.Content>
+      </Modal>
     </View>
   );
 };
