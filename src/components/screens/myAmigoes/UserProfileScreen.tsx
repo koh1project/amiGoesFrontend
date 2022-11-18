@@ -67,8 +67,8 @@ const UserProfileScreen = (props) => {
   }, [user]);
 
   const userBlock = async () => {
-    console.log('userId', userId);
-    console.log('id', id);
+    // console.log('userId', userId);
+    // console.log('id', id);
     await blockUser(userId, id);
   };
 

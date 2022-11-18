@@ -1,21 +1,19 @@
 import {
-  Box,
   Center,
-  Flex,
-  HStack,
   Text,
   VStack,
   Avatar,
   View,
   Link,
-  ScrollView,
   Modal,
   Button,
 } from 'native-base';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Dimensions } from 'react-native';
 import i18n from '../../localization/Localization';
+import { unBlockUser } from '../../services/blockedUsers.service';
+import { useAuthContext } from '../auth/AuthContextProvider';
 
 const width = Dimensions.get('window').width - 40;
 
@@ -31,8 +29,27 @@ const styles = StyleSheet.create({
 });
 
 const BlockedUsersCard = (props) => {
-  const { name, gender, age } = props;
+  const { name, gender, age, id } = props;
   const [showModal, setShowModal] = useState(false);
+
+  const [userId, setUserId] = useState();
+  const { user } = useAuthContext();
+
+  const getUserId = async () => {
+    const userId = await setUserId(user.uid);
+  };
+
+  useEffect(() => {
+    if (user) {
+      getUserId();
+    }
+  }, [user]);
+
+  const userUnBlock = async () => {
+    // console.log('userId', userId);
+    // console.log('id', id);
+    await unBlockUser(userId, id);
+  };
 
   return (
     <View
@@ -95,6 +112,7 @@ const BlockedUsersCard = (props) => {
               </Text>
               <Button
                 onPress={() => {
+                  userUnBlock();
                   setShowModal(false);
                 }}
                 ml={10}

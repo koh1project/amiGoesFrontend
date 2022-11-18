@@ -27,6 +27,7 @@ const BlockedUsersList = (props: any) => {
             name={item.blockedUserID.name}
             gender={item.blockedUserID.gender}
             age={item.blockedUserID.age}
+            id={item.blockedUserID._id}
           />
         )}
       />
