@@ -1,9 +1,6 @@
 import * as Notifications from 'expo-notifications';
-import { patch } from '../services/api';
-import {
-  authUser,
-  UPDATE_NOTIFICATION_TOKEN_ENDPOINT,
-} from '../services/userProfile.service';
+import { setExpoTokenForUser } from '../services/notification.service';
+import { authUser } from '../services/userProfile.service';
 
 export const useNotificationsToken = () => {
   // token will be sent to the server after the user creates his/her profile
@@ -11,10 +8,7 @@ export const useNotificationsToken = () => {
     const notificationsToken = (await Notifications.getExpoPushTokenAsync())
       .data;
     const userId = authUser().uid;
-    const postUrl = UPDATE_NOTIFICATION_TOKEN_ENDPOINT.patch + userId;
-    const result = await patch(postUrl, {
-      notificationsToken: notificationsToken,
-    });
+    setExpoTokenForUser(userId, notificationsToken);
   };
 
   return {

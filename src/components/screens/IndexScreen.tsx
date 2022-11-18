@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/core';
 import * as Notifications from 'expo-notifications';
 import React, { useEffect } from 'react';
 
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import axios from 'axios';
 import { Button, View, VStack } from 'native-base';
 import { useState } from 'react';
@@ -14,15 +15,24 @@ import Profile from '../../../assets/icons/profile-icon.svg';
 import Translate from '../../../assets/icons/translate-icon.svg';
 import { useNotifications } from '../../hooks/useNotifications';
 import i18n from '../../localization/Localization';
+import { RootStackParamList } from '../../types/navigation';
 import { SCREEN_NAMES } from '../../utils/const';
 import { auth } from '../../utils/firebase';
 import { url } from '../../utils/url';
 import { useAuthContext } from '../auth/AuthContextProvider';
 import MenuItem from '../listItems/MenuItems';
 
+type IndexScreenNavigator = NativeStackNavigationProp<
+  RootStackParamList,
+  'Index'
+>;
+
 const IndexScreen = () => {
-  const { registerForPushNotificationsAsync, handleNotificationResponse } =
-    useNotifications();
+  const [token, setToken] = useState('');
+
+  const navigation = useNavigation<IndexScreenNavigator>();
+
+  const { registerForPushNotificationsAsync } = useNotifications();
   // call useNotifications hook
   // ******************************************************
   const { user } = useAuthContext();
@@ -48,11 +58,16 @@ const IndexScreen = () => {
       }
     };
   }, []);
+
+  /** ! Handle Notifications */
+  const handleNotificationResponse = (
+    response: Notifications.NotificationResponse,
+  ) => {
+    const data = response.notification.request.content.data;
+    navigation.navigate('NotificationScreen');
+  };
+
   // ******************************************************
-
-  const [token, setToken] = useState('');
-
-  const navigation = useNavigation();
 
   // code to test authentication on backend
   // *************************************
@@ -128,7 +143,7 @@ const IndexScreen = () => {
               icon={<Amigos style={styles.icon} />}
             />
           </TouchableOpacity>
-          <Button variant="menu" marginTop="20px">
+          <Button variant="menu" marginTop="20px" onPress={handleSignout}>
             {i18n.t('IndexScreen.AccountButton')}
           </Button>
         </VStack>

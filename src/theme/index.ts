@@ -172,6 +172,19 @@ export const customTheme = extendTheme({
             backgroundColor: '#D75A49',
           },
         },
+        primaryLargeOutlined: {
+          bg: ThemeColors.white,
+          borderWidth: 1,
+          borderColor: ThemeColors.coral,
+          width: '335',
+          height: '60',
+          _text: {
+            color: ThemeColors.coral,
+          },
+          _pressed: {
+            backgroundColor: '#D75A49',
+          },
+        },
         primaryLargeLight: {
           bg: 'white',
           width: '335',
@@ -300,6 +313,30 @@ export const customTheme = extendTheme({
         _pressed: {
           borderColor: 'gray',
           bg: 'gray',
+        },
+      },
+    },
+    Badge: {
+      variants: {
+        lightgreen: {
+          background: 'lightgreen',
+          borderRadius: 5,
+          _text: {
+            color: 'green',
+            fontFamily: FontFamily.Ubuntu_500Medium,
+            padding: 2,
+            fontSize: 14,
+          },
+        },
+        green: {
+          backgroundColor: ThemeColors.green,
+          borderRadius: 5,
+          _text: {
+            color: ThemeColors.lightgreen,
+            fontFamily: FontFamily.Ubuntu_500Medium,
+            fontSize: 14,
+            padding: 2,
+          },
         },
       },
     },

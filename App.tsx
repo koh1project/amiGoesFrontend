@@ -8,7 +8,7 @@ import {
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NativeBaseProvider, StatusBar, View } from 'native-base';
+import { NativeBaseProvider, StatusBar } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import { Header } from './src/components/headers/Header';
 import CameraScreen from './src/components/screens/CameraScreen';
@@ -25,8 +25,8 @@ import Onboarding from './src/components/screens/Onboarding';
 import SignupScreen from './src/components/screens/SignupScreen';
 import SplashScreen from './src/components/screens/SplashScreen';
 import TranslateScreen from './src/components/screens/TranslateScreen';
-import { ProfileScreen } from './src/components/screens/userProfile/ProfileScreen';
 import { EditProfile } from './src/components/screens/userProfile/EditProfile';
+import { ProfileScreen } from './src/components/screens/userProfile/ProfileScreen';
 
 import i18n from './src/localization/Localization';
 import { customTheme } from './src/theme';
@@ -36,10 +36,11 @@ import ConnectUserProfile from './src/components/screens/Connect/ConnectUserProf
 import IDVerificationScreen from './src/components/screens/createProfile/IDVerificationScreen';
 import BlockedUsersScreen from './src/components/screens/myAmigoes/BlockedUsersScreen';
 import ConnectedUsersScreen from './src/components/screens/myAmigoes/ConnectedUsersScreen';
+import EmergencyScreen from './src/components/screens/myAmigoes/EmergencyScreen';
+import UserProfileScreen from './src/components/screens/myAmigoes/UserProfileScreen';
+import { NotificationScreen } from './src/components/screens/Notifications/NotificationsScreen';
 import { RootStackParamList } from './src/types/navigation';
 import { INITIAL_SCREEN, SCREEN_NAMES } from './src/utils/const';
-import UserProfileScreen from './src/components/screens/myAmigoes/UserProfileScreen';
-import EmergencyScreen from './src/components/screens/myAmigoes/EmergencyScreen';
 
 const TabNavigator = createMaterialTopTabNavigator();
 function MyAmigoesTabNavigator() {
@@ -145,6 +146,14 @@ export default function App() {
                 }}
               />
               <Stack.Screen
+                name={SCREEN_NAMES.ConnectUserProfile}
+                component={ConnectUserProfile}
+                options={{
+                  header: () => <Header />,
+                  headerShown: true,
+                }}
+              />
+              <Stack.Screen
                 name={SCREEN_NAMES.ConnectUsers}
                 component={ConnectUsers}
                 options={{ headerShown: true, header: () => <Header /> }}
@@ -202,15 +211,8 @@ export default function App() {
                 }}
                 name={SCREEN_NAMES.ConnectedUsersScreen}
               />
+
               <Stack.Screen
-                component={ConnectUserProfile}
-                name={SCREEN_NAMES.ConnectUserProfile}
-                options={{
-                  header: () => <Header />,
-                  headerShown: true,
-                }}
-               />
-                <Stack.Screen
                 component={UserProfileScreen}
                 options={{
                   header: () => <Header />,
@@ -229,6 +231,14 @@ export default function App() {
               <Stack.Screen
                 component={IDVerificationScreen}
                 name={SCREEN_NAMES.IDVerification}
+                options={{
+                  header: () => <Header />,
+                  headerShown: true,
+                }}
+              />
+              <Stack.Screen
+                component={NotificationScreen}
+                name={SCREEN_NAMES.NotificationScreen}
                 options={{
                   header: () => <Header />,
                   headerShown: true,

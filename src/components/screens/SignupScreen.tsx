@@ -5,6 +5,7 @@ import { Image, StyleSheet, TextInput } from 'react-native';
 import mainLogo from '../../../assets/images/mainLogo.png';
 import roundLogo from '../../../assets/images/roundLogo.png';
 import i18n from '../../localization/Localization';
+import { SCREEN_NAMES } from '../../utils/const';
 import { auth } from '../../utils/firebase';
 
 const SignupScreen = () => {
@@ -15,12 +16,12 @@ const SignupScreen = () => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        navigation.navigate('Index');
-      }
-    });
-    return unsubscribe;
+    // const unsubscribe = auth.onAuthStateChanged((user) => {
+    //   if (user) {
+    //     navigation.navigate('Index');
+    //   }
+    // });
+    // return unsubscribe;
   }, []);
 
   const handleSignup = () => {
@@ -31,6 +32,7 @@ const SignupScreen = () => {
         .createUserWithEmailAndPassword(email, password)
         .then((userCredentials) => {
           const user = userCredentials.user;
+          navigation.navigate(SCREEN_NAMES.CreateProfileStepOneForm);
         })
         .catch((error) => alert(error.message));
     }

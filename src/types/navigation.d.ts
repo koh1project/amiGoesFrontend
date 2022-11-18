@@ -24,7 +24,10 @@ export type RootStackParamList = {
   EmergencyScreen: undefined;
   ConnectUserProfile: {
     userId: string;
+    type?: 'accept' | 'send';
   };
+  Onboarding: undefined;
+  NotificationScreen: undefined;
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =

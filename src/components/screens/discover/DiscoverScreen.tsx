@@ -60,6 +60,7 @@ export const DiscoverScreen: React.FC = () => {
     }
 
     const { data } = result;
+    console.log(data);
     setPlaces(data);
     return data;
   };

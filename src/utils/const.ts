@@ -24,6 +24,7 @@ export const SCREEN_NAMES = {
   IDVerification: 'IDVerification',
   ConnectUserProfile: 'ConnectUserProfile',
   Onboarding: 'Onboarding',
+  NotificationScreen: 'NotificationScreen',
 } as const;
 
 export const INITIAL_SCREEN = Constants.expoConfig.extra.INITIAL_SCREEN;
