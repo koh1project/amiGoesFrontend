@@ -190,20 +190,18 @@ export default function App() {
               <Stack.Screen
                 component={ConnectUserProfile}
                 name={SCREEN_NAMES.ConnectUserProfile}
-
                 options={{
                   header: () => <Header />,
                   headerShown: true,
                 }}
-                />
-               <Stack.Screen
+              />
+              <Stack.Screen
                 component={IDVerificationScreen}
                 name={SCREEN_NAMES.IDVerification}
-                 options={{
+                options={{
                   header: () => <Header />,
                   headerShown: true,
                 }}
-
               />
             </Stack.Navigator>
           </NavigationContainer>

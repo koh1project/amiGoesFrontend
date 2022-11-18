@@ -22,7 +22,6 @@ export const SCREEN_NAMES = {
   IDVerification: 'IDVerification',
   ConnectUserProfile: 'ConnectUserProfile',
   Onboarding: 'Onboarding',
-
 } as const;
 
 export const INITIAL_SCREEN = Constants.expoConfig.extra.INITIAL_SCREEN;
@@ -37,4 +36,70 @@ export const ActivitiesList = [
   'Shopping',
   'Coffee',
   'Sports',
+];
+
+export const languagesOptions = [
+  {
+    id: 'English',
+    name: 'English',
+  },
+  {
+    id: 'Spanish',
+    name: 'Spanish',
+  },
+  {
+    id: 'French',
+    name: 'French',
+  },
+  {
+    id: 'German',
+    name: 'German',
+  },
+  {
+    id: 'Italian',
+    name: 'Italian',
+  },
+  {
+    id: 'Portuguese',
+    name: 'Portuguese',
+  },
+];
+
+export const hobbiesOptions = [
+  {
+    id: 'Sports',
+    name: 'Sports',
+  },
+  {
+    id: 'Music',
+    name: 'Music',
+  },
+  {
+    id: 'Reading',
+    name: 'Reading',
+  },
+  {
+    id: 'Cooking',
+    name: 'Cooking',
+  },
+  {
+    id: 'Dancing',
+    name: 'Dancing',
+  },
+  {
+    id: 'Writing',
+    name: 'Writing',
+  },
+  {
+    id: 'Art',
+    name: 'Art',
+  },
+  {
+    id: 'Photography',
+    name: 'Photography',
+  },
+  {
+    id: 'Other',
+    name: 'Other',
+  },
 ];
