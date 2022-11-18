@@ -1,6 +1,8 @@
 import { Box, HStack, Text, VStack } from 'native-base';
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
+import CalendarIcon from '../../../assets/icons/calendar-icon-gray.svg';
+import ClockIconGray from '../../../assets/icons/clock-icon-gray.svg';
 import TrashIcon from '../../../assets/icons/trash-icon.svg';
 import { FontFamily, ThemeColors } from '../../theme';
 import { PendingRequestResponse } from '../../types/models';
@@ -16,11 +18,21 @@ const NotificationItem = ({ request }: NotificationItemProps) => {
           {request.userID2.name}
         </Text>
         <Text>Accepted your Amigoes Request!</Text>
+        <HStack space={3}>
+          <HStack alignItems={'center'} space={1}>
+            <ClockIconGray />
+            <Text>11:32 am</Text>
+          </HStack>
+          <HStack alignItems={'center'} space={1}>
+            <CalendarIcon />
+            <Text>03- Oct- 22</Text>
+          </HStack>
+        </HStack>
         <HStack space={2}>
-          <TouchableOpacity>
+          <TouchableOpacity style={styles.link}>
             <Text style={styles.linkText}>See Profile</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={{ borderBottomWidth: 1 }}>
+          <TouchableOpacity style={styles.link}>
             <Text style={styles.linkText}>Add Amigoes</Text>
           </TouchableOpacity>
         </HStack>
@@ -31,6 +43,7 @@ const NotificationItem = ({ request }: NotificationItemProps) => {
     </HStack>
   );
 };
+
 export default NotificationItem;
 const styles = StyleSheet.create({
   container: {
@@ -43,12 +56,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: ThemeColors.lightgreen,
   },
+  link: {
+    borderBottomWidth: 2,
+    borderBottomColor: ThemeColors.coral,
+  },
   linkText: {
     fontFamily: FontFamily.Ubuntu_700Bold,
-    color: ThemeColors.danger,
-    textDecorationLine: 'underline',
-    textDecorationStyle: 'solid',
-    textTransform: 'uppercase',
+    color: ThemeColors.coral,
   },
   deleteButtonContainer: {
     padding: 10,

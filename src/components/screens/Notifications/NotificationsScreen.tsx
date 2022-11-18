@@ -33,6 +33,7 @@ export const NotificationScreen = () => {
           request can be deleted if you wish.
         </Text>
         <FlatList
+          style={{ marginTop: 20 }}
           data={requests}
           renderItem={({ item }) => <NotificationItem request={item} />}
         />
