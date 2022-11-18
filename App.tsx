@@ -25,7 +25,7 @@ import Onboarding from './src/components/screens/Onboarding';
 import SignupScreen from './src/components/screens/SignupScreen';
 import SplashScreen from './src/components/screens/SplashScreen';
 import TranslateScreen from './src/components/screens/TranslateScreen';
-
+import i18n from './src/localization/Localization';
 import { customTheme } from './src/theme';
 
 import { AuthContextProvider } from './src/components/auth/AuthContextProvider';
@@ -42,8 +42,14 @@ const TabNavigator = createMaterialTopTabNavigator();
 function MyAmigoesTabNavigator() {
   return (
     <TabNavigator.Navigator>
-      <TabNavigator.Screen name="Connected" component={ConnectedUsersScreen} />
-      <TabNavigator.Screen name="Blocked" component={BlockedUsersScreen} />
+      <TabNavigator.Screen
+        name={i18n.t('ConnectedandBlockedTabs.Connected')}
+        component={ConnectedUsersScreen}
+      />
+      <TabNavigator.Screen
+        name={i18n.t('ConnectedandBlockedTabs.Blocked')}
+        component={BlockedUsersScreen}
+      />
     </TabNavigator.Navigator>
   );
 }

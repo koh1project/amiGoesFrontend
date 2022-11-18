@@ -12,6 +12,7 @@ import {
   VStack,
 } from 'native-base';
 import React, { useState } from 'react';
+import i18n from '../../../localization/Localization';
 
 const EmergencyScreen = (props) => {
   const { name, naigation } = props.route.params;
@@ -20,17 +21,17 @@ const EmergencyScreen = (props) => {
   const [showModal2, setShowModal2] = useState(false);
   return (
     <ScrollView backgroundColor="white">
-      <Text variant="screenTitle">My amigoes</Text>
+      <Text variant="screenTitle">{i18n.t('EmergencyScreen.title')}</Text>
       <View ml={5} mr={5}>
         <Text variant="h3" mb={7}>
           {name}
         </Text>
 
         <Text variant="h3" color="#3FA8AE" mb={5}>
-          Emergency
+          {i18n.t('EmergencyScreen.Emergency')}
         </Text>
         <Text variant="body" mb={2}>
-          Why are you reporting Parsley Montana?
+          {i18n.t('EmergencyScreen.RadioQuestion')} Parsley Montana?
         </Text>
         <Radio.Group
           name="emergencyRadioGroup"
@@ -40,34 +41,32 @@ const EmergencyScreen = (props) => {
           }}
         >
           <Radio value="one" my={1} variant="body">
-            <Text variant="body">The person is unconscious</Text>
+            <Text variant="body">{i18n.t('EmergencyScreen.Radio1')}</Text>
           </Radio>
           <Radio value="two" my={3} variant="body">
             <Text variant="body" pr={5}>
-              This person does offensive, abusive, or illegal action
+              {i18n.t('EmergencyScreen.Radio2')}
             </Text>
           </Radio>
           <Radio value="three" my={3} variant="body">
-            <Text variant="body">
-              This person needs help from his/her emergency contact person
-            </Text>
+            <Text variant="body">{i18n.t('EmergencyScreen.Radio3')}</Text>
           </Radio>
           <Radio value="four" my={2}>
-            <Text variant="body"> The person is injured</Text>
+            <Text variant="body">{i18n.t('EmergencyScreen.Radio4')} </Text>
           </Radio>
           <Radio value="five" my={2}>
-            <Text variant="body">Others</Text>
+            <Text variant="body">{i18n.t('EmergencyScreen.Radio5')}</Text>
           </Radio>
         </Radio.Group>
         <Box>
           <Text variant="body" mt={2}>
-            Please write the details here.
+            {i18n.t('EmergencyScreen.TextArea')}
           </Text>
           <TextArea
             mt={2}
             aria-label="t1"
             numberOfLines={4}
-            placeholder="Please tell me what happened"
+            placeholder={i18n.t('EmergencyScreen.TextAreaPlaceHolder')}
             _dark={{
               placeholderTextColor: 'gray.300',
             }}
@@ -76,8 +75,7 @@ const EmergencyScreen = (props) => {
         </Box>
         <Box backgroundColor="#FFE4E0" mb={5}>
           <Text variant="body" padding={4} ml={4}>
-            amigoes will contact this person and their emergency contact if
-            necessary.
+            {i18n.t('EmergencyScreen.WarningMessage')}
           </Text>
         </Box>
         <Center>
@@ -91,7 +89,7 @@ const EmergencyScreen = (props) => {
               width={150}
             >
               <Text variant="h4" color="#EE6653" pt={5} pb={5} pl={10} pr={10}>
-                GO BACK
+                {i18n.t('EmergencyScreen.GoBack')}
               </Text>
             </View>
 
@@ -115,7 +113,7 @@ const EmergencyScreen = (props) => {
                   setShowModal(true);
                 }}
               >
-                SEND
+                {i18n.t('EmergencyScreen.Send')}
               </Text>
             </View>
           </HStack>
@@ -133,7 +131,7 @@ const EmergencyScreen = (props) => {
                 padding={3}
                 textAlign="center"
               >
-                Are you sure to send emergency?
+                {i18n.t('EmergencyScreen.PopupWarning')}
               </Text>
               <Button
                 onPress={() => {
@@ -146,7 +144,7 @@ const EmergencyScreen = (props) => {
                 pb={5}
                 bg="#EE6653"
               >
-                YES, SEND
+                {i18n.t('EmergencyScreen.PopupYes')}
               </Button>
               <Button
                 onPress={() => {
@@ -160,7 +158,7 @@ const EmergencyScreen = (props) => {
                 pb={5}
                 borderColor="#EE6653"
               >
-                NO, GO BACK
+                {i18n.t('EmergencyScreen.PopupNo')}
               </Button>
             </VStack>
           </Modal.Body>

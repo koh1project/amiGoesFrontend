@@ -10,7 +10,8 @@ import {
 import React from 'react';
 import moment from 'moment';
 import { StyleSheet } from 'react-native';
-// import CalendarIcon from '../../../../assets/icons/calendar.svg';
+import CalendarIcon from '../../../../assets/icons/calendar.svg';
+import i18n from '../../../localization/Localization';
 
 const UserProfileScreen = (props) => {
   const {
@@ -47,7 +48,7 @@ const UserProfileScreen = (props) => {
 
   return (
     <ScrollView backgroundColor="white">
-      <Text variant="screenTitle">My amigoes</Text>
+      <Text variant="screenTitle">{i18n.t('UserProfileScreen.title')}</Text>
       <Center>
         <Avatar
           bg="green.500"
@@ -75,9 +76,9 @@ const UserProfileScreen = (props) => {
           </Box>
         </HStack>
         <HStack mt={1} mb={8} space={3}>
-          {/* <CalendarIcon /> */}
+          <CalendarIcon />
           <Text color="#434343" fontWeight="bold">
-            Connected on {formattedDate}
+            {i18n.t('UserProfileScreen.ConnectedOn')} {formattedDate}
           </Text>
         </HStack>
 
@@ -91,17 +92,19 @@ const UserProfileScreen = (props) => {
                 });
               }}
             >
-              EMERGENCY
+              {i18n.t('UserProfileScreen.Emergency')}
             </Text>
           </View>
           <View style={styles.linkWrapper}>
-            <Text style={styles.links}>BLOCK</Text>
+            <Text style={styles.links}>
+              {i18n.t('UserProfileScreen.Block')}
+            </Text>
           </View>
         </HStack>
       </Center>
       <View ml={5} mr={5}>
         <Text variant="h3" color="#3FA8AE" mb={5}>
-          Language
+          {i18n.t('UserProfileScreen.Language')}
         </Text>
         <HStack space={3} style={styles.section}>
           {languages.map((language) => (
@@ -114,7 +117,7 @@ const UserProfileScreen = (props) => {
         </HStack>
         <View style={styles.section}>
           <Text variant="h3" color="#3FA8AE" mb={3} mt={5}>
-            Bio/About
+            {i18n.t('UserProfileScreen.Bio')}
           </Text>
           <Text variant="body" mb={5}>
             {bio}
@@ -122,7 +125,7 @@ const UserProfileScreen = (props) => {
         </View>
         <View style={styles.section}>
           <Text variant="h3" color="#3FA8AE" mb={5} mt={5}>
-            Hobbies
+            {i18n.t('UserProfileScreen.Hobbies')}
           </Text>
           <HStack space={3}>
             {hobbies.map((language) => (
@@ -140,7 +143,7 @@ const UserProfileScreen = (props) => {
           </HStack>
         </View>
         <Text variant="h3" color="#3FA8AE" mb={3} mt={5}>
-          Phone Number
+          {i18n.t('UserProfileScreen.PhoneNumber')}
         </Text>
         <Text variant="body" mb={1}>
           {phoneNumber}
@@ -160,7 +163,7 @@ const UserProfileScreen = (props) => {
               pl={10}
               pr={10}
             >
-              UNFRIEND
+              {i18n.t('UserProfileScreen.Unfriend')}
             </Text>
             <View
               mb={5}
@@ -179,7 +182,7 @@ const UserProfileScreen = (props) => {
                 pr={10}
                 bg="#EE6653"
               >
-                TEXT/CALL
+                {i18n.t('UserProfileScreen.Text')}
               </Text>
             </View>
           </HStack>

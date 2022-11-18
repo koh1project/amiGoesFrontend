@@ -15,6 +15,44 @@ const i18n = new I18n({
       HowToUse_Button: 'How to Use',
       AccountButton: 'Account',
     },
+    ConnectedandBlockedTabs: {
+      Connected: 'Connected',
+      Blocked: 'Blocked',
+    },
+    ConnectionsScreen: {
+      SeeProfile: 'SEE PROFILE',
+    },
+    UserProfileScreen: {
+      title: 'My Amigoes',
+      ConnectedOn: 'Connected on',
+      Emergency: 'EMERGENCY',
+      Block: 'BLOCK',
+      Language: 'Language',
+      Bio: 'Bio/About',
+      Hobbies: 'Hobbies',
+      PhoneNumber: 'Phone Number',
+      Unfriend: 'UNFRIEND',
+      Text: 'TEXT/CALL',
+    },
+    EmergencyScreen: {
+      title: 'My Amigoes',
+      Emergency: 'Emergency',
+      RadioQuestion: 'Why are you reporting ',
+      Radio1: 'The person is unconscious',
+      Radio2: 'This person does offensive, abusive, or illegal action',
+      Radio3: 'This person needs help from his/her emergency contact person',
+      Radio4: 'The person is injured',
+      Radio5: 'Others',
+      TextArea: 'Please write the details here.',
+      TextAreaPlaceHolder: 'Please tell me what happened',
+      WarningMessage:
+        'amigoes will contact this person and their emergency contact if necessary.',
+      GoBack: 'GO BACK',
+      Send: 'SEND',
+      PopupWarning: 'Are you sure to send emergency?',
+      PopupYes: 'YES, SEND',
+      PopupNo: 'NO, GO BACK',
+    },
     createProfileStepOneForm: {
       title: 'Your primary information',
       description:
@@ -230,7 +268,7 @@ const i18n = new I18n({
       signup: 'Registrarse',
       alreadyHaveAccount: '¿Ya tienes una cuenta?',
       login: 'Iniciar sesión',
-  },
+    },
   },
 });
 

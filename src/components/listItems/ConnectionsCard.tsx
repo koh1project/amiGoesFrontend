@@ -1,5 +1,5 @@
 import { Center, Text, VStack, Avatar, View, Link } from 'native-base';
-
+import i18n from '../../localization/Localization';
 import React from 'react';
 import { StyleSheet, Dimensions } from 'react-native';
 
@@ -82,7 +82,7 @@ const ConnectionsCard = (props) => {
                   });
                 }}
               >
-                SEE PROFILE
+                {i18n.t('ConnectionsScreen.SeeProfile')}
               </Text>
             </View>
           </Center>

@@ -12,6 +12,7 @@ import {
 
 import React from 'react';
 import { StyleSheet, Dimensions } from 'react-native';
+import i18n from '../../localization/Localization';
 
 const width = Dimensions.get('window').width - 40;
 
@@ -58,7 +59,7 @@ const BlockedUsersCard = (props) => {
               {gender}, {age}
             </Text>
 
-            <Link mt={4}>SEE PROFILE</Link>
+            <Link mt={4}> {i18n.t('ConnectionsScreen.SeeProfile')}</Link>
           </Center>
         </VStack>
       </Center>
