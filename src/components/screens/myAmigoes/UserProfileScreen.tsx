@@ -11,11 +11,13 @@ import {
   IconButton,
   Button,
 } from 'native-base';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { StyleSheet } from 'react-native';
 import CalendarIcon from '../../../../assets/icons/calendar.svg';
 import i18n from '../../../localization/Localization';
+import { useAuthContext } from '../../auth/AuthContextProvider';
+import { blockUser } from '../../../services/blockedUsers.service';
 
 const styles = StyleSheet.create({
   links: {
@@ -46,10 +48,29 @@ const UserProfileScreen = (props) => {
     bio,
     hobbies,
     phoneNumber,
+    id,
   } = props.route.params;
 
   const formattedDate = moment(createdAt).format('DD-MMM-YY');
   const [showModal, setShowModal] = useState(false);
+  const [userId, setUserId] = useState();
+  const { user } = useAuthContext();
+
+  const getUserId = async () => {
+    const userId = await setUserId(user.uid);
+  };
+
+  useEffect(() => {
+    if (user) {
+      getUserId();
+    }
+  }, [user]);
+
+  const userBlock = async () => {
+    console.log('userId', userId);
+    console.log('id', id);
+    await blockUser(userId, id);
+  };
 
   return (
     <ScrollView backgroundColor="white">
@@ -215,6 +236,7 @@ const UserProfileScreen = (props) => {
               <Button
                 onPress={() => {
                   setShowModal(false);
+                  userBlock();
                 }}
                 ml={10}
                 mr={10}

@@ -38,6 +38,7 @@ const ConnectionsCard = (props) => {
     bio,
     hobbies,
     phoneNumber,
+    id,
   } = props;
 
   return (
@@ -79,6 +80,7 @@ const ConnectionsCard = (props) => {
                     hobbies,
                     phoneNumber,
                     navigation,
+                    id,
                   });
                 }}
               >

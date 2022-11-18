@@ -39,6 +39,7 @@ const ConnectedUsersList = (props: any) => {
               bio={item.userID2.bio}
               hobbies={item.userID2.hobbies}
               phoneNumber={item.userID2.contact.phoneNumber}
+              id={item.userID2._id}
             />
           ) : (
             <ConnectionsCard
@@ -52,6 +53,7 @@ const ConnectedUsersList = (props: any) => {
               bio={item.userID1.bio}
               hobbies={item.userID1.hobbies}
               phoneNumber={item.userID1.contact.phoneNumber}
+              id={item.userID1._id}
             />
           )
         }
