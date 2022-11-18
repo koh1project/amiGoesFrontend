@@ -1,9 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { Avatar, Button, Box, HStack, Text, View, VStack } from 'native-base';
+import { StyleSheet } from 'react-native';
+import {
+  Avatar,
+  Button,
+  Box,
+  HStack,
+  Text,
+  View,
+  ScrollView,
+  VStack,
+} from 'native-base';
 import { getUserProfile } from '../../../services/userProfile.service';
 import { useAuthContext } from '../../auth/AuthContextProvider';
 import { useNavigation } from '@react-navigation/native';
 import { SCREEN_NAMES } from '../../../utils/const';
+import i18n from '../../../localization/Localization';
 
 export const ProfileScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -26,8 +37,8 @@ export const ProfileScreen: React.FC = () => {
   console.log('profile', profile);
 
   return profile ? (
-    <View>
-      <VStack>
+    <ScrollView>
+      <VStack space={3}>
         <Text>Profile</Text>
         <Avatar
           size="2xl"
@@ -37,7 +48,7 @@ export const ProfileScreen: React.FC = () => {
           }}
         />
         <Text>{profile.name}</Text>
-        <HStack>
+        <HStack space={2}>
           <Box>
             <Text>{profile.gender}</Text>
             <Text>{profile.age}</Text>
@@ -46,24 +57,33 @@ export const ProfileScreen: React.FC = () => {
             <Text>{profile.homeCountry}</Text>
           </Box>
         </HStack>
-        <HStack>
+        <Text style={styles.label}>
+          {i18n.t('createProfileStepTwoForm.languages')}
+        </Text>
+        <HStack space={2}>
           {profile.languages.map((language) => (
             <Box key={language}>
               <Text>{language}</Text>
             </Box>
           ))}
         </HStack>
-        <Text>Bio/About</Text>
+        <Text style={styles.label}>
+          {i18n.t('createProfileStepTwoForm.about')}
+        </Text>
         <Text>{profile.bio}</Text>
-        <Text>Hobbies</Text>
-        <HStack>
+        <Text style={styles.label}>
+          {i18n.t('createProfileStepTwoForm.selectHobbies')}
+        </Text>
+        <HStack space={2}>
           {profile.hobbies.map((hobby) => (
             <Box key={hobby}>
               <Text>{hobby}</Text>
             </Box>
           ))}
         </HStack>
-        <Text>Phone Number</Text>
+        <Text style={styles.label}>
+          {i18n.t('createProfileStepOneForm.phoneNumber')}
+        </Text>
         <Text>{profile.contact.phoneNumber}</Text>
       </VStack>
       <Button
@@ -72,13 +92,26 @@ export const ProfileScreen: React.FC = () => {
             profile,
           });
         }}
+        variant="primaryLarge"
+        alignSelf="center"
+        marginBottom="24px"
       >
         EDIT
       </Button>
-    </View>
+    </ScrollView>
   ) : (
     <View>
       <Text>Loading...</Text>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  label: {
+    fontSize: 14,
+    fontFamily: 'Ubuntu_500Medium',
+    lineHeight: 18,
+    color: '#3fa8ae',
+    marginTop: 10,
+  },
+});
