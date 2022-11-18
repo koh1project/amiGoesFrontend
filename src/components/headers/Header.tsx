@@ -8,6 +8,7 @@ import Logo from '../../../assets/images/Logo.svg';
 
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
+import { SCREEN_NAMES } from '../../utils/const';
 
 export const Header: React.FC = () => {
   const navigation = useNavigation();
@@ -20,6 +21,10 @@ export const Header: React.FC = () => {
       setShowBackButton(true);
     }
   }, [route]);
+
+  const handleNotificationClick = () => {
+    navigation.navigate(SCREEN_NAMES.NotificationScreen);
+  };
   return (
     <Box safeAreaTop backgroundColor="#ffffff">
       <View backgroundColor="green" style={styles.Heading}>
@@ -36,7 +41,7 @@ export const Header: React.FC = () => {
             <Box style={styles.placeholder} />
           )}
           <Logo style={styles.Logo} source={Logo} />
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handleNotificationClick}>
             <BellIcon style={styles.bell} />
           </TouchableOpacity>
         </HStack>

@@ -1,6 +1,7 @@
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import {
+  AlertDialog,
   Badge,
   Button,
   HStack,
@@ -9,7 +10,7 @@ import {
   View,
   VStack,
 } from 'native-base';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { addAmigo, getUserProfile } from '../../../services/connect.service';
 import { ThemeColors } from '../../../theme';
@@ -29,16 +30,25 @@ type ConnectUserProfileRouteProp = RouteProp<
 
 const ConnectUserProfile = () => {
   const { user } = useAuthContext();
+  const cancelRef = useRef(null);
   const [amigo, setAmigo] = useState<Amigo | null>();
   const [loading, setLoading] = useState(true);
+  const [open, setOpen] = useState(false);
   const route = useRoute<ConnectUserProfileRouteProp>();
   useEffect(() => {
     fetchUser(route.params.userId);
   }, [route]);
 
-  const handleAddAmigoClick = async () => {
+  const handleAddAmigoClick = () => {
+    setOpen(true);
+  };
+
+  const handleGoToConnect = async () => {
     const response = await addAmigo(user.uid, amigo._id);
-    console.log(response);
+    setOpen(false);
+  };
+  const handleDialogOnClose = () => {
+    setOpen(false);
   };
 
   const fetchUser = async (id) => {
@@ -119,6 +129,39 @@ const ConnectUserProfile = () => {
               </Button>
             </View>
           </VStack>
+
+          <AlertDialog
+            leastDestructiveRef={cancelRef}
+            isOpen={open}
+            onClose={handleDialogOnClose}
+          >
+            <AlertDialog.Content>
+              <AlertDialog.Body>
+                <VStack
+                  space={4}
+                  style={{ paddingVertical: 20, paddingHorizontal: 20 }}
+                >
+                  <Text textAlign="center" variant={'h2'} color="green">
+                    Your Request was Sent
+                  </Text>
+                  <Button
+                    onPress={() => setOpen(false)}
+                    variant="primaryLarge"
+                    width="auto"
+                  >
+                    Delete Request
+                  </Button>
+                  <Button
+                    onPress={handleGoToConnect}
+                    variant="primaryLargeOutlined"
+                    width="auto"
+                  >
+                    Go to Connect
+                  </Button>
+                </VStack>
+              </AlertDialog.Body>
+            </AlertDialog.Content>
+          </AlertDialog>
         </ScrollView>
       )}
     </>

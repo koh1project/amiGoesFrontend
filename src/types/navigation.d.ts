@@ -21,6 +21,8 @@ export type RootStackParamList = {
   ConnectUserProfile: {
     userId: string;
   };
+  Onboarding: undefined;
+  NotificationScreen: undefined;
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =

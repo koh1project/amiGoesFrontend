@@ -150,6 +150,19 @@ export const customTheme = extendTheme({
             backgroundColor: '#D75A49',
           },
         },
+        primaryLargeOutlined: {
+          bg: ThemeColors.white,
+          borderWidth: 1,
+          borderColor: ThemeColors.coral,
+          width: '335',
+          height: '60',
+          _text: {
+            color: ThemeColors.coral,
+          },
+          _pressed: {
+            backgroundColor: '#D75A49',
+          },
+        },
         primaryLargeLight: {
           bg: 'white',
           width: '335',

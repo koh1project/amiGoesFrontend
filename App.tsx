@@ -32,6 +32,7 @@ import { AuthContextProvider } from './src/components/auth/AuthContextProvider';
 import ConnectUserProfile from './src/components/screens/Connect/ConnectUserProfile';
 import BlockedUsersScreen from './src/components/screens/myAmigoes/BlockedUsersScreen';
 import ConnectedUsersScreen from './src/components/screens/myAmigoes/ConnectedUsersScreen';
+import { NotificationScreen } from './src/components/screens/Notifications/NotificationsScreen';
 import { RootStackParamList } from './src/types/navigation';
 import { INITIAL_SCREEN, SCREEN_NAMES } from './src/utils/const';
 
@@ -171,6 +172,14 @@ export default function App() {
               <Stack.Screen
                 component={ConnectUserProfile}
                 name={SCREEN_NAMES.ConnectUserProfile}
+                options={{
+                  header: () => <Header />,
+                  headerShown: true,
+                }}
+              />
+              <Stack.Screen
+                component={NotificationScreen}
+                name={SCREEN_NAMES.NotificationScreen}
                 options={{
                   header: () => <Header />,
                   headerShown: true,
