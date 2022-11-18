@@ -8,8 +8,8 @@ import {
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NativeBaseProvider, StatusBar } from 'native-base';
-import { useEffect, useState } from 'react';
+import { NativeBaseProvider, StatusBar, View } from 'native-base';
+import React, { useEffect, useState } from 'react';
 import { Header } from './src/components/headers/Header';
 import CameraScreen from './src/components/screens/CameraScreen';
 import ConnectFilterScreen from './src/components/screens/Connect/ConnectFiltersScreen';
@@ -28,6 +28,7 @@ import TranslateScreen from './src/components/screens/TranslateScreen';
 import { ProfileScreen } from './src/components/screens/userProfile/ProfileScreen';
 import { EditProfile } from './src/components/screens/userProfile/EditProfile';
 
+import i18n from './src/localization/Localization';
 import { customTheme } from './src/theme';
 
 import { AuthContextProvider } from './src/components/auth/AuthContextProvider';
@@ -37,13 +38,21 @@ import BlockedUsersScreen from './src/components/screens/myAmigoes/BlockedUsersS
 import ConnectedUsersScreen from './src/components/screens/myAmigoes/ConnectedUsersScreen';
 import { RootStackParamList } from './src/types/navigation';
 import { INITIAL_SCREEN, SCREEN_NAMES } from './src/utils/const';
+import UserProfileScreen from './src/components/screens/myAmigoes/UserProfileScreen';
+import EmergencyScreen from './src/components/screens/myAmigoes/EmergencyScreen';
 
 const TabNavigator = createMaterialTopTabNavigator();
 function MyAmigoesTabNavigator() {
   return (
     <TabNavigator.Navigator>
-      <TabNavigator.Screen name="Connected" component={ConnectedUsersScreen} />
-      <TabNavigator.Screen name="Blocked" component={BlockedUsersScreen} />
+      <TabNavigator.Screen
+        name={i18n.t('ConnectedandBlockedTabs.Connected')}
+        component={ConnectedUsersScreen}
+      />
+      <TabNavigator.Screen
+        name={i18n.t('ConnectedandBlockedTabs.Blocked')}
+        component={BlockedUsersScreen}
+      />
     </TabNavigator.Navigator>
   );
 }
@@ -188,12 +197,20 @@ export default function App() {
                 name={SCREEN_NAMES.ConnectedUsersScreen}
               />
               <Stack.Screen
-                component={ConnectUserProfile}
-                name={SCREEN_NAMES.ConnectUserProfile}
+                component={UserProfileScreen}
                 options={{
                   header: () => <Header />,
                   headerShown: true,
                 }}
+                name={SCREEN_NAMES.UserProfileScreen}
+              />
+              <Stack.Screen
+                component={EmergencyScreen}
+                options={{
+                  header: () => <Header />,
+                  headerShown: true,
+                }}
+                name={SCREEN_NAMES.EmergencyScreen}
               />
               <Stack.Screen
                 component={IDVerificationScreen}
