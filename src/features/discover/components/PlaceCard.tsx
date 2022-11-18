@@ -19,26 +19,27 @@ import RightIcon from '../../../../assets/icons/right.svg';
 import ShareIcon from '../../../../assets/icons/share.svg';
 import { GOOGLE_MAPS_API_KEY, SCREEN_NAMES } from '../../../utils/const';
 import { TextDistance } from './TextDistance';
-import { useFavorites } from '../hooks/useFavourite';
 
 type PlaceCardProps = {
   place: Place;
   userLocation?: UserLocation;
   navigation: NavigationProp<any>;
+  favorites: any;
+  handleUpdateFavorites: any;
 };
 
 export const PlaceCard: FC<PlaceCardProps> = ({
   place,
   userLocation,
   navigation,
+  favorites,
+  handleUpdateFavorites,
 }) => {
   let photo_reference;
   if (place.photos) {
     photo_reference = place.photos[0].photo_reference;
   }
   const { place_id } = place;
-
-  const { favorites, handleUpdateFavorites } = useFavorites();
 
   return (
     <TouchableOpacity

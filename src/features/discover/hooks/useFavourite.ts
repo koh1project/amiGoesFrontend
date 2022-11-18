@@ -45,13 +45,16 @@ export const useFavorites = () => {
       return;
     }
 
+    console.log('userId', userId);
+
     (async function () {
       const { data: favoriteList } = await getFavorites(userId);
+      console.log('favoriteList: ', favoriteList);
       if (favoriteList) {
         setFavorites(favoriteList);
       }
     })();
-  }, []);
+  }, [user]);
 
   return { favorites, handleUpdateFavorites };
 };
