@@ -1,8 +1,11 @@
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
+import { useAuthContext } from '../components/auth/AuthContextProvider';
+import { setExpoTokenForUser } from '../services/notification.service';
 
 export const useNotifications = () => {
+  const { user } = useAuthContext();
   // ask for permission to send notifications
   // if the user has not already granted permission
   const registerForPushNotificationsAsync = async () => {
@@ -19,6 +22,8 @@ export const useNotifications = () => {
         return;
       }
       const token = (await Notifications.getExpoPushTokenAsync()).data;
+      setExpoTokenForUser(user.uid, token);
+
       //this.setState({ expoPushToken: token });
     } else {
       // alert('Must use physical device for Push Notifications');
@@ -40,18 +45,9 @@ export const useNotifications = () => {
   };
 
   // notification listener when the user taps on the notification
-  const handleNotificationResponse = (
-    response: Notifications.NotificationResponse,
-  ) => {
-    const data = response.notification.request.content.data;
-    if (data) {
-      //this.props.navigation.navigate(data.screen);
-    }
-  };
 
   return {
     registerForPushNotificationsAsync,
     handleNotification,
-    handleNotificationResponse,
   };
 };

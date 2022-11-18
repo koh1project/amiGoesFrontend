@@ -1,5 +1,4 @@
 import { RouteProp, useRoute } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import {
   AlertDialog,
   Badge,
@@ -12,17 +11,17 @@ import {
 } from 'native-base';
 import React, { useEffect, useRef, useState } from 'react';
 import { StyleSheet } from 'react-native';
-import { addAmigo, getUserProfile } from '../../../services/connect.service';
+import {
+  acceptAmigo,
+  addAmigo,
+  getUserProfile,
+} from '../../../services/connect.service';
 import { ThemeColors } from '../../../theme';
 import { Amigo } from '../../../types/models';
 import { RootStackParamList } from '../../../types/navigation';
 import { useAuthContext } from '../../auth/AuthContextProvider';
 import { calculateAge } from '../../list-items/ConnectFeedItem';
 
-type ConnectUserProfile = NativeStackNavigationProp<
-  RootStackParamList,
-  'ConnectUserProfile'
->;
 type ConnectUserProfileRouteProp = RouteProp<
   RootStackParamList,
   'ConnectUserProfile'
@@ -32,26 +31,37 @@ const ConnectUserProfile = () => {
   const { user } = useAuthContext();
   const cancelRef = useRef(null);
   const [amigo, setAmigo] = useState<Amigo | null>();
+  const [pageType, setPageType] = useState<'accept' | 'send'>('send');
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const route = useRoute<ConnectUserProfileRouteProp>();
+
   useEffect(() => {
     fetchUser(route.params.userId);
-  }, [route]);
+    if (route.params.type) {
+      setPageType(route.params.type);
+    }
+  }, []);
 
   const handleAddAmigoClick = () => {
     setOpen(true);
   };
 
   const handleGoToConnect = async () => {
-    const response = await addAmigo(user.uid, amigo._id);
+    if (pageType === 'send') {
+      const response = await addAmigo(user.uid, amigo._id);
+    } else {
+      const response = await acceptAmigo(amigo._id, user.uid);
+    }
     setOpen(false);
   };
+
   const handleDialogOnClose = () => {
     setOpen(false);
   };
 
   const fetchUser = async (id) => {
+    setLoading(true);
     const response = await getUserProfile(id).catch((err) => console.log(err));
     if (response && response.data) {
       setAmigo(response.data);
@@ -92,7 +102,7 @@ const ConnectUserProfile = () => {
                 Language
               </Text>
               <HStack space={2}>
-                {amigo.languages.map((language) => (
+                {amigo.languages?.map((language) => (
                   <>
                     <Badge variant="green">{language}</Badge>
                   </>
@@ -112,7 +122,7 @@ const ConnectUserProfile = () => {
                 Hobbies
               </Text>
               <HStack space={2}>
-                {amigo.hobbies.map((hobby) => (
+                {amigo.hobbies?.map((hobby) => (
                   <>
                     <Badge variant="green">{hobby}</Badge>
                   </>
@@ -144,13 +154,15 @@ const ConnectUserProfile = () => {
                   <Text textAlign="center" variant={'h2'} color="green">
                     Your Request was Sent
                   </Text>
-                  <Button
-                    onPress={() => setOpen(false)}
-                    variant="primaryLarge"
-                    width="auto"
-                  >
-                    Delete Request
-                  </Button>
+                  {pageType === 'send' && (
+                    <Button
+                      onPress={() => setOpen(false)}
+                      variant="primaryLarge"
+                      width="auto"
+                    >
+                      Delete Request
+                    </Button>
+                  )}
                   <Button
                     onPress={handleGoToConnect}
                     variant="primaryLargeOutlined"

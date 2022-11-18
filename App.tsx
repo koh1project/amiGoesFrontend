@@ -8,7 +8,7 @@ import {
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NativeBaseProvider, StatusBar, View } from 'native-base';
+import { NativeBaseProvider, StatusBar } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import { Header } from './src/components/headers/Header';
 import CameraScreen from './src/components/screens/CameraScreen';
@@ -29,15 +29,15 @@ import i18n from './src/localization/Localization';
 import { customTheme } from './src/theme';
 
 import { AuthContextProvider } from './src/components/auth/AuthContextProvider';
-import IDVerificationScreen from './src/components/screens/createProfile/IDVerificationScreen';
 import ConnectUserProfile from './src/components/screens/Connect/ConnectUserProfile';
+import IDVerificationScreen from './src/components/screens/createProfile/IDVerificationScreen';
 import BlockedUsersScreen from './src/components/screens/myAmigoes/BlockedUsersScreen';
 import ConnectedUsersScreen from './src/components/screens/myAmigoes/ConnectedUsersScreen';
+import EmergencyScreen from './src/components/screens/myAmigoes/EmergencyScreen';
+import UserProfileScreen from './src/components/screens/myAmigoes/UserProfileScreen';
 import { NotificationScreen } from './src/components/screens/Notifications/NotificationsScreen';
 import { RootStackParamList } from './src/types/navigation';
 import { INITIAL_SCREEN, SCREEN_NAMES } from './src/utils/const';
-import UserProfileScreen from './src/components/screens/myAmigoes/UserProfileScreen';
-import EmergencyScreen from './src/components/screens/myAmigoes/EmergencyScreen';
 
 const TabNavigator = createMaterialTopTabNavigator();
 function MyAmigoesTabNavigator() {
@@ -131,6 +131,14 @@ export default function App() {
               <Stack.Screen
                 name={SCREEN_NAMES.ConnectFilter}
                 component={ConnectFilterScreen}
+                options={{
+                  header: () => <Header />,
+                  headerShown: true,
+                }}
+              />
+              <Stack.Screen
+                name={SCREEN_NAMES.ConnectUserProfile}
+                component={ConnectUserProfile}
                 options={{
                   header: () => <Header />,
                   headerShown: true,

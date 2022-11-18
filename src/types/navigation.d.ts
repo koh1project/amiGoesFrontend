@@ -22,6 +22,7 @@ export type RootStackParamList = {
   EmergencyScreen: undefined;
   ConnectUserProfile: {
     userId: string;
+    type?: 'accept' | 'send';
   };
   Onboarding: undefined;
   NotificationScreen: undefined;

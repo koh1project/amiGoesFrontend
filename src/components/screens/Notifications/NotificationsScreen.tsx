@@ -9,7 +9,7 @@ import NotificationItem from '../../list-items/NotificationItem';
 
 export const NotificationScreen = () => {
   const { user } = useAuthContext();
-  const [requests, setRequests] = useState<PendingRequestResponse[]>();
+  const [requests, setRequests] = useState<PendingRequestResponse[]>([]);
 
   const getRequests = async () => {
     const response = await getPendingRequests(user.uid);
@@ -18,7 +18,6 @@ export const NotificationScreen = () => {
     }
   };
   useEffect(() => {
-    console.log(user.uid);
     getRequests();
   }, []);
 
