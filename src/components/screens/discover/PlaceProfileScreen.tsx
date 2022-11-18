@@ -1,13 +1,13 @@
 import { useNavigation } from '@react-navigation/native';
 import {
   Alert,
-  Box,
   CircleIcon,
   CloseIcon,
   Flex,
   HStack,
   IconButton,
   Image,
+  Link,
   ScrollView,
   Text,
   View,
@@ -17,6 +17,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import GoNowIcon from '../../../../assets/icons/go-now-icon.svg';
 import HeartIcon from '../../../../assets/icons/heart-icon.svg';
+import Info from '../../../../assets/icons/info.svg';
 import MapMarkerIcon from '../../../../assets/icons/map-marker-icon.svg';
 import { PlaceProfileMap } from '../../../features/discover/components/PlaceProfileMap';
 import { TextDistance } from '../../../features/discover/components/TextDistance';
@@ -65,7 +66,7 @@ export const PlaceProfileScreen: FC<PlaceProfileScreenProps> = ({ route }) => {
   return (
     <ScrollView backgroundColor={'white'}>
       {backedFromGoNow && (
-        <Alert maxW="400" status="info" colorScheme="info">
+        <Alert maxW="400" status="info" backgroundColor={'lightcoral'}>
           <VStack space={2} flexShrink={1} w="100%">
             <HStack
               flexShrink={1}
@@ -74,8 +75,8 @@ export const PlaceProfileScreen: FC<PlaceProfileScreenProps> = ({ route }) => {
               justifyContent="space-between"
             >
               <HStack flexShrink={1} space={2} alignItems="center">
-                <Alert.Icon />
-                <Text fontSize="md" fontWeight="medium" color="coolGray.800">
+                <Info />
+                <Text variant={'disclaimer'}>
                   Your location is being shared for the next 20 minutes.
                 </Text>
               </HStack>
@@ -90,14 +91,7 @@ export const PlaceProfileScreen: FC<PlaceProfileScreenProps> = ({ route }) => {
                 }}
               />
             </HStack>
-            <Box
-              pl="6"
-              _text={{
-                color: '#EE6653',
-              }}
-            >
-              STOP
-            </Box>
+            <Link marginLeft={6}>STOP</Link>
           </VStack>
         </Alert>
       )}
