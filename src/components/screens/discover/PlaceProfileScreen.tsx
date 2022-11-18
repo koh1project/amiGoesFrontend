@@ -17,6 +17,8 @@ import React, { FC, useEffect, useState } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import GoNowIcon from '../../../../assets/icons/go-now-icon.svg';
 import HeartIcon from '../../../../assets/icons/heart-icon.svg';
+import HeartWhiteIcon from '../../../../assets/icons/heart-white-icon.svg';
+import { useFavorites } from '../../../features/discover/hooks/useFavourite';
 import Info from '../../../../assets/icons/info.svg';
 import MapMarkerIcon from '../../../../assets/icons/map-marker-icon.svg';
 import { PlaceProfileMap } from '../../../features/discover/components/PlaceProfileMap';
@@ -38,6 +40,7 @@ export const PlaceProfileScreen: FC<PlaceProfileScreenProps> = ({ route }) => {
   const navigation = useNavigation();
 
   const [backedFromGoNow, setBackedFromGoNow] = useState(false);
+  const { favorites, handleUpdateFavorites } = useFavorites();
 
   const goBackDetection = () => {
     setBackedFromGoNow(true);
@@ -137,8 +140,13 @@ export const PlaceProfileScreen: FC<PlaceProfileScreenProps> = ({ route }) => {
           <GoNowIcon marginRight={4} />
           <Text style={styles.buttonLabel}>GO NOW</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.favIcon}>
-          <HeartIcon />
+        <TouchableOpacity
+          style={styles.favIcon}
+          onPress={() => {
+            handleUpdateFavorites(place_id);
+          }}
+        >
+          {favorites.includes(place_id) ? <HeartWhiteIcon /> : <HeartIcon />}
         </TouchableOpacity>
       </TouchableOpacity>
       <VStack marginRight={'20px'} marginLeft={'20px'} marginBottom={'30px'}>

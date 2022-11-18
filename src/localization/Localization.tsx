@@ -305,7 +305,7 @@ const i18n = new I18n({
     Discover: {
       title: 'Descubrir',
       search: 'Buscar',
-      filter: 'Selecciona ubicación',
+      // filter: 'Selecciona ubicación',
       searchPlaceholder: 'Busca parques, restaurantes, etc.',
       locationTitle: 'Ubicación',
       date: 'Selecciona fecha',
