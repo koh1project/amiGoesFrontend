@@ -1,5 +1,6 @@
 import { Input } from 'native-base';
 import React from 'react';
+import i18n from '../../../localization/Localization';
 
 type SearchKeywordFormProps = {
   searchKeyword: string;
@@ -12,9 +13,12 @@ export const SearchKeywordForm: React.FC<SearchKeywordFormProps> = ({
 }) => {
   return (
     <Input
-      placeholder="Search"
+      placeholder={i18n.t('Discover.search')}
       onChange={handleSearchChange}
       value={searchKeyword}
+      style={{
+        backgroundColor: 'white',
+      }}
     ></Input>
   );
 };

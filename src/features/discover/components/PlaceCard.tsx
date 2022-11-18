@@ -1,23 +1,23 @@
 import {
   AspectRatio,
   Box,
-  Heading,
   HStack,
   Image,
   Stack,
   Text,
-  Flex,
   View,
 } from 'native-base';
 import React, { FC } from 'react';
-import { Place, UserLocation } from '../../../types/discover';
 import { StyleSheet, TouchableOpacity } from 'react-native';
+import { Place, UserLocation } from '../../../types/discover';
 
-import { GOOGLE_MAPS_API_KEY, SCREEN_NAMES } from '../../../utils/const';
-import { TextDistance } from './TextDistance';
 import { NavigationProp } from '@react-navigation/native';
 import HeartIcon from '../../../../assets/icons/heart-icon.svg';
 import MapMarkerIcon from '../../../../assets/icons/map-marker-icon.svg';
+import RightIcon from '../../../../assets/icons/right.svg';
+import ShareIcon from '../../../../assets/icons/share.svg';
+import { GOOGLE_MAPS_API_KEY, SCREEN_NAMES } from '../../../utils/const';
+import { TextDistance } from './TextDistance';
 
 type PlaceCardProps = {
   place: Place;
@@ -45,7 +45,12 @@ export const PlaceCard: FC<PlaceCardProps> = ({
           } as never,
         );
       }}
-      style={{ flexBasis: '40%', flexGrow: 1, flexShrink: 1 }}
+      style={{
+        flexBasis: '40%',
+        flexGrow: 1,
+        flexShrink: 1,
+        marginRight: 14,
+      }}
     >
       <Box alignItems="center">
         <Box
@@ -55,15 +60,16 @@ export const PlaceCard: FC<PlaceCardProps> = ({
           borderColor="coolGray.200"
           borderWidth="1"
           _dark={{
-            borderColor: 'coolGray.600',
-            backgroundColor: 'gray.700',
+            borderColor: 'green',
+            backgroundColor: '#F8F8F8',
           }}
           _web={{
             shadow: 2,
             borderWidth: 0,
           }}
           _light={{
-            backgroundColor: 'gray.50',
+            backgroundColor: '#F8F8F8',
+            borderColor: 'green',
           }}
         >
           {photo_reference && (
@@ -82,30 +88,32 @@ export const PlaceCard: FC<PlaceCardProps> = ({
             </Box>
           )}
           <Stack p="4" space={3}>
-            <Stack space={2}>
-              <Heading size="md" ml="-1">
-                {place.name}
-              </Heading>
-              <View style={styles.distanceContainer}>
-                <MapMarkerIcon />
-                <TextDistance place={place} userLocation={userLocation} />
-              </View>
-            </Stack>
+            <HStack
+              style={{
+                justifyContent: 'space-between',
+              }}
+            >
+              <Text>{place.name}</Text>
+              <RightIcon />
+            </HStack>
+            <View style={styles.distanceContainer}>
+              <MapMarkerIcon marginRight={6} />
+              <TextDistance place={place} userLocation={userLocation} />
+            </View>
+
             <HStack
               alignItems="center"
               space={4}
               justifyContent="space-between"
             >
-              <HStack alignItems="center">
-                <Text
-                  color="coolGray.600"
-                  _dark={{
-                    color: 'warmGray.200',
-                  }}
-                  fontWeight="400"
-                >
-                  Open 24 hours
-                </Text>
+              <HStack
+                style={{
+                  justifyContent: 'space-between',
+                  width: '100%',
+                }}
+              >
+                <Text variant={'disclaimer'}>Open 24 hours</Text>
+                <ShareIcon />
               </HStack>
             </HStack>
           </Stack>

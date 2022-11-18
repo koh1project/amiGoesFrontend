@@ -1,8 +1,8 @@
 import { getDistance } from 'geolib';
+import { Text } from 'native-base';
 import { FC, useCallback } from 'react';
 import { Place } from 'react-native-google-places-autocomplete';
 import { UserLocation } from '../../../types/discover';
-import { Text } from 'native-base';
 
 export const TextDistance: FC<{
   place: Partial<Place>;
@@ -56,10 +56,10 @@ export const TextDistance: FC<{
       <Text
         fontSize="xs"
         _light={{
-          color: 'violet.500',
+          color: 'green',
         }}
         _dark={{
-          color: 'violet.400',
+          color: 'green',
         }}
         fontWeight="500"
         ml="-0.5"
