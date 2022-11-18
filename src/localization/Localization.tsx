@@ -22,6 +22,14 @@ const i18n = new I18n({
     ConnectionsScreen: {
       SeeProfile: 'SEE PROFILE',
     },
+    BlockedUsersScreen: {
+      PopupWarning: 'Are you sure to unblock this user?',
+      PopupDescription1: 'You can add',
+      PopupDescription2:
+        'as a connection again after unblocking. You will not be able to block Parsley Montana again in 48 hours.',
+      PopupYes: 'YES, SEND',
+      PopupNo: 'NO, GO BACK',
+    },
     UserProfileScreen: {
       title: 'My Amigoes',
       ConnectedOn: 'Connected on',
@@ -33,6 +41,9 @@ const i18n = new I18n({
       PhoneNumber: 'Phone Number',
       Unfriend: 'UNFRIEND',
       Text: 'TEXT/CALL',
+      PopupWarning: 'Are you sure to block this user?',
+      PopupYes: 'YES, SEND',
+      PopupNo: 'NO, GO BACK',
     },
     EmergencyScreen: {
       title: 'My Amigoes',
