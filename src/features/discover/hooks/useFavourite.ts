@@ -1,13 +1,29 @@
 import { useState, useEffect } from 'react';
+import { useAuthContext } from '../../../components/auth/AuthContextProvider';
 import {
   getFavorites,
   updateFavorites,
 } from '../../../services/discover.service';
 
-export const useFavorites = (userId = '5bhhc4f0516eg') => {
+export const useFavorites = () => {
   const [favorites, setFavorites] = useState<string[]>([]);
+  const [userId, setUserId] = useState<string>();
+
+  const { user } = useAuthContext();
+
+  useEffect(() => {
+    if (user) {
+      setUserId(user.uid);
+    } else {
+      setUserId('5bhhc4f0516eg');
+    }
+  }, [user]);
 
   const handleUpdateFavorites = async (place_id: string) => {
+    if (!userId || !place_id) {
+      return;
+    }
+
     try {
       await updateFavorites(userId, place_id);
 
@@ -25,6 +41,10 @@ export const useFavorites = (userId = '5bhhc4f0516eg') => {
   };
 
   useEffect(() => {
+    if (!userId) {
+      return;
+    }
+
     (async function () {
       const { data: favoriteList } = await getFavorites(userId);
       if (favoriteList) {
