@@ -17,10 +17,11 @@ export const SCREEN_NAMES = {
   ConnectedUsersScreen: 'ConnectedUsersScreen',
   BlockedUsersScreen: 'BlockedUsersScreen',
   ConnectUsers: 'ConnectUsers',
+  UserProfileScreen: 'UserProfileScreen',
+  EmergencyScreen: 'EmergencyScreen',
   IDVerification: 'IDVerification',
   ConnectUserProfile: 'ConnectUserProfile',
   Onboarding: 'Onboarding',
-
 } as const;
 
 export const INITIAL_SCREEN = Constants.expoConfig.extra.INITIAL_SCREEN;

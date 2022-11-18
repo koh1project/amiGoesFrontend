@@ -18,6 +18,8 @@ export type RootStackParamList = {
   PlaceProfile: undefined;
   GoNow: undefined;
   ConnectedUsersScreen: undefined;
+  UserProfileScreen: undefined;
+  EmergencyScreen: undefined;
   ConnectUserProfile: {
     userId: string;
   };
