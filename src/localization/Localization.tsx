@@ -136,6 +136,8 @@ const i18n = new I18n({
       restaurants: 'Restaurants',
       entretainment: 'Entretainment',
       sports: 'Sports',
+      noResults: 'No results found',
+      results: 'Search results',
     },
   },
   es: {
@@ -266,6 +268,8 @@ const i18n = new I18n({
       restaurants: 'Restaurantes',
       entretainment: 'Entretenimiento',
       sports: 'Deportes',
+      noResults: 'No hay resultados',
+      results: 'Resultados de busqueda',
     },
   },
 });
