@@ -17,12 +17,12 @@ import React, { FC, useEffect, useState } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import GoNowIcon from '../../../../assets/icons/go-now-icon.svg';
 import HeartIcon from '../../../../assets/icons/heart-icon.svg';
+import MapMarkerIcon from '../../../../assets/icons/map-marker-icon.svg';
 import { PlaceProfileMap } from '../../../features/discover/components/PlaceProfileMap';
 import { TextDistance } from '../../../features/discover/components/TextDistance';
 import { usePlaceProfile } from '../../../features/discover/hooks/usePlaceProfile';
 import { ThemeColors } from '../../../theme';
 import { SCREEN_NAMES } from '../../../utils/const';
-import { TertiaryHeading } from '../../texts/Heading';
 
 type PlaceProfileScreenProps = {
   route: {
@@ -147,19 +147,30 @@ export const PlaceProfileScreen: FC<PlaceProfileScreenProps> = ({ route }) => {
           <HeartIcon />
         </TouchableOpacity>
       </TouchableOpacity>
-      <VStack marginRight={'20px'} marginLeft={'20px'}>
+      <VStack marginRight={'20px'} marginLeft={'20px'} marginBottom={'30px'}>
         <Flex>
           <Text variant={'h2'} color={'green'} marginTop={19}>
             {place.name}
           </Text>
         </Flex>
         <Flex>
-          <TextDistance place={place} userLocation={userLocation} />
+          <HStack
+            style={{
+              marginTop: 10,
+              alignContent: 'center',
+            }}
+          >
+            <MapMarkerIcon marginRight={6} />
+            <TextDistance place={place} userLocation={userLocation} />
+          </HStack>
           <Text>Open 24 hours</Text>
         </Flex>
-        <TertiaryHeading>Avg Price</TertiaryHeading>
+        <Text marginTop={19} variant={'onboardingTitle'} color={'green'}>
+          {' '}
+          Avg Price
+        </Text>
         <Text>Free</Text>
-        <Text>{place?.editorial_summary?.overview}</Text>
+        <Text marginTop={12}>{place?.editorial_summary?.overview}</Text>
         <PlaceProfileMap geometry={place.geometry} />
       </VStack>
     </ScrollView>
