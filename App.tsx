@@ -120,7 +120,10 @@ export default function App() {
               <Stack.Screen
                 name={SCREEN_NAMES.GoNow}
                 component={GoNowScreen}
-                options={{ headerShown: false }}
+                options={{
+                  header: () => <Header />,
+                  headerShown: true,
+                }}
               />
               <Stack.Screen
                 name={SCREEN_NAMES.ConnectFilter}
