@@ -40,7 +40,13 @@ export const Header: React.FC = () => {
           ) : (
             <Box style={styles.placeholder} />
           )}
-          <Logo style={styles.Logo} source={Logo} />
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate(SCREEN_NAMES.Index);
+            }}
+          >
+            <Logo style={styles.Logo} source={Logo} />
+          </TouchableOpacity>
           <TouchableOpacity onPress={handleNotificationClick}>
             <BellIcon style={styles.bell} />
           </TouchableOpacity>

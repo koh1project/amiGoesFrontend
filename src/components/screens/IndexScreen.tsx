@@ -143,7 +143,7 @@ const IndexScreen = () => {
               icon={<Amigos style={styles.icon} />}
             />
           </TouchableOpacity>
-          <Button variant="menu" marginTop="20px">
+          <Button variant="menu" marginTop="20px" onPress={handleSignout}>
             {i18n.t('IndexScreen.AccountButton')}
           </Button>
         </VStack>

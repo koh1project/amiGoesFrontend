@@ -25,8 +25,8 @@ import Onboarding from './src/components/screens/Onboarding';
 import SignupScreen from './src/components/screens/SignupScreen';
 import SplashScreen from './src/components/screens/SplashScreen';
 import TranslateScreen from './src/components/screens/TranslateScreen';
-import { ProfileScreen } from './src/components/screens/userProfile/ProfileScreen';
 import { EditProfile } from './src/components/screens/userProfile/EditProfile';
+import { ProfileScreen } from './src/components/screens/userProfile/ProfileScreen';
 
 import i18n from './src/localization/Localization';
 import { customTheme } from './src/theme';
@@ -211,15 +211,8 @@ export default function App() {
                 }}
                 name={SCREEN_NAMES.ConnectedUsersScreen}
               />
+
               <Stack.Screen
-                component={ConnectUserProfile}
-                name={SCREEN_NAMES.ConnectUserProfile}
-                options={{
-                  header: () => <Header />,
-                  headerShown: true,
-                }}
-               />
-                <Stack.Screen
                 component={UserProfileScreen}
                 options={{
                   header: () => <Header />,
