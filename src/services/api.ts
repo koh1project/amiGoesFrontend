@@ -24,13 +24,13 @@ export const get = async <T = any>(
     });
 };
 
-export const post = async <T>(
+export const post = async <T, R = any>(
   url: string,
   data: T,
   headers = DEFAULT_HEADERS(),
 ) => {
   try {
-    return axios.post(BASE_URL + url, data, {
+    return axios.post<R>(BASE_URL + url, data, {
       headers,
     });
   } catch (e) {

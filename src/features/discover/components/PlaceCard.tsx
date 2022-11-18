@@ -13,11 +13,13 @@ import { Place, UserLocation } from '../../../types/discover';
 
 import { NavigationProp } from '@react-navigation/native';
 import HeartIcon from '../../../../assets/icons/heart-icon.svg';
+import HeartWhiteIcon from '../../../../assets/icons/heart-white-icon.svg';
 import MapMarkerIcon from '../../../../assets/icons/map-marker-icon.svg';
 import RightIcon from '../../../../assets/icons/right.svg';
 import ShareIcon from '../../../../assets/icons/share.svg';
 import { GOOGLE_MAPS_API_KEY, SCREEN_NAMES } from '../../../utils/const';
 import { TextDistance } from './TextDistance';
+import { useFavorites } from '../hooks/useFavourite';
 
 type PlaceCardProps = {
   place: Place;
@@ -34,6 +36,9 @@ export const PlaceCard: FC<PlaceCardProps> = ({
   if (place.photos) {
     photo_reference = place.photos[0].photo_reference;
   }
+  const { place_id } = place;
+
+  const { favorites, handleUpdateFavorites } = useFavorites();
 
   return (
     <TouchableOpacity
@@ -41,7 +46,7 @@ export const PlaceCard: FC<PlaceCardProps> = ({
         navigation.navigate(
           SCREEN_NAMES.PlaceProfile as never,
           {
-            place_id: place.place_id,
+            place_id,
           } as never,
         );
       }}
@@ -82,8 +87,17 @@ export const PlaceCard: FC<PlaceCardProps> = ({
                   alt="image"
                 />
               </AspectRatio>
-              <TouchableOpacity style={styles.favIcon}>
-                <HeartIcon />
+              <TouchableOpacity
+                style={styles.favIcon}
+                onPress={() => {
+                  handleUpdateFavorites(place_id);
+                }}
+              >
+                {favorites.includes(place_id) ? (
+                  <HeartWhiteIcon />
+                ) : (
+                  <HeartIcon />
+                )}
               </TouchableOpacity>
             </Box>
           )}

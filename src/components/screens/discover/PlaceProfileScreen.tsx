@@ -24,6 +24,8 @@ import { SCREEN_NAMES } from '../../../utils/const';
 import { ThemeColors } from '../../../theme';
 import GoNowIcon from '../../../../assets/icons/go-now-icon.svg';
 import HeartIcon from '../../../../assets/icons/heart-icon.svg';
+import HeartWhiteIcon from '../../../../assets/icons/heart-white-icon.svg';
+import { useFavorites } from '../../../features/discover/hooks/useFavourite';
 
 type PlaceProfileScreenProps = {
   route: {
@@ -38,6 +40,7 @@ export const PlaceProfileScreen: FC<PlaceProfileScreenProps> = ({ route }) => {
   const navigation = useNavigation();
 
   const [backedFromGoNow, setBackedFromGoNow] = useState(false);
+  const { favorites, handleUpdateFavorites } = useFavorites();
 
   const goBackDetection = () => {
     setBackedFromGoNow(true);
@@ -139,8 +142,13 @@ export const PlaceProfileScreen: FC<PlaceProfileScreenProps> = ({ route }) => {
           <GoNowIcon />
           <Text style={styles.buttonLabel}>GO NOW</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.favIcon}>
-          <HeartIcon />
+        <TouchableOpacity
+          style={styles.favIcon}
+          onPress={() => {
+            handleUpdateFavorites(place_id);
+          }}
+        >
+          {favorites.includes(place_id) ? <HeartWhiteIcon /> : <HeartIcon />}
         </TouchableOpacity>
       </TouchableOpacity>
 
