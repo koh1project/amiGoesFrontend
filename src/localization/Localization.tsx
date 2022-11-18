@@ -33,6 +33,9 @@ const i18n = new I18n({
       PhoneNumber: 'Phone Number',
       Unfriend: 'UNFRIEND',
       Text: 'TEXT/CALL',
+      PopupWarning: 'Are you sure to block this user?',
+      PopupYes: 'YES, SEND',
+      PopupNo: 'NO, GO BACK',
     },
     EmergencyScreen: {
       title: 'My Amigoes',
