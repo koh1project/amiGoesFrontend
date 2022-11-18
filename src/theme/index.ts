@@ -19,7 +19,18 @@ export const FontFamily = {
   Ubuntu_500Medium: 'Ubuntu_500Medium',
 } as const;
 export const customTheme = extendTheme({
-  colors: ThemeColors,
+colors: {
+    green: '#3FA8AE',
+    coral: '#EE6653',
+    lightgreen: '#C7F0F2',
+    lightcoral: '#FFE4E0',
+    light: '#F8F8F8',
+    dark: '#434343',
+    danger: '#EA3A3D',
+    success: '#33F332',
+    white: '#FFFFFF',
+    gray: '#C3C3C3',
+  },
 
   components: {
     Text: {
@@ -69,6 +80,12 @@ export const customTheme = extendTheme({
           color: 'green',
           marginLeft: '19px',
           marginBottom: '18px',
+        },
+        disclaimer: {
+          fontFamily: 'Ubuntu_500Medium',
+          fontSize: '12',
+          lineHeight: '14',
+          color: 'dark',
         },
         onboardingTitle: {
           fontFamily: 'Ubuntu_500Medium',
@@ -132,11 +149,16 @@ export const customTheme = extendTheme({
           opacity: 1,
           width: '167',
           height: '60',
+          borderColor: 'coral',
+          borderWidth: '1px',
           _text: {
             color: 'coral',
           },
           _pressed: {
             backgroundColor: 'coral',
+            _text: {
+              color: 'white',
+            },
           },
         },
         primaryLarge: {
@@ -167,11 +189,27 @@ export const customTheme = extendTheme({
           bg: 'white',
           width: '335',
           height: '60',
+          borderColor: 'coral',
+          borderWidth: '1px',
           _text: {
             color: 'coral',
           },
           _pressed: {
             backgroundColor: 'coral',
+            _text: {
+              color: 'white',
+            },
+          },
+        },
+        disabledLarge: {
+          bg: 'gray',
+          width: '335',
+          height: '60',
+          _text: {
+            color: 'white',
+          },
+          _pressed: {
+            backgroundColor: '#D75A49',
           },
         },
         disabled: {
