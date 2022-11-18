@@ -56,6 +56,7 @@ export const PlaceCard: FC<PlaceCardProps> = ({
         flexGrow: 1,
         flexShrink: 1,
         marginRight: 14,
+        marginBottom: 14,
       }}
     >
       <Box alignItems="center">

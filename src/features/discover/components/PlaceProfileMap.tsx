@@ -2,7 +2,7 @@ import { FC } from 'react';
 import MapView, { Marker } from 'react-native-maps';
 
 import { View } from 'native-base';
-import { StyleSheet, Dimensions } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 import { PlaceDetail, Viewport } from '../../../types/discover';
 
 type PlaceProfileMapProps = {
@@ -51,11 +51,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 10,
-    width: '90%',
+    borderRadius: 25,
+    width: '100%',
   },
   map: {
-    width: Dimensions.get('window').width,
+    width: Dimensions.get('window').width * 0.9,
     height: (Dimensions.get('window').height * 2) / 5,
   },
 });

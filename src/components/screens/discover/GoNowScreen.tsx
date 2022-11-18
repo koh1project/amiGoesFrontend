@@ -1,4 +1,4 @@
-import { View, Text, Flex, Button, Slider } from 'native-base';
+import { Button, Flex, Slider, Text, View } from 'native-base';
 import React, { FC } from 'react';
 import { StyleSheet } from 'react-native';
 import { GoNowMap } from '../../../features/discover/components/GoNowMap';
@@ -12,37 +12,55 @@ export const GoNowScreen: FC<any> = (props) => {
     <>
       <GoNowMap circleRadius={circleRadius} />
 
-      <Flex flexDirection={'row'} justifyContent="space-between">
-        <Text>Distance</Text>
-        <Text>{`${circleRadius}km`}</Text>
-      </Flex>
-      <View>
-        <Slider
-          w="100%"
-          defaultValue={5}
-          minValue={0}
-          accessibilityLabel="Distance"
-          maxValue={10}
-          step={1}
-          onChange={(value) => setCircleRadius(value)}
+      <View
+        backgroundColor={'white'}
+        paddingHorizontal={20}
+        style={styles.container}
+      >
+        <Flex
+          flexDirection={'row'}
+          justifyContent="space-between"
+          marginTop={21}
         >
-          <Slider.Track>
-            <Slider.FilledTrack />
-          </Slider.Track>
-          <Slider.Thumb />
-        </Slider>
+          <Text>Distance</Text>
+          <Text>{`${circleRadius}km`}</Text>
+        </Flex>
+        <View marginTop={10}>
+          <Slider
+            w="100%"
+            defaultValue={5}
+            minValue={0}
+            accessibilityLabel="Distance"
+            maxValue={10}
+            step={1}
+            onChange={(value) => setCircleRadius(value)}
+          >
+            <Slider.Track>
+              <Slider.FilledTrack />
+            </Slider.Track>
+            <Slider.Thumb />
+          </Slider>
+        </View>
+        <Button
+          variant={'primaryLarge'}
+          style={styles.button}
+          onPress={handleOnPress}
+        >
+          SHARE LIVE LOCATION
+        </Button>
       </View>
-      <Button style={styles.button} onPress={handleOnPress}>
-        SHARE LIVE LOCATION
-      </Button>
     </>
   );
 };
 
 const styles = StyleSheet.create({
   button: {
-    width: '100%',
-    marginBottom: 150,
-    backgroundColor: '#EE6653',
+    marginBottom: 20,
+    marginTop: 28,
+    alignSelf: 'center',
+  },
+  container: {
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
   },
 });

@@ -151,6 +151,8 @@ const styles = StyleSheet.create({
     height: 50,
     display: 'flex',
     flexDirection: 'row',
+    borderRadius: 6,
+    marginRight: 10,
   },
   container: {
     marginLeft: 20,

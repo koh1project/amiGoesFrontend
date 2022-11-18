@@ -6,12 +6,35 @@ import {
   ScrollView,
   Text,
   View,
+  Modal,
+  VStack,
+  IconButton,
+  Button,
 } from 'native-base';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import { StyleSheet } from 'react-native';
 import CalendarIcon from '../../../../assets/icons/calendar.svg';
 import i18n from '../../../localization/Localization';
+import { useAuthContext } from '../../auth/AuthContextProvider';
+import { blockUser } from '../../../services/blockedUsers.service';
+
+const styles = StyleSheet.create({
+  links: {
+    color: '#EE6653',
+    fontSize: 18,
+    fontFamily: 'Ubuntu_700Bold',
+  },
+  linkWrapper: {
+    borderBottomColor: '#EE6653',
+    borderBottomWidth: 3,
+    marginBottom: 2,
+  },
+  section: {
+    borderBottomColor: '#3D3D3D',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+});
 
 const UserProfileScreen = (props) => {
   const {
@@ -25,26 +48,32 @@ const UserProfileScreen = (props) => {
     bio,
     hobbies,
     phoneNumber,
+    id,
+    updateConnectedUsers,
+    setUpdateConnectedUsers,
   } = props.route.params;
 
   const formattedDate = moment(createdAt).format('DD-MMM-YY');
+  const [showModal, setShowModal] = useState(false);
+  const [userId, setUserId] = useState();
+  const { user } = useAuthContext();
 
-  const styles = StyleSheet.create({
-    links: {
-      color: '#EE6653',
-      fontSize: 18,
-      fontFamily: 'Ubuntu_700Bold',
-    },
-    linkWrapper: {
-      borderBottomColor: '#EE6653',
-      borderBottomWidth: 3,
-      marginBottom: 2,
-    },
-    section: {
-      borderBottomColor: '#3D3D3D',
-      borderBottomWidth: StyleSheet.hairlineWidth,
-    },
-  });
+  const getUserId = async () => {
+    const userId = await setUserId(user.uid);
+  };
+
+  useEffect(() => {
+    if (user) {
+      getUserId();
+    }
+  }, [user]);
+
+  const userBlock = async () => {
+    // console.log('userId', userId);
+    // console.log('id', id);
+    await blockUser(userId, id);
+    setUpdateConnectedUsers(true);
+  };
 
   return (
     <ScrollView backgroundColor="white">
@@ -96,7 +125,12 @@ const UserProfileScreen = (props) => {
             </Text>
           </View>
           <View style={styles.linkWrapper}>
-            <Text style={styles.links}>
+            <Text
+              style={styles.links}
+              onPress={() => {
+                setShowModal(true);
+              }}
+            >
               {i18n.t('UserProfileScreen.Block')}
             </Text>
           </View>
@@ -188,6 +222,51 @@ const UserProfileScreen = (props) => {
           </HStack>
         </Center>
       </View>
+      <Modal isOpen={showModal} onClose={() => setShowModal(false)} size="lg">
+        <Modal.Content maxWidth="350">
+          <Modal.Body>
+            <VStack space={3}>
+              <Text
+                variant="h3"
+                color="#3FA8AE"
+                ml={5}
+                mr={5}
+                padding={3}
+                textAlign="center"
+              >
+                {i18n.t('UserProfileScreen.PopupWarning')}
+              </Text>
+              <Button
+                onPress={() => {
+                  setShowModal(false);
+                  userBlock();
+                }}
+                ml={10}
+                mr={10}
+                pt={5}
+                pb={5}
+                bg="#EE6653"
+              >
+                {i18n.t('UserProfileScreen.PopupYes')}
+              </Button>
+              <Button
+                onPress={() => {
+                  setShowModal(false);
+                }}
+                ml={10}
+                mr={10}
+                pt={5}
+                pb={5}
+                borderColor="#EE6653"
+                variant="outline"
+                colorScheme="orange"
+              >
+                {i18n.t('UserProfileScreen.PopupNo')}
+              </Button>
+            </VStack>
+          </Modal.Body>
+        </Modal.Content>
+      </Modal>
     </ScrollView>
   );
 };

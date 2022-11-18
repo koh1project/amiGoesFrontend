@@ -8,21 +8,29 @@ import BlockedUsersList from '../../list/BlockedUsersList';
 const BlockedUsersScreen = () => {
   const { user } = useAuthContext();
   const [blockedUsers, setBlockedUsers] = useState();
+  const [updateBlockedUsers, setUpdateBlockedUsers] = useState(false);
 
   const fetchUsers = async () => {
     const result = await getBlockedUsers(user.uid);
     const data = result.data.blockedUsers;
     setBlockedUsers(data);
     return data;
+    setUpdateBlockedUsers(false);
   };
 
   useEffect(() => {
     if (user) {
       fetchUsers();
     }
-  }, [user]);
+  }, [user, updateBlockedUsers]);
 
-  return <BlockedUsersList blockedUsers={blockedUsers} />;
+  return (
+    <BlockedUsersList
+      blockedUsers={blockedUsers}
+      updateBlockedUsers={updateBlockedUsers}
+      setUpdateBlockedUsers={setUpdateBlockedUsers}
+    />
+  );
 };
 
 export default BlockedUsersScreen;
