@@ -39,6 +39,8 @@ const ConnectionsCard = (props) => {
     hobbies,
     phoneNumber,
     id,
+    updateConnectedUsers,
+    setUpdateConnectedUsers,
   } = props;
 
   return (
@@ -81,6 +83,8 @@ const ConnectionsCard = (props) => {
                     phoneNumber,
                     navigation,
                     id,
+                    updateConnectedUsers,
+                    setUpdateConnectedUsers,
                   });
                 }}
               >

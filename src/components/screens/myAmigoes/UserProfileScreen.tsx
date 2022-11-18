@@ -49,6 +49,8 @@ const UserProfileScreen = (props) => {
     hobbies,
     phoneNumber,
     id,
+    updateConnectedUsers,
+    setUpdateConnectedUsers,
   } = props.route.params;
 
   const formattedDate = moment(createdAt).format('DD-MMM-YY');
@@ -70,6 +72,7 @@ const UserProfileScreen = (props) => {
     // console.log('userId', userId);
     // console.log('id', id);
     await blockUser(userId, id);
+    setUpdateConnectedUsers(true);
   };
 
   return (
