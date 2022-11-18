@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Image, StyleSheet } from 'react-native';
 import MultiSelect from 'react-native-multiple-select';
+import { SCREEN_NAMES } from '../../../utils/const';
 import { useNavigation } from '@react-navigation/core';
 import {
   Avatar,
@@ -15,6 +16,8 @@ import {
   TextArea,
 } from 'native-base';
 import { languagesOptions, hobbiesOptions } from '../../../utils/const';
+import { patch } from '../../../services/api';
+import { UPDATE_USERPROFILE_ENDPOINT } from '../../../services/userProfile.service';
 import i18n from '../../../localization/Localization';
 
 export const EditProfile: React.FC = ({ route }) => {
@@ -113,7 +116,19 @@ export const EditProfile: React.FC = ({ route }) => {
       return false;
     }
     setError('');
-    return true;
+    updateUserProfile();
+  };
+
+  const updateUserProfile = async () => {
+    const url = UPDATE_USERPROFILE_ENDPOINT.patch + userId;
+    await patch(url, newProfileInfo)
+      .then((res) => {
+        console.log(res);
+        navigation.navigate(SCREEN_NAMES.Profile as never);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (

@@ -10,7 +10,7 @@ export const CREATE_USERPROFILE_ENDPOINT = {
 };
 
 export const UPDATE_USERPROFILE_ENDPOINT = {
-  post: '/amigos/update/',
+  patch: '/amigos/update/',
 };
 
 export const UPDATE_NOTIFICATION_TOKEN_ENDPOINT = {

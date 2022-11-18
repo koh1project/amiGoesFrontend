@@ -13,11 +13,14 @@ export const ProfileScreen: React.FC = () => {
   const [profile, setProfile] = useState();
 
   useEffect(() => {
-    if (userId) {
-      getUserProfile(userId).then((profile) => {
-        setProfile(profile.data);
-      });
-    }
+    const unsubscribe = navigation.addListener('focus', () => {
+      if (userId) {
+        getUserProfile(userId).then((profile) => {
+          setProfile(profile.data);
+        });
+      }
+    });
+    return unsubscribe;
   }, []);
 
   console.log('profile', profile);
