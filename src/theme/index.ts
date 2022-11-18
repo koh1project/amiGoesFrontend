@@ -19,7 +19,7 @@ export const FontFamily = {
   Ubuntu_500Medium: 'Ubuntu_500Medium',
 } as const;
 export const customTheme = extendTheme({
-colors: {
+  colors: {
     green: '#3FA8AE',
     coral: '#EE6653',
     lightgreen: '#C7F0F2',
@@ -278,6 +278,7 @@ colors: {
           fontSize: '14',
           lineHeight: '14',
           color: 'coral',
+          textTransform: 'uppercase',
         },
         _pressed: {
           color: '#D75A49',

@@ -131,6 +131,11 @@ const i18n = new I18n({
       to: 'To',
       clear: 'Clear',
       apply: 'Apply',
+      filter: 'Filter',
+      parks: 'Parks',
+      restaurants: 'Restaurants',
+      entretainment: 'Entretainment',
+      sports: 'Sports',
     },
   },
   es: {
@@ -256,6 +261,11 @@ const i18n = new I18n({
       to: 'Hasta',
       clear: 'Resetear',
       apply: 'Aplicar',
+      filter: 'Filtro',
+      parks: 'Parques',
+      restaurants: 'Restaurantes',
+      entretainment: 'Entretenimiento',
+      sports: 'Deportes',
     },
   },
 });

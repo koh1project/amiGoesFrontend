@@ -1,6 +1,6 @@
-import { Text, ScrollView } from 'native-base';
-import React, { FC } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { ScrollView, Text } from 'native-base';
+import React, { FC } from 'react';
 import { Place, UserLocation } from '../../../types/discover';
 
 import { PlaceCard } from './PlaceCard';

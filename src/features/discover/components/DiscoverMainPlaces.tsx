@@ -1,11 +1,11 @@
 import { LocationObject } from 'expo-location';
-import { Flex, Text } from 'native-base';
+import { Flex, Link, Text } from 'native-base';
 import React, { FC } from 'react';
-import { SecondaryHeading } from '../../../components/texts/Heading';
+import { StyleSheet, TouchableOpacity } from 'react-native';
+import FilterIcon from '../../../../assets/icons/filter-icon.svg';
+import i18n from '../../../localization/Localization';
 import { GetDiscoverResponse } from '../../../types/discover';
 import { PlacesCarousel } from './PlacesCarousel';
-import FilterIcon from '../../../../assets/icons/filter-icon.svg';
-import { TouchableOpacity, StyleSheet } from 'react-native';
 
 type DiscoverMainPlacesProps = {
   places: GetDiscoverResponse;
@@ -24,23 +24,32 @@ export const DiscoverMainPlaces: FC<DiscoverMainPlacesProps> = ({
       justifyContent={'space-between'}
       alignItems={'center'}
     >
-      <SecondaryHeading>Parks</SecondaryHeading>
+      <Text variant={'screenTitle'} style={styles.title}>
+        {i18n.t('Discover.parks')}
+      </Text>
       <TouchableOpacity
         style={styles.filterContainer}
         onPress={() => {
           setIsFilterOpen(true);
         }}
       >
-        <FilterIcon />
-        <Text color="coral">Filter</Text>
+        <FilterIcon marginRight={6} />
+        <Link>{i18n.t('Discover.filter')}</Link>
       </TouchableOpacity>
     </Flex>
     <PlacesCarousel places={places['parks']} userLocation={location} />
-    <SecondaryHeading>Restaurants</SecondaryHeading>
+    <Text variant={'screenTitle'} style={styles.title}>
+      {i18n.t('Discover.restaurants')}
+    </Text>
+
     <PlacesCarousel places={places['restaurants']} userLocation={location} />
-    <SecondaryHeading>Entertainment</SecondaryHeading>
+    <Text variant={'screenTitle'} style={styles.title}>
+      {i18n.t('Discover.entretainment')}
+    </Text>
     <PlacesCarousel places={places['entertainment']} userLocation={location} />
-    <SecondaryHeading>Sports</SecondaryHeading>
+    <Text variant={'screenTitle'} style={styles.title}>
+      {i18n.t('Discover.sports')}
+    </Text>
     <PlacesCarousel places={places['sports']} userLocation={location} />
   </>
 );
@@ -51,5 +60,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
+  },
+  title: {
+    marginBottom: 16,
+    fontSize: 18,
+    lineHeight: 24,
+    marginLeft: 0,
+    marginTop: 10,
   },
 });

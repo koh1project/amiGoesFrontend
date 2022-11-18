@@ -128,7 +128,9 @@ export const DiscoverScreen: React.FC = () => {
               ),
           )}
         </VStack>
-        <ScrollView>{content}</ScrollView>
+        <View height={500} paddingBottom={10}>
+          <ScrollView>{content}</ScrollView>
+        </View>
       </View>
     </View>
   );
