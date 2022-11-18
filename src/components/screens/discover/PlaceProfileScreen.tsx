@@ -1,29 +1,28 @@
+import { useNavigation } from '@react-navigation/native';
 import {
+  Alert,
+  Box,
+  CircleIcon,
+  CloseIcon,
+  Flex,
+  HStack,
+  IconButton,
   Image,
   ScrollView,
-  AspectRatio,
-  Flex,
   Text,
-  Alert,
-  VStack,
-  HStack,
-  CloseIcon,
-  Box,
-  IconButton,
-  CircleIcon,
   View,
+  VStack,
 } from 'native-base';
-import React, { useState, FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { SecondaryHeading, TertiaryHeading } from '../../texts/Heading';
-import { usePlaceProfile } from '../../../features/discover/hooks/usePlaceProfile';
-import { TextDistance } from '../../../features/discover/components/TextDistance';
-import { PlaceProfileMap } from '../../../features/discover/components/PlaceProfileMap';
-import { SCREEN_NAMES } from '../../../utils/const';
-import { ThemeColors } from '../../../theme';
 import GoNowIcon from '../../../../assets/icons/go-now-icon.svg';
 import HeartIcon from '../../../../assets/icons/heart-icon.svg';
+import { PlaceProfileMap } from '../../../features/discover/components/PlaceProfileMap';
+import { TextDistance } from '../../../features/discover/components/TextDistance';
+import { usePlaceProfile } from '../../../features/discover/hooks/usePlaceProfile';
+import { ThemeColors } from '../../../theme';
+import { SCREEN_NAMES } from '../../../utils/const';
+import { TertiaryHeading } from '../../texts/Heading';
 
 type PlaceProfileScreenProps = {
   route: {
@@ -64,7 +63,7 @@ export const PlaceProfileScreen: FC<PlaceProfileScreenProps> = ({ route }) => {
   }
 
   return (
-    <ScrollView>
+    <ScrollView backgroundColor={'white'}>
       {backedFromGoNow && (
         <Alert maxW="400" status="info" colorScheme="info">
           <VStack space={2} flexShrink={1} w="100%">
@@ -103,14 +102,19 @@ export const PlaceProfileScreen: FC<PlaceProfileScreenProps> = ({ route }) => {
         </Alert>
       )}
       <TouchableOpacity onPress={handleNextPhoto}>
-        <AspectRatio w="100%" ratio={16 / 9}>
-          <Image
-            source={{
-              uri: photoUrls[photoIndex],
-            }}
-            alt="image"
-          />
-        </AspectRatio>
+        {/* <AspectRatio w="100%" ratio={16 / 9} h={308}> */}
+        <Image
+          source={{
+            uri: photoUrls[photoIndex],
+          }}
+          alt="image"
+          resizeMode="cover"
+          style={styles.image}
+          width="100%"
+          height={308}
+        />
+        {/* </AspectRatio> */}
+
         <HStack style={styles.dotContainer}>
           {photoUrls.map((url, index) => (
             <View style={styles.dot} key={index}>
@@ -136,25 +140,28 @@ export const PlaceProfileScreen: FC<PlaceProfileScreenProps> = ({ route }) => {
           }}
           style={styles.buttonContainer}
         >
-          <GoNowIcon />
+          <GoNowIcon marginRight={4} />
           <Text style={styles.buttonLabel}>GO NOW</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.favIcon}>
           <HeartIcon />
         </TouchableOpacity>
       </TouchableOpacity>
-
-      <Flex>
-        <SecondaryHeading>{place.name}</SecondaryHeading>
-      </Flex>
-      <Flex>
-        <TextDistance place={place} userLocation={userLocation} />
-        <Text>Open 24 hours</Text>
-      </Flex>
-      <TertiaryHeading>Avg Price</TertiaryHeading>
-      <Text>Free</Text>
-      <Text>{place?.editorial_summary?.overview}</Text>
-      <PlaceProfileMap geometry={place.geometry} />
+      <VStack marginRight={'20px'} marginLeft={'20px'}>
+        <Flex>
+          <Text variant={'h2'} color={'green'} marginTop={19}>
+            {place.name}
+          </Text>
+        </Flex>
+        <Flex>
+          <TextDistance place={place} userLocation={userLocation} />
+          <Text>Open 24 hours</Text>
+        </Flex>
+        <TertiaryHeading>Avg Price</TertiaryHeading>
+        <Text>Free</Text>
+        <Text>{place?.editorial_summary?.overview}</Text>
+        <PlaceProfileMap geometry={place.geometry} />
+      </VStack>
     </ScrollView>
   );
 };
@@ -165,7 +172,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
-    bottom: 0,
+    bottom: 10,
     left: 0,
     right: 0,
   },
@@ -174,8 +181,8 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     position: 'absolute',
-    bottom: 30,
-    right: 30,
+    bottom: 50,
+    right: 19,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -192,8 +199,12 @@ const styles = StyleSheet.create({
   favIcon: {
     position: 'absolute',
     top: 15,
-    right: 15,
+    right: 19,
     zIndex: 10,
     padding: 3,
+  },
+  image: {
+    borderBottomLeftRadius: 25,
+    borderBottomRightRadius: 25,
   },
 });
