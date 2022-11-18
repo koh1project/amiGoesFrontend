@@ -1,10 +1,12 @@
 import { Place, PlaceDetail } from './../types/discover.d';
 import { GetDiscoverResponse } from '../types/discover';
-import { get } from './api';
+import { get, post } from './api';
 
 const DISCOVER_ENDPOINT = {
   get: '/discover',
   getByKeyword: '/discover/keyword',
+  getFavorites: '/discover/favorites',
+  updateFavorites: '/discover/favorites/update',
 };
 
 export const getDiscover = async () => {
@@ -32,4 +34,20 @@ export const getPlacesByKeyword = async (keyword: string) => {
     console.error('API getDiscover ERROR', error);
     throw error;
   }
+};
+
+export const getFavorites = (userId: string) => {
+  return post<{ userId: string }, string[]>(DISCOVER_ENDPOINT.getFavorites, {
+    userId,
+  });
+};
+
+export const updateFavorites = (userId: string, place_id: string) => {
+  return post<{ userId: string; place_id: string }>(
+    `${DISCOVER_ENDPOINT.updateFavorites}`,
+    {
+      userId,
+      place_id,
+    },
+  );
 };

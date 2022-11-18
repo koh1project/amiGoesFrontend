@@ -13,6 +13,7 @@ import { Place, UserLocation } from '../../../types/discover';
 
 import { NavigationProp } from '@react-navigation/native';
 import HeartIcon from '../../../../assets/icons/heart-icon.svg';
+import HeartWhiteIcon from '../../../../assets/icons/heart-white-icon.svg';
 import MapMarkerIcon from '../../../../assets/icons/map-marker-icon.svg';
 import RightIcon from '../../../../assets/icons/right.svg';
 import ShareIcon from '../../../../assets/icons/share.svg';
@@ -23,17 +24,22 @@ type PlaceCardProps = {
   place: Place;
   userLocation?: UserLocation;
   navigation: NavigationProp<any>;
+  favorites: any;
+  handleUpdateFavorites: any;
 };
 
 export const PlaceCard: FC<PlaceCardProps> = ({
   place,
   userLocation,
   navigation,
+  favorites,
+  handleUpdateFavorites,
 }) => {
   let photo_reference;
   if (place.photos) {
     photo_reference = place.photos[0].photo_reference;
   }
+  const { place_id } = place;
 
   return (
     <TouchableOpacity
@@ -41,7 +47,7 @@ export const PlaceCard: FC<PlaceCardProps> = ({
         navigation.navigate(
           SCREEN_NAMES.PlaceProfile as never,
           {
-            place_id: place.place_id,
+            place_id,
           } as never,
         );
       }}
@@ -83,8 +89,17 @@ export const PlaceCard: FC<PlaceCardProps> = ({
                   alt="image"
                 />
               </AspectRatio>
-              <TouchableOpacity style={styles.favIcon}>
-                <HeartIcon />
+              <TouchableOpacity
+                style={styles.favIcon}
+                onPress={() => {
+                  handleUpdateFavorites(place_id);
+                }}
+              >
+                {favorites.includes(place_id) ? (
+                  <HeartWhiteIcon />
+                ) : (
+                  <HeartIcon />
+                )}
               </TouchableOpacity>
             </Box>
           )}
