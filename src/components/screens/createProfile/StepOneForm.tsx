@@ -33,6 +33,7 @@ export const StepOneForm: React.FC = ({ navigation, route }) => {
     emergencyName: 'Gabriela',
     emergencyRelationship: 'Friend',
     emergencyPhoneNumber: '123456789',
+    isVerified: false,
   });
 
   const [errors, setErrors] = useState<LooseObject>({});
@@ -40,6 +41,10 @@ export const StepOneForm: React.FC = ({ navigation, route }) => {
   useEffect(() => {
     if (route.params?.verified) {
       setVerified(route.params.verified);
+      setInputs({
+        ...inputs,
+        isVerified: route.params.verified,
+      });
     }
   }, [route.params?.verified]);
 
@@ -120,6 +125,14 @@ export const StepOneForm: React.FC = ({ navigation, route }) => {
       handleError(
         'Please enter your emergency contact phone number',
         'emergencyPhoneNumber',
+      );
+      valid = false;
+    }
+
+    if (verified === false) {
+      handleError(
+        'Please verify your identity before proceeding',
+        'identityVerification',
       );
       valid = false;
     }
@@ -312,6 +325,9 @@ export const StepOneForm: React.FC = ({ navigation, route }) => {
           <Text marginBottom="10px">
             {i18n.t('createProfileStepOneForm.idDescription')}
           </Text>
+          {errors.identityVerification && (
+            <Text style={{ color: 'red' }}>{errors.identityVerification}</Text>
+          )}
           <Button
             variant={verified ? 'primaryLargeLight' : 'disabledLarge'}
             disabled={!verified}
