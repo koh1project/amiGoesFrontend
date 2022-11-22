@@ -2,7 +2,8 @@ import { useNavigation } from '@react-navigation/core';
 import * as ImagePicker from 'expo-image-picker';
 import { Button, Text, View } from 'native-base';
 import React, { useRef, useState } from 'react';
-import { Image, ScrollView, StyleSheet } from 'react-native';
+import { Image, Keyboard, ScrollView, StyleSheet } from 'react-native';
+import { LooseObject } from '../../../types/models';
 import MultiSelect from 'react-native-multiple-select';
 import placeholder from '../../../../assets/images/placeholder.png';
 import { useNotificationsToken } from '../../../hooks/useNotificationsToken';
@@ -111,6 +112,8 @@ export const StepTwoForm: React.FC = ({ route }) => {
     bio: '',
   });
 
+  const [errors, setErrors] = useState<LooseObject>({});
+
   const handleOnChange = (text, input) => {
     setProfileInfo((prevState) => ({ ...prevState, [input]: text }));
   };
@@ -131,7 +134,40 @@ export const StepTwoForm: React.FC = ({ route }) => {
       languages: languages,
       hobbies: hobbies,
     };
-    createProfile(data);
+    validate(data);
+    //createProfile(data);
+  };
+
+  const validate = (data) => {
+    Keyboard.dismiss();
+    let valid = true;
+    if (!data.homeCountry) {
+      handleError('Please enter your home country', 'homeCountry');
+      valid = false;
+    }
+
+    if (!data.bio) {
+      handleError('Please enter your bio', 'bio');
+      valid = false;
+    }
+
+    if (data.languages.length < 1) {
+      handleError('Please select at least one language', 'languages');
+      valid = false;
+    }
+
+    if (data.hobbies.length < 1) {
+      handleError('Please select at least one hobby', 'hobbies');
+      valid = false;
+    }
+
+    if (valid) {
+      createProfile(data);
+    }
+  };
+
+  const handleError = (errorMessage, input) => {
+    setErrors((prevState) => ({ ...prevState, [input]: errorMessage }));
   };
 
   const createProfile = async (data) => {
@@ -192,7 +228,10 @@ export const StepTwoForm: React.FC = ({ route }) => {
         <Input
           label={i18n.t('createProfileStepTwoForm.country')}
           placeholder="Ex. Mexico"
-          error={''}
+          error={errors.homeCountry}
+          onFocus={() => {
+            handleError(null, 'homeCountry');
+          }}
           onChangeText={(text) => handleOnChange(text, 'homeCountry')}
         />
         <View>
@@ -248,6 +287,9 @@ export const StepTwoForm: React.FC = ({ route }) => {
             borderColor: '#3fa8ae',
           }}
         />
+        {errors.languages && (
+          <Text style={{ color: 'red' }}>{errors.languages}</Text>
+        )}
         <View>
           {multiSelect.current
             ? multiSelect.current.getSelectedItemsExt(languages)
@@ -260,8 +302,11 @@ export const StepTwoForm: React.FC = ({ route }) => {
           {i18n.t('createProfileStepTwoForm.aboutSubtitle')}
         </Text>
         <Input
-          error={''}
           placeholder={i18n.t('createProfileStepTwoForm.aboutplaceholder')}
+          error={errors.bio}
+          onFocus={() => {
+            handleError(null, 'bio');
+          }}
           onChangeText={(text) => handleOnChange(text, 'bio')}
           label={undefined}
         />
@@ -313,6 +358,9 @@ export const StepTwoForm: React.FC = ({ route }) => {
             borderColor: '#3fa8ae',
           }}
         />
+        {errors.hobbies && (
+          <Text style={{ color: 'red' }}>{errors.hobbies}</Text>
+        )}
         <View>
           {multiSelectHobbies.current
             ? multiSelectHobbies.current.getSelectedItemsExt(hobbies)
