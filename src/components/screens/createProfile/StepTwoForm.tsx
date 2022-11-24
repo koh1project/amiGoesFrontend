@@ -14,72 +14,6 @@ import { Input } from '../../form/Input';
 import { useAuthContext } from '../../auth/AuthContextProvider';
 import { languagesOptions, hobbiesOptions } from '../../../utils/const';
 
-// const languagesOptions = [
-//   {
-//     id: 'English',
-//     name: 'English',
-//   },
-//   {
-//     id: 'Spanish',
-//     name: 'Spanish',
-//   },
-//   {
-//     id: 'French',
-//     name: 'French',
-//   },
-//   {
-//     id: 'German',
-//     name: 'German',
-//   },
-//   {
-//     id: 'Italian',
-//     name: 'Italian',
-//   },
-//   {
-//     id: 'Portuguese',
-//     name: 'Portuguese',
-//   },
-// ];
-
-// const hobbiesOptions = [
-//   {
-//     id: 'Sports',
-//     name: 'Sports',
-//   },
-//   {
-//     id: 'Music',
-//     name: 'Music',
-//   },
-//   {
-//     id: 'Reading',
-//     name: 'Reading',
-//   },
-//   {
-//     id: 'Cooking',
-//     name: 'Cooking',
-//   },
-//   {
-//     id: 'Dancing',
-//     name: 'Dancing',
-//   },
-//   {
-//     id: 'Writing',
-//     name: 'Writing',
-//   },
-//   {
-//     id: 'Art',
-//     name: 'Art',
-//   },
-//   {
-//     id: 'Photography',
-//     name: 'Photography',
-//   },
-//   {
-//     id: 'Other',
-//     name: 'Other',
-//   },
-// ];
-
 export const StepTwoForm: React.FC = ({ route }) => {
   const { updateNotificationToken } = useNotificationsToken();
   const [languages, setLanguagesArray] = useState([]);
@@ -175,14 +109,17 @@ export const StepTwoForm: React.FC = ({ route }) => {
   };
 
   const createProfile = async (data) => {
-    console.log(data);
-    const result = await post(CREATE_USERPROFILE_ENDPOINT.post, data);
-    if (result.data) {
-      console.log(result);
-      alert('Profile created successfully!');
-      updateNotificationToken(); // update send notification token to backend
-      navigation.navigate('Index' as never);
-    }
+    console.log('Step Two line 112: ', data);
+    await post(CREATE_USERPROFILE_ENDPOINT.post, data)
+      .then((res) => {
+        //alert('Profile created successfully!');
+        updateNotificationToken(); // update send notification token to backend
+        navigation.navigate('Index' as never);
+      })
+      .catch((err) => {
+        console.log(err);
+        alert('Something went wrong, please try again!');
+      });
   };
 
   const pickImage = async () => {
@@ -318,6 +255,7 @@ export const StepTwoForm: React.FC = ({ route }) => {
           {i18n.t('createProfileStepTwoForm.aboutSubtitle')}
         </Text>
         <Input
+          multiline
           placeholder={i18n.t('createProfileStepTwoForm.aboutplaceholder')}
           error={errors.bio}
           onFocus={() => {
