@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/core';
 import * as ImagePicker from 'expo-image-picker';
 import { Button, Text, View } from 'native-base';
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Image, Keyboard, ScrollView, StyleSheet } from 'react-native';
 import { LooseObject } from '../../../types/models';
 import MultiSelect from 'react-native-multiple-select';
@@ -9,85 +9,82 @@ import placeholder from '../../../../assets/images/placeholder.png';
 import { useNotificationsToken } from '../../../hooks/useNotificationsToken';
 import i18n from '../../../localization/Localization';
 import { post } from '../../../services/api';
-import {
-  authUser,
-  CREATE_USERPROFILE_ENDPOINT,
-} from '../../../services/userProfile.service';
+import { CREATE_USERPROFILE_ENDPOINT } from '../../../services/userProfile.service';
 import { Input } from '../../form/Input';
+import { useAuthContext } from '../../auth/AuthContextProvider';
+import { languagesOptions, hobbiesOptions } from '../../../utils/const';
 
-const languagesOptions = [
-  {
-    id: 'English',
-    name: 'English',
-  },
-  {
-    id: 'Spanish',
-    name: 'Spanish',
-  },
-  {
-    id: 'French',
-    name: 'French',
-  },
-  {
-    id: 'German',
-    name: 'German',
-  },
-  {
-    id: 'Italian',
-    name: 'Italian',
-  },
-  {
-    id: 'Portuguese',
-    name: 'Portuguese',
-  },
-];
+// const languagesOptions = [
+//   {
+//     id: 'English',
+//     name: 'English',
+//   },
+//   {
+//     id: 'Spanish',
+//     name: 'Spanish',
+//   },
+//   {
+//     id: 'French',
+//     name: 'French',
+//   },
+//   {
+//     id: 'German',
+//     name: 'German',
+//   },
+//   {
+//     id: 'Italian',
+//     name: 'Italian',
+//   },
+//   {
+//     id: 'Portuguese',
+//     name: 'Portuguese',
+//   },
+// ];
 
-const hobbiesOptions = [
-  {
-    id: 'Sports',
-    name: 'Sports',
-  },
-  {
-    id: 'Music',
-    name: 'Music',
-  },
-  {
-    id: 'Reading',
-    name: 'Reading',
-  },
-  {
-    id: 'Cooking',
-    name: 'Cooking',
-  },
-  {
-    id: 'Dancing',
-    name: 'Dancing',
-  },
-  {
-    id: 'Writing',
-    name: 'Writing',
-  },
-  {
-    id: 'Art',
-    name: 'Art',
-  },
-  {
-    id: 'Photography',
-    name: 'Photography',
-  },
-  {
-    id: 'Other',
-    name: 'Other',
-  },
-];
+// const hobbiesOptions = [
+//   {
+//     id: 'Sports',
+//     name: 'Sports',
+//   },
+//   {
+//     id: 'Music',
+//     name: 'Music',
+//   },
+//   {
+//     id: 'Reading',
+//     name: 'Reading',
+//   },
+//   {
+//     id: 'Cooking',
+//     name: 'Cooking',
+//   },
+//   {
+//     id: 'Dancing',
+//     name: 'Dancing',
+//   },
+//   {
+//     id: 'Writing',
+//     name: 'Writing',
+//   },
+//   {
+//     id: 'Art',
+//     name: 'Art',
+//   },
+//   {
+//     id: 'Photography',
+//     name: 'Photography',
+//   },
+//   {
+//     id: 'Other',
+//     name: 'Other',
+//   },
+// ];
 
 export const StepTwoForm: React.FC = ({ route }) => {
   const { updateNotificationToken } = useNotificationsToken();
-  const multiSelect = useRef(null);
-  const multiSelectHobbies = useRef(null);
   const [languages, setLanguagesArray] = useState([]);
   const [hobbies, setHobbiesArray] = useState([]);
-  const user = authUser();
+  const { user } = useAuthContext();
   const navigation = useNavigation();
   const inputs = route.params;
   const [image, setImage] = useState(null);
@@ -113,19 +110,26 @@ export const StepTwoForm: React.FC = ({ route }) => {
   });
 
   const [errors, setErrors] = useState<LooseObject>({});
+  const [isFocused, setIsFocused] = useState(false);
 
   const handleOnChange = (text, input) => {
     setProfileInfo((prevState) => ({ ...prevState, [input]: text }));
   };
 
   const onSelectedLanguagesChange = (selectedItems) => {
-    const replaceArray = [...languages, ...selectedItems];
-    setLanguagesArray(replaceArray);
+    setLanguagesArray(selectedItems);
+    setProfileInfo((prevState) => ({
+      ...prevState,
+      languages: selectedItems,
+    }));
   };
 
   const onSelectedHobbiesChange = (selectedItems) => {
-    const replaceArray = [...hobbies, ...selectedItems];
-    setHobbiesArray(replaceArray);
+    setHobbiesArray(selectedItems);
+    setProfileInfo((prevState) => ({
+      ...prevState,
+      hobbies: selectedItems,
+    }));
   };
 
   const handleOnSubmit = () => {
@@ -243,13 +247,16 @@ export const StepTwoForm: React.FC = ({ route }) => {
           </Text>
         </View>
         <MultiSelect
-          hideTags
           fontFamily="Ubuntu_400Regular"
           fontSize={14}
           items={languagesOptions}
           uniqueKey="id"
-          ref={multiSelect}
           onSelectedItemsChange={onSelectedLanguagesChange}
+          onToggleList={() => {
+            handleError(null, 'languages');
+            setIsFocused(true);
+          }}
+          selectedItems={languages}
           selectText={i18n.t('createProfileStepTwoForm.selectLanguages')}
           displayKey="name"
           tagRemoveIconColor="#f8f8f8"
@@ -260,10 +267,14 @@ export const StepTwoForm: React.FC = ({ route }) => {
           submitButtonColor="#3fa8ae"
           submitButtonText="Done"
           styleMainWrapper={{
-            marginBottom: 20,
+            marginBottom: errors.languages ? 0 : 24,
             borderWidth: 1,
             borderRadius: 6,
-            borderColor: '#C3C3C3',
+            borderColor: errors.languages
+              ? 'red'
+              : isFocused
+              ? '#4c4c4c'
+              : '#4c4c4c',
             position: 'relative',
             paddingHorizontal: 15,
           }}
@@ -286,15 +297,20 @@ export const StepTwoForm: React.FC = ({ route }) => {
             backgroundColor: '#3fa8ae',
             borderColor: '#3fa8ae',
           }}
+          removeSelected
         />
         {errors.languages && (
-          <Text style={{ color: 'red' }}>{errors.languages}</Text>
+          <Text
+            style={{
+              color: 'red',
+              fontSize: 12,
+              fontFamily: 'Ubuntu_500Medium',
+              marginBottom: 24,
+            }}
+          >
+            {errors.languages}
+          </Text>
         )}
-        <View>
-          {multiSelect.current
-            ? multiSelect.current.getSelectedItemsExt(languages)
-            : null}
-        </View>
         <Text style={styles.label}>
           {i18n.t('createProfileStepTwoForm.about')}
         </Text>
@@ -314,13 +330,16 @@ export const StepTwoForm: React.FC = ({ route }) => {
           <Text style={styles.label}>Hobbies</Text>
         </View>
         <MultiSelect
-          hideTags
           fontFamily="Ubuntu_400Regular"
           fontSize={14}
           items={hobbiesOptions}
           uniqueKey="id"
-          ref={multiSelectHobbies}
           onSelectedItemsChange={onSelectedHobbiesChange}
+          selectedItems={hobbies}
+          onToggleList={() => {
+            handleError(null, 'hobbies');
+            setIsFocused(true);
+          }}
           selectText={i18n.t('createProfileStepTwoForm.selectHobbies')}
           displayKey="name"
           tagRemoveIconColor="#f8f8f8"
@@ -331,10 +350,14 @@ export const StepTwoForm: React.FC = ({ route }) => {
           submitButtonColor="#3fa8ae"
           submitButtonText="Done"
           styleMainWrapper={{
-            marginBottom: 20,
+            marginBottom: errors.hobbies ? 0 : 24,
             borderWidth: 1,
             borderRadius: 6,
-            borderColor: '#C3C3C3',
+            borderColor: errors.hobbies
+              ? 'red'
+              : isFocused
+              ? '#4c4c4c'
+              : '#4c4c4c',
             position: 'relative',
             paddingHorizontal: 15,
           }}
@@ -357,15 +380,20 @@ export const StepTwoForm: React.FC = ({ route }) => {
             backgroundColor: '#3fa8ae',
             borderColor: '#3fa8ae',
           }}
+          removeSelected
         />
         {errors.hobbies && (
-          <Text style={{ color: 'red' }}>{errors.hobbies}</Text>
+          <Text
+            style={{
+              color: 'red',
+              fontSize: 12,
+              fontFamily: 'Ubuntu_500Medium',
+              marginBottom: 24,
+            }}
+          >
+            {errors.hobbies}
+          </Text>
         )}
-        <View>
-          {multiSelectHobbies.current
-            ? multiSelectHobbies.current.getSelectedItemsExt(hobbies)
-            : null}
-        </View>
       </View>
       <View style={styles.buttonContainer}>
         <Button

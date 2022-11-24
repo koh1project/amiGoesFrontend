@@ -23,16 +23,16 @@ export const StepOneForm: React.FC = ({ navigation, route }) => {
   const [date, setDate] = useState(new Date());
   const [text, setText] = useState('');
   const [genderSelected, setGenderSelected] = useState('');
-  const [verified, setVerified] = useState(false);
+  const [verified, setVerified] = useState(true);
 
   const [inputs, setInputs] = useState({
-    name: 'Arvind Smith',
+    name: 'Will Smith',
     birthDate: '',
     gender: 'male',
-    phoneNumber: '123456789',
-    emergencyName: 'Gabriela',
-    emergencyRelationship: 'Friend',
-    emergencyPhoneNumber: '123456789',
+    phoneNumber: '777 145 8899',
+    emergencyName: 'John Smith',
+    emergencyRelationship: 'Son',
+    emergencyPhoneNumber: '777 321 1255',
     isVerified: false,
   });
 
@@ -329,8 +329,8 @@ export const StepOneForm: React.FC = ({ navigation, route }) => {
             <Text style={{ color: 'red' }}>{errors.identityVerification}</Text>
           )}
           <Button
-            variant={verified ? 'primaryLargeLight' : 'disabledLarge'}
-            disabled={!verified}
+            variant={verified ? 'disabledLarge' : 'primaryLargeLight'}
+            disabled={verified}
             marginBottom="24px"
             alignSelf="center"
             onPress={() => navigation.navigate(SCREEN_NAMES.IDVerification)}
