@@ -29,6 +29,7 @@ export interface Amigo {
   languages: string[];
   name: string;
   updatedAt: string;
+  profilePictureLink?: string;
 }
 
 export interface ConnectPreferences {

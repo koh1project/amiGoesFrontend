@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from 'react';
 import * as Location from 'expo-location';
+import { useCallback, useEffect, useState } from 'react';
 
 import { UserLocation } from '../../../types/discover';
 

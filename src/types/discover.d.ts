@@ -3,6 +3,15 @@ import * as Location from 'expo-location';
 
 export type Place = TextSearchResponse['data']['results'][0];
 
+export type GoNowUserLocationMarker = {
+  name: string;
+  photoUrl?: string;
+  coordinate: {
+    latitude: number;
+    longitude: number;
+  };
+};
+
 export type GetDiscoverResponse = {
   parks: Place[];
   restaurants: Place[];

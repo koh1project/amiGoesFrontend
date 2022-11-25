@@ -30,9 +30,11 @@ export const post = async <T, R = any>(
   headers = DEFAULT_HEADERS(),
 ) => {
   try {
-    return axios.post<R>(BASE_URL + url, data, {
-      headers,
-    });
+    return axios
+      .post<R>(BASE_URL + url, data, {
+        headers,
+      })
+      .catch((e) => console.log({ error: e, route: BASE_URL + url }));
   } catch (e) {
     console.error(e);
   }

@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/core';
 import * as Notifications from 'expo-notifications';
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import axios from 'axios';
@@ -15,6 +15,7 @@ import Profile from '../../../assets/icons/profile-icon.svg';
 import Translate from '../../../assets/icons/translate-icon.svg';
 import { useNotifications } from '../../hooks/useNotifications';
 import i18n from '../../localization/Localization';
+import { setUserLocation } from '../../services/userProfile.service';
 import { RootStackParamList } from '../../types/navigation';
 import { SCREEN_NAMES } from '../../utils/const';
 import { auth } from '../../utils/firebase';
@@ -35,7 +36,17 @@ const IndexScreen = () => {
   const { registerForPushNotificationsAsync } = useNotifications();
   // call useNotifications hook
   // ******************************************************
-  const { user } = useAuthContext();
+  const { user, location } = useAuthContext();
+
+  const updateUserLocation = useCallback(async () => {
+    if (location) {
+      setUserLocation(location, user.uid);
+    }
+  }, [location, user]);
+
+  useEffect(() => {
+    updateUserLocation();
+  }, [location, user]);
 
   useEffect(() => {
     registerForPushNotificationsAsync();

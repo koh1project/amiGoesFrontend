@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet } from 'react-native';
-import placeholder from '../../../../assets/images/placeholder.png';
+import { useNavigation } from '@react-navigation/native';
 import {
   Badge,
-  Image,
-  Button,
   Box,
+  Button,
   HStack,
+  Image,
+  ScrollView,
   Text,
   View,
-  ScrollView,
   VStack,
 } from 'native-base';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet } from 'react-native';
 import Info from '../../../../assets/icons/info.svg';
-import { getUserProfile } from '../../../services/userProfile.service';
-import { useAuthContext } from '../../auth/AuthContextProvider';
-import { useNavigation } from '@react-navigation/native';
-import { SCREEN_NAMES } from '../../../utils/const';
+import placeholder from '../../../../assets/images/placeholder.png';
 import i18n from '../../../localization/Localization';
+import { getUserProfile } from '../../../services/userProfile.service';
+import { SCREEN_NAMES } from '../../../utils/const';
+import { useAuthContext } from '../../auth/AuthContextProvider';
 
 export const ProfileScreen: React.FC = () => {
   const [userProfilePic, setUserProfilePic] = useState(placeholder);
@@ -33,11 +33,17 @@ export const ProfileScreen: React.FC = () => {
       if (userId) {
         getUserProfile(userId)
           .then((profile) => {
-            console.log('profile: ', profile.data);
-            setProfile(profile.data);
-            if (profile.data.profilePicture) {
-              console.log('profilePicture: ', profile.data.profilePicture);
-              setUserProfilePic(profile.data.profilePicture);
+            console.log(profile);
+            if (profile && profile.data) {
+              console.log('profile: ', profile.data);
+              setProfile(profile.data);
+              if (profile.data.profilePictureLink) {
+                console.log(
+                  'profilePicture: ',
+                  profile.data.profilePictureLink,
+                );
+                // setUserProfilePic(profile.data.profilePictureLink);
+              }
             }
           })
           .catch((error) => {

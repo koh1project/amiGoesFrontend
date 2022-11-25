@@ -1,100 +1,94 @@
-import { FC, useRef } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import MapView, { Circle, Marker, Region } from 'react-native-maps';
 
-import { Image, Text, View } from 'native-base';
+import { Text, View } from 'native-base';
 import { Dimensions, StyleSheet } from 'react-native';
-import { useGoNow } from '../hooks/useGoNow';
 import Person from '../../../../assets/amigoes/person.svg';
+import { GoNowUserLocationMarker } from '../../../types/discover';
+import { useGoNow } from '../hooks/useGoNow';
 
 type GoNowMapProps = {
   circleRadius: number;
+  userMarkers: GoNowUserLocationMarker[] | undefined;
 };
 
-export const GoNowMap: FC<GoNowMapProps> = ({ circleRadius }) => {
+export const GoNowMap: FC<GoNowMapProps> = ({ circleRadius, userMarkers }) => {
   const { userLocation } = useGoNow();
   const mapRef = useRef<MapView>(null);
+  const [markers, setMarkers] = useState<GoNowUserLocationMarker[]>([]);
   const { width, height } = Dimensions.get('window');
   const ASPECT_RATIO = width / height;
   const LATITUDE_DELTA = 0.01;
   const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
-  if (!userLocation) {
-    return <></>;
-  }
-
   const handleRegionChange = async (region: Region) => {
     const mapBoundaries = await mapRef.current.getMapBoundaries();
-    console.log('mapBoundaries: ', mapBoundaries);
   };
 
-  const { latitude, longitude } = userLocation.coords;
-
-  const mockData = [
-    {
-      name: 'Mary',
-      photoUrl: '../../../../assets/amigoes/person.png',
-      coordinate: {
-        latitude: latitude + 0.001,
-        longitude: longitude + 0.001,
-      },
-    },
-    {
-      name: 'Sara',
-      photoUrl: '../../../../assets/amigoes/person.png',
-      coordinate: {
-        latitude: latitude - 0.001,
-        longitude: longitude - 0.001,
-      },
-    },
-  ];
+  useEffect(() => {
+    if (userMarkers?.length) {
+      setMarkers(userMarkers);
+    }
+  }, [userMarkers]);
 
   return (
     <View style={styles.container}>
-      <MapView
-        style={styles.map}
-        initialRegion={{
-          latitude,
-          longitude,
-          latitudeDelta: LATITUDE_DELTA,
-          longitudeDelta: LONGITUDE_DELTA,
-        }}
-        ref={mapRef}
-        showsUserLocation={true}
-        onRegionChangeComplete={handleRegionChange}
-      >
-        <Circle
-          center={{ latitude, longitude }}
-          radius={circleRadius * 30}
-          fillColor="rgba(0, 0, 0, 0.1)"
-          strokeColor="rgba(0, 0, 0, 0.1)"
-        />
-        <Marker
-          coordinate={{
-            latitude,
-            longitude,
+      {userLocation && (
+        <MapView
+          showsScale={true}
+          style={styles.map}
+          region={{
+            latitude: userLocation?.coords.latitude,
+            longitude: userLocation?.coords.longitude,
+            latitudeDelta: LATITUDE_DELTA,
+            longitudeDelta: LONGITUDE_DELTA,
           }}
-          title="Your location"
-        />
-        {mockData.map((amigoes, index) => (
+          ref={mapRef}
+          showsUserLocation={true}
+          onRegionChangeComplete={handleRegionChange}
+        >
+          <Circle
+            center={{
+              latitude: userLocation.coords.latitude,
+              longitude: userLocation.coords.longitude,
+            }}
+            radius={111 * circleRadius}
+            fillColor="rgba(0, 0, 0, 0.1)"
+            strokeColor="rgba(0, 0, 0, 0.1)"
+          />
           <Marker
-            key={index}
-            coordinate={amigoes.coordinate}
-            title={amigoes.name}
-            description={amigoes.name}
-          >
-            <Person />
-            <Text
-              style={{
-                backgroundColor: '#FFFFFF',
-                textAlign: 'center',
-                borderRadius: 20,
-              }}
-            >
-              {amigoes.name}
-            </Text>
-          </Marker>
-        ))}
-      </MapView>
+            coordinate={{
+              latitude: userLocation?.coords.latitude,
+              longitude: userLocation?.coords.longitude,
+            }}
+            title="Your location"
+          />
+          {markers.map((amigoes, index) => {
+            return (
+              <Marker
+                key={amigoes.name}
+                coordinate={{
+                  latitude: amigoes.coordinate.latitude || 0,
+                  longitude: amigoes.coordinate.longitude || 0,
+                }}
+                title={amigoes.name}
+                description={amigoes.name}
+              >
+                <Person />
+                <Text
+                  style={{
+                    backgroundColor: '#FFFFFF',
+                    textAlign: 'center',
+                    borderRadius: 20,
+                  }}
+                >
+                  {amigoes.name}
+                </Text>
+              </Marker>
+            );
+          })}
+        </MapView>
+      )}
     </View>
   );
 };
