@@ -112,7 +112,7 @@ export const StepTwoForm: React.FC = ({ route }) => {
     console.log('Step Two line 112: ', data);
     await post(CREATE_USERPROFILE_ENDPOINT.post, data)
       .then((res) => {
-        //alert('Profile created successfully!');
+        alert('Profile created successfully!');
         updateNotificationToken(); // update send notification token to backend
         navigation.navigate('Index' as never);
       })

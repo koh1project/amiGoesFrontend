@@ -53,9 +53,9 @@ export const StepOneForm: React.FC = ({ navigation, route }) => {
   }, [genderSelected]);
 
   const genderOptions = [
-    { key: 'male', value: 'Male' },
-    { key: 'female', value: 'Female' },
-    { key: 'other', value: 'Other' },
+    { key: 'Male', value: 'Male' },
+    { key: 'Female', value: 'Female' },
+    { key: 'Other', value: 'Other' },
   ];
 
   function onSelectGender(genderSelected) {
