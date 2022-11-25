@@ -1,7 +1,13 @@
 import * as Localization from 'expo-localization';
 import {
+  getCurrentPositionAsync,
+  LocationObject,
+  requestForegroundPermissionsAsync,
+} from 'expo-location';
+import {
   createContext,
   PropsWithChildren,
+  useCallback,
   useContext,
   useEffect,
   useState,
@@ -14,6 +20,15 @@ const AuthContext = createContext(null);
 export function AuthContextProvider({ children }: PropsWithChildren) {
   const [loggedIn, setLoggedIn] = useState(true);
   const [user, setUser] = useState();
+  const [location, setLocation] = useState<LocationObject>();
+
+  const getLocation = useCallback(async () => {
+    const { status } = await requestForegroundPermissionsAsync();
+    if (status === 'granted') {
+      const deviceLocation = await getCurrentPositionAsync({});
+      setLocation(deviceLocation);
+    }
+  }, []);
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
@@ -24,11 +39,12 @@ export function AuthContextProvider({ children }: PropsWithChildren) {
         setUser(null);
       }
     });
+    getLocation();
     i18n.locale = Localization.locale;
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, loggedIn }}>
+    <AuthContext.Provider value={{ user, loggedIn, location }}>
       {children}
     </AuthContext.Provider>
   );

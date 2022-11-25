@@ -1,22 +1,68 @@
 import { Button, Flex, Slider, Text, View } from 'native-base';
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { GoNowMap } from '../../../features/discover/components/GoNowMap';
 import { useGoNow } from '../../../features/discover/hooks/useGoNow';
+import { getAmigosFromLocation } from '../../../services/userProfile.service';
+import { GoNowUserLocationMarker } from '../../../types/discover';
+import { useAuthContext } from '../../auth/AuthContextProvider';
 
 export const GoNowScreen: FC<any> = (props) => {
   const { route } = props;
-  const { circleRadius, setCircleRadius, handleOnPress } = useGoNow(route);
+  const { user } = useAuthContext();
+  const { circleRadius, setCircleRadius, handleOnPress, userLocation } =
+    useGoNow(route);
+
+  const [markers, setMarkers] = useState<GoNowUserLocationMarker[]>([]);
+  useEffect(() => {
+    loadAmigoes();
+  }, [user, userLocation]);
+
+  const loadAmigoes = async () => {
+    const response = await getAmigosFromLocation(userLocation, user.uid);
+    if (response) {
+      const data = response.data.map((amigo) => {
+        return {
+          ...amigo,
+          coordinate: {
+            latitude: parseFloat(
+              amigo?.connectPreferences?.currentLocation?.latitude || '0',
+            ),
+            longitude: parseFloat(
+              amigo?.connectPreferences?.currentLocation?.longitude || '0',
+            ),
+          },
+          photoUrl: '../../../../assets/amigoes/person.png',
+        };
+      });
+      setMarkers(data);
+    }
+  };
+
+  const mockData = [
+    {
+      name: 'Mary',
+      photoUrl: '../../../../assets/amigoes/person.png',
+      coordinate: {
+        latitude: userLocation?.coords.latitude + 0.001,
+        longitude: userLocation?.coords.longitude + 0.001,
+      },
+    },
+    {
+      name: 'Sara',
+      photoUrl: '../../../../assets/amigoes/person.png',
+      coordinate: {
+        latitude: userLocation?.coords.latitude,
+        longitude: userLocation?.coords.longitude,
+      },
+    },
+  ];
 
   return (
     <>
-      <GoNowMap circleRadius={circleRadius} />
+      <GoNowMap circleRadius={circleRadius} userMarkers={markers} />
 
-      <View
-        backgroundColor={'white'}
-        paddingHorizontal={20}
-        style={styles.container}
-      >
+      <View backgroundColor={'white'} paddingX={20} style={styles.container}>
         <Flex
           flexDirection={'row'}
           justifyContent="space-between"

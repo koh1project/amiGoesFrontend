@@ -1,4 +1,6 @@
-import { get } from './api';
+import { LocationObject } from 'expo-location';
+import { Amigo } from '../types/models';
+import { get, post } from './api';
 // import { auth } from '../utils/firebase';
 
 // export const authUser = () => {
@@ -27,5 +29,31 @@ export const getUserProfile = async (userId) => {
   } catch (error) {
     console.error('API getUserProfile ERROR', error);
     throw error;
+  }
+};
+
+const UPDATE_USER_LOCATION_ENDPOINT = '/amigos/update-location';
+export const setUserLocation = async (location: LocationObject, userId) => {
+  try {
+    return post(`${UPDATE_USER_LOCATION_ENDPOINT}/${userId}`, {
+      location,
+    }).catch((e) => console.log(e));
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+const GET_AMIGO_LOCATION = (user) => `/amigos/location/${user}`;
+
+export const getAmigosFromLocation = async (
+  location: LocationObject,
+  userId,
+) => {
+  try {
+    return get<Amigo[]>(GET_AMIGO_LOCATION(userId)).catch((e) =>
+      console.log(e),
+    );
+  } catch (e) {
+    console.error(e);
   }
 };
