@@ -45,14 +45,19 @@ export const setUserLocation = async (location: LocationObject, userId) => {
 
 const GET_AMIGO_LOCATION = (user) => `/amigos/location/${user}`;
 
+type AmigosLocationDataType = {
+  location: LocationObject;
+  distance: number;
+};
 export const getAmigosFromLocation = async (
-  location: LocationObject,
+  data: AmigosLocationDataType,
   userId,
 ) => {
   try {
-    return get<Amigo[]>(GET_AMIGO_LOCATION(userId)).catch((e) =>
-      console.log(e),
-    );
+    return post<AmigosLocationDataType, Amigo[]>(
+      GET_AMIGO_LOCATION(userId),
+      data,
+    ).catch((e) => console.log(e));
   } catch (e) {
     console.error(e);
   }

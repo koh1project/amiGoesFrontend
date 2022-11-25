@@ -27,7 +27,6 @@ export const GoNowMap: FC<GoNowMapProps> = ({ circleRadius, userMarkers }) => {
 
   useEffect(() => {
     if (userMarkers?.length) {
-      console.log('Setting Markers');
       setMarkers(userMarkers);
     }
   }, [userMarkers]);
@@ -36,6 +35,7 @@ export const GoNowMap: FC<GoNowMapProps> = ({ circleRadius, userMarkers }) => {
     <View style={styles.container}>
       {userLocation && (
         <MapView
+          showsScale={true}
           style={styles.map}
           region={{
             latitude: userLocation?.coords.latitude,
@@ -52,7 +52,7 @@ export const GoNowMap: FC<GoNowMapProps> = ({ circleRadius, userMarkers }) => {
               latitude: userLocation.coords.latitude,
               longitude: userLocation.coords.longitude,
             }}
-            radius={circleRadius * 30}
+            radius={111 * circleRadius}
             fillColor="rgba(0, 0, 0, 0.1)"
             strokeColor="rgba(0, 0, 0, 0.1)"
           />
@@ -64,9 +64,9 @@ export const GoNowMap: FC<GoNowMapProps> = ({ circleRadius, userMarkers }) => {
             title="Your location"
           />
           {markers.map((amigoes, index) => {
-            console.log(index);
             return (
               <Marker
+                key={amigoes.name}
                 coordinate={{
                   latitude: amigoes.coordinate.latitude || 0,
                   longitude: amigoes.coordinate.longitude || 0,
