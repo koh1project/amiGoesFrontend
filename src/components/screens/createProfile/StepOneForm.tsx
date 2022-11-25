@@ -23,7 +23,7 @@ export const StepOneForm: React.FC = ({ navigation, route }) => {
   const [date, setDate] = useState(new Date());
   const [text, setText] = useState('');
   const [genderSelected, setGenderSelected] = useState('');
-  const [verified, setVerified] = useState(true);
+  const [verified, setVerified] = useState(false);
 
   const [inputs, setInputs] = useState({
     name: 'Will Smith',

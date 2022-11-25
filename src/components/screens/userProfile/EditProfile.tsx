@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Image, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import MultiSelect from 'react-native-multiple-select';
 import { SCREEN_NAMES } from '../../../utils/const';
 import { useNavigation } from '@react-navigation/core';
+import Info from '../../../../assets/icons/info.svg';
+import placeholder from '../../../../assets/images/placeholder.png';
 import {
-  Avatar,
+  Image,
+  Box,
   Button,
   ScrollView,
   View,
@@ -133,45 +136,57 @@ export const EditProfile: React.FC = ({ route }) => {
 
   return (
     <ScrollView style={styles.container}>
-      <Text>Edit Profile</Text>
-      <Avatar
-        size="2xl"
-        alignSelf={'center'}
-        source={{ uri: newProfileInfo.profilePicture }}
+      <Text style={styles.title}>Edit Profile</Text>
+      <Image
+        size="xl"
+        source={
+          newProfileInfo.profilePicture
+            ? newProfileInfo.profilePicture
+            : placeholder
+        }
+        alt="Profile Picture"
+        borderRadius={100}
+        style={styles.image}
       />
       <FormControl isRequired>
-        <Stack space={4}>
+        <Stack space={4} marginBottom="24px">
           <Stack>
-            <FormControl.Label>
+            <Text style={styles.label}>
               {i18n.t('createProfileStepOneForm.name')}
-            </FormControl.Label>
+            </Text>
             <Input
               defaultValue={newProfileInfo.name}
               onChangeText={(text) => handleOnChange(text, 'name')}
+              onFocus={() => setError('')}
+              borderColor={error === 'nameError' ? 'red.500' : '#C3C3C3'}
             />
             {error === 'nameError' && (
               <Text style={styles.error}>Please enter your name</Text>
             )}
           </Stack>
           <Stack>
-            <FormControl.Label>
+            <Text style={styles.label}>
               {i18n.t('createProfileStepTwoForm.country')}
-            </FormControl.Label>
+            </Text>
             <Input
               defaultValue={newProfileInfo.homeCountry}
               onChangeText={(text) => handleOnChange(text, 'homeCountry')}
+              onFocus={() => setError('')}
+              borderColor={error === 'homeCountryError' ? 'red.500' : '#C3C3C3'}
             />
             {error === 'homeCountryError' && (
               <Text style={styles.error}>Please enter your home country</Text>
             )}
           </Stack>
           <Stack>
-            <FormControl.Label>
+            <Text style={styles.label}>
               {i18n.t('createProfileStepOneForm.gender')}
-            </FormControl.Label>
+            </Text>
             <Select
               defaultValue={genderSelected}
               onValueChange={(itemValue) => onSelectGender(itemValue)}
+              onOpen={() => setError('')}
+              borderColor={error === 'genderError' ? 'red.500' : '#C3C3C3'}
             >
               <Select.Item label="Female" value="Female" />
               <Select.Item label="Male" value="Male" />
@@ -194,6 +209,7 @@ export const EditProfile: React.FC = ({ route }) => {
             fontSize={14}
             items={languagesOptions}
             uniqueKey="id"
+            onToggleList={() => setError('')}
             onSelectedItemsChange={onSelectedLanguagesChange}
             selectedItems={selectedLanguages}
             selectText={i18n.t('createProfileStepTwoForm.selectLanguages')}
@@ -211,7 +227,7 @@ export const EditProfile: React.FC = ({ route }) => {
               borderRadius: 6,
               borderColor: '#C3C3C3',
               position: 'relative',
-              paddingHorizontal: 15,
+              paddingHorizontal: 8,
             }}
             styleDropdownMenuSubsection={{
               borderWidth: 0,
@@ -238,12 +254,14 @@ export const EditProfile: React.FC = ({ route }) => {
             <Text style={styles.error}>Please select your languages</Text>
           )}
           <Stack>
-            <FormControl.Label>
+            <Text style={styles.label}>
               {i18n.t('createProfileStepTwoForm.about')}
-            </FormControl.Label>
+            </Text>
             <TextArea
               defaultValue={newProfileInfo.bio}
               onChangeText={(text) => handleOnChange(text, 'bio')}
+              onFocus={() => setError('')}
+              borderColor={error === 'bioError' ? 'red.500' : '#C3C3C3'}
             />
             {error === 'bioError' && (
               <Text style={styles.error}>Please enter your bio</Text>
@@ -259,6 +277,7 @@ export const EditProfile: React.FC = ({ route }) => {
             fontSize={14}
             items={hobbiesOptions}
             uniqueKey="id"
+            onToggleList={() => setError('')}
             onSelectedItemsChange={onSelectedHobbiesChange}
             selectedItems={selectedHobbies}
             selectText={i18n.t('createProfileStepTwoForm.selectHobbies')}
@@ -276,7 +295,7 @@ export const EditProfile: React.FC = ({ route }) => {
               borderRadius: 6,
               borderColor: '#C3C3C3',
               position: 'relative',
-              paddingHorizontal: 15,
+              paddingHorizontal: 8,
             }}
             styleDropdownMenuSubsection={{
               borderWidth: 0,
@@ -303,12 +322,14 @@ export const EditProfile: React.FC = ({ route }) => {
             <Text style={styles.error}>Please select your hobbies</Text>
           )}
           <Stack>
-            <FormControl.Label>
+            <Text style={styles.label}>
               {i18n.t('createProfileStepOneForm.phoneNumber')}
-            </FormControl.Label>
+            </Text>
             <Input
               defaultValue={newProfileInfo.contact.phoneNumber}
               onChangeText={(text) => handleOnChange(text, 'phoneNumber')}
+              onFocus={() => setError('')}
+              borderColor={error === 'phoneNumberError' ? 'red.500' : '#C3C3C3'}
               keyboardType="numeric"
             />
             {error === 'phoneNumberError' && (
@@ -317,6 +338,12 @@ export const EditProfile: React.FC = ({ route }) => {
           </Stack>
         </Stack>
       </FormControl>
+      <Box backgroundColor="lightcoral" style={styles.disclaimer}>
+        <Info width={24} height={24} />
+        <Text variant="disclaimer" marginLeft={11} marginRight={18}>
+          {i18n.t('createProfileStepOneForm.disclaimerID')}
+        </Text>
+      </Box>
       <Button
         variant="primaryLarge"
         onPress={validate}
@@ -331,20 +358,20 @@ export const EditProfile: React.FC = ({ route }) => {
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: 24,
     fontFamily: 'Ubuntu_500Medium',
+    fontSize: 24,
     lineHeight: 28,
-    marginBottom: 10,
-    textAlign: 'center',
+    color: '#3fa8ae',
+    marginBottom: 18,
   },
   container: {
     backgroundColor: 'white',
-    marginHorizontal: 0,
+    paddingHorizontal: 12,
     flex: 1,
   },
   image: {
     alignSelf: 'center',
-    marginBottom: 20,
+    marginBottom: 13,
   },
   label: {
     fontSize: 14,
@@ -362,5 +389,13 @@ const styles = StyleSheet.create({
   },
   error: {
     color: 'red',
+    fontSize: 12,
+    fontFamily: 'Ubuntu_500Medium',
+  },
+  disclaimer: {
+    padding: 14,
+    borderRadius: 6,
+    flexDirection: 'row',
+    marginBottom: 24,
   },
 });
