@@ -13,7 +13,8 @@ export const Input = ({ label, error, onFocus = () => {}, ...props }) => {
           styles.inputContainer,
           {
             borderColor: error ? 'red' : isFocused ? '#C7F0F2' : 'gray',
-            borderWidth: error ? 2 : isFocused ? 2 : 1,
+            borderWidth: error ? 1 : isFocused ? 2 : 1,
+            marginBottom: error ? 0 : 24,
           },
         ]}
       >
@@ -30,7 +31,7 @@ export const Input = ({ label, error, onFocus = () => {}, ...props }) => {
         />
       </View>
       {error && (
-        <Text style={{ color: 'red', fontSize: 12, marginBottom: 5 }}>
+        <Text style={{ color: 'red', fontSize: 12, marginBottom: 24 }}>
           {error}
         </Text>
       )}
@@ -50,7 +51,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 6,
     borderColor: '#C3C3C3',
-    marginBottom: 24,
   },
   input: {
     paddingHorizontal: 24,

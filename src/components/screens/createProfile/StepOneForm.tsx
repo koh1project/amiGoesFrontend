@@ -26,13 +26,14 @@ export const StepOneForm: React.FC = ({ navigation, route }) => {
   const [verified, setVerified] = useState(false);
 
   const [inputs, setInputs] = useState({
-    name: 'Arvind Smith',
+    name: 'Will Smith',
     birthDate: '',
     gender: 'male',
-    phoneNumber: '123456789',
-    emergencyName: 'Gabriela',
-    emergencyRelationship: 'Friend',
-    emergencyPhoneNumber: '123456789',
+    phoneNumber: '777 145 8899',
+    emergencyName: 'John Smith',
+    emergencyRelationship: 'Son',
+    emergencyPhoneNumber: '777 321 1255',
+    isVerified: false,
   });
 
   const [errors, setErrors] = useState<LooseObject>({});
@@ -40,6 +41,10 @@ export const StepOneForm: React.FC = ({ navigation, route }) => {
   useEffect(() => {
     if (route.params?.verified) {
       setVerified(route.params.verified);
+      setInputs({
+        ...inputs,
+        isVerified: route.params.verified,
+      });
     }
   }, [route.params?.verified]);
 
@@ -48,9 +53,9 @@ export const StepOneForm: React.FC = ({ navigation, route }) => {
   }, [genderSelected]);
 
   const genderOptions = [
-    { key: 'male', value: 'Male' },
-    { key: 'female', value: 'Female' },
-    { key: 'other', value: 'Other' },
+    { key: 'Male', value: 'Male' },
+    { key: 'Female', value: 'Female' },
+    { key: 'Other', value: 'Other' },
   ];
 
   function onSelectGender(genderSelected) {
@@ -120,6 +125,14 @@ export const StepOneForm: React.FC = ({ navigation, route }) => {
       handleError(
         'Please enter your emergency contact phone number',
         'emergencyPhoneNumber',
+      );
+      valid = false;
+    }
+
+    if (verified === false) {
+      handleError(
+        'Please verify your identity before proceeding',
+        'identityVerification',
       );
       valid = false;
     }
@@ -312,9 +325,12 @@ export const StepOneForm: React.FC = ({ navigation, route }) => {
           <Text marginBottom="10px">
             {i18n.t('createProfileStepOneForm.idDescription')}
           </Text>
+          {errors.identityVerification && (
+            <Text style={{ color: 'red' }}>{errors.identityVerification}</Text>
+          )}
           <Button
-            variant={verified ? 'primaryLargeLight' : 'disabledLarge'}
-            disabled={!verified}
+            variant={verified ? 'disabledLarge' : 'primaryLargeLight'}
+            disabled={verified}
             marginBottom="24px"
             alignSelf="center"
             onPress={() => navigation.navigate(SCREEN_NAMES.IDVerification)}
