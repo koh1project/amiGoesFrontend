@@ -34,7 +34,7 @@ const ConnectFilterScreen = () => {
   const [from, setFrom] = useState<Date>(new Date());
   const [preference, setPreference] = useState<string[]>([]);
   const [preferenceAge, setPreferenceAge] = useState({
-    minimumAge: 45,
+    minimumAge: 42,
     maximumAge: 80,
   });
   const [activities, setActivities] = useState<string[]>([]);

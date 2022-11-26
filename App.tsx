@@ -31,6 +31,7 @@ import { ProfileScreen } from './src/components/screens/userProfile/ProfileScree
 import i18n from './src/localization/Localization';
 import { customTheme } from './src/theme';
 
+import { LogBox } from 'react-native';
 import { AuthContextProvider } from './src/components/auth/AuthContextProvider';
 import ConnectUserProfile from './src/components/screens/Connect/ConnectUserProfile';
 import IDVerificationScreen from './src/components/screens/createProfile/IDVerificationScreen';
@@ -41,6 +42,8 @@ import UserProfileScreen from './src/components/screens/myAmigoes/UserProfileScr
 import { NotificationScreen } from './src/components/screens/Notifications/NotificationsScreen';
 import { RootStackParamList } from './src/types/navigation';
 import { INITIAL_SCREEN, SCREEN_NAMES } from './src/utils/const';
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs();
 
 const TabNavigator = createMaterialTopTabNavigator();
 function MyAmigoesTabNavigator() {

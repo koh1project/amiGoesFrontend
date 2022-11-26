@@ -1,7 +1,7 @@
 import { Button, Text, View, VStack } from 'native-base';
 import React, { useRef, useState } from 'react';
 import { Animated, Dimensions, Image, StyleSheet } from 'react-native';
-import slides from '../../utils/onboarding_slides';
+import { slides } from '../../utils/onboarding_slides';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -15,7 +15,7 @@ const Indicator = ({ scrollX }) => {
         alignSelf: 'center',
       }}
     >
-      {slides.map((data, i) => {
+      {slides().map((data, i) => {
         const inputRange = [(i - 1) * width, i * width, (i + 1) * width];
         const scale = scrollX.interpolate({
           inputRange,
@@ -55,7 +55,7 @@ const Onboarding = ({ navigation, route }) => {
   return (
     <View style={styles.container}>
       <Animated.FlatList
-        data={slides}
+        data={slides()}
         keyExtractor={(item) => item.id}
         horizontal
         scrollEventThrottle={32}

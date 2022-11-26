@@ -2,6 +2,7 @@ import {
   DateTimePickerAndroid,
   default as RNDateTimePicker,
 } from '@react-native-community/datetimepicker';
+import moment from 'moment';
 import { Button, Input, Text, VStack } from 'native-base';
 import React, { useState } from 'react';
 import { Platform } from 'react-native';
@@ -21,7 +22,7 @@ const TimePicker = ({ title, value, onChange }: TimePickerProps) => {
     <VStack flex={1} style={{ alignContent: 'flex-start' }}>
       <Text>{title}</Text>
       <Input
-        value={`${value.getHours()}:${value.getMinutes()}`}
+        value={`${moment(value).format('hh:mm a')}`}
         onFocus={() => {
           setShow(true);
           if (Platform.OS === 'android') {

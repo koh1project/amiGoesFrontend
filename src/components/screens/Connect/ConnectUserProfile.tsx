@@ -129,7 +129,10 @@ const ConnectUserProfile = () => {
                 ))}
               </HStack>
             </View>
-            <View style={{ marginTop: 'auto' }} justifyContent="center">
+            <View
+              style={{ marginTop: 'auto', flex: 1, height: 200 }}
+              justifyContent="center"
+            >
               <Button
                 width="auto"
                 variant="primaryLarge"
