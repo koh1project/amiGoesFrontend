@@ -22,7 +22,7 @@ export const useNotifications = () => {
         return;
       }
       const token = (await Notifications.getExpoPushTokenAsync()).data;
-      setExpoTokenForUser(user.uid, token);
+      setExpoTokenForUser(user?.uid, token);
 
       //this.setState({ expoPushToken: token });
     } else {
