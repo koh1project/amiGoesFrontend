@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/core';
 import * as Notifications from 'expo-notifications';
 import React, { useCallback, useEffect } from 'react';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import axios from 'axios';
 import { Button, View, VStack } from 'native-base';
@@ -38,8 +39,8 @@ const IndexScreen = () => {
   // ******************************************************
   const { user, location } = useAuthContext();
 
-  const updateUserLocation = useCallback(async () => {
-    if (location) {
+  const updateUserLocation = useCallback(() => {
+    if (location && user) {
       setUserLocation(location, user.uid);
     }
   }, [location, user]);
