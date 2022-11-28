@@ -329,8 +329,8 @@ export const StepOneForm: React.FC = ({ navigation, route }) => {
             <Text style={{ color: 'red' }}>{errors.identityVerification}</Text>
           )}
           <Button
-            variant={verified ? 'disabledLarge' : 'primaryLargeLight'}
-            disabled={verified}
+            variant={inputs.isVerified ? 'disabledLarge' : 'primaryLargeLight'}
+            disabled={inputs.isVerified}
             marginBottom="24px"
             alignSelf="center"
             onPress={() => navigation.navigate(SCREEN_NAMES.IDVerification)}
