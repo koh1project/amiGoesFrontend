@@ -97,8 +97,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    borderRadius: 10,
-    width: '90%',
+    width: '100%',
+    paddingTop: 26,
+    backgroundColor: '#FFFFFF',
   },
   map: {
     width: Dimensions.get('window').width,

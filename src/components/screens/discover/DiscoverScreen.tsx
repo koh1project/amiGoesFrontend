@@ -98,7 +98,9 @@ export const DiscoverScreen: React.FC = () => {
           setFilterItems={setFilterItems}
         />
       )}
-      <Text variant="screenTitle">{i18n.t('Discover.title')}</Text>
+      <Text variant="screenTitle" marginTop={'26px'}>
+        {i18n.t('Discover.title')}
+      </Text>
       <View style={styles.container}>
         <SearchKeywordForm
           handleSearchChange={handleSearchChange}

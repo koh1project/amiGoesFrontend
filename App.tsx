@@ -76,7 +76,7 @@ export default function App() {
   useEffect(() => {
     setTimeout(() => {
       setIsReady(true);
-    }, 10);
+    }, 6000);
   }, []);
 
   if (!isReady || !fontsLoaded) {
@@ -113,7 +113,6 @@ export default function App() {
                 component={IndexScreen}
                 options={{
                   header: () => <Header />,
-                  headerShown: true,
                 }}
               />
               <Stack.Screen
@@ -121,7 +120,6 @@ export default function App() {
                 component={DiscoverScreen}
                 options={{
                   header: () => <Header />,
-                  headerShown: true,
                 }}
               />
               <Stack.Screen
@@ -129,7 +127,6 @@ export default function App() {
                 component={PlaceProfileScreen}
                 options={{
                   header: () => <Header />,
-                  headerShown: true,
                 }}
               />
               <Stack.Screen
@@ -137,7 +134,6 @@ export default function App() {
                 component={GoNowScreen}
                 options={{
                   header: () => <Header />,
-                  headerShown: true,
                 }}
               />
               <Stack.Screen
@@ -145,7 +141,6 @@ export default function App() {
                 component={ConnectFilterScreen}
                 options={{
                   header: () => <Header />,
-                  headerShown: true,
                 }}
               />
               <Stack.Screen
@@ -153,20 +148,18 @@ export default function App() {
                 component={ConnectUserProfile}
                 options={{
                   header: () => <Header />,
-                  headerShown: true,
                 }}
               />
               <Stack.Screen
                 name={SCREEN_NAMES.ConnectUsers}
                 component={ConnectUsers}
-                options={{ headerShown: true, header: () => <Header /> }}
+                options={{ header: () => <Header /> }}
               />
               <Stack.Screen
                 name={SCREEN_NAMES.Profile}
                 component={ProfileScreen}
                 options={{
                   header: () => <Header />,
-                  headerShown: true,
                 }}
               />
               <Stack.Screen
@@ -174,7 +167,6 @@ export default function App() {
                 component={EditProfile}
                 options={{
                   header: () => <Header />,
-                  headerShown: true,
                 }}
               />
               <Stack.Screen
@@ -182,7 +174,6 @@ export default function App() {
                 component={StepOneForm}
                 options={{
                   header: () => <Header />,
-                  headerShown: true,
                 }}
               />
               <Stack.Screen
@@ -190,13 +181,11 @@ export default function App() {
                 component={StepTwoForm}
                 options={{
                   header: () => <Header />,
-                  headerShown: true,
                 }}
               />
               <Stack.Screen
                 options={{
                   header: () => <Header />,
-                  headerShown: true,
                 }}
                 name={SCREEN_NAMES.Translate}
                 component={TranslateScreen}
@@ -210,7 +199,6 @@ export default function App() {
                 component={MyAmigoesTabNavigator}
                 options={{
                   header: () => <Header />,
-                  headerShown: true,
                 }}
                 name={SCREEN_NAMES.ConnectedUsersScreen}
               />
@@ -219,7 +207,6 @@ export default function App() {
                 component={UserProfileScreen}
                 options={{
                   header: () => <Header />,
-                  headerShown: true,
                 }}
                 name={SCREEN_NAMES.UserProfileScreen}
               />
@@ -227,7 +214,6 @@ export default function App() {
                 component={EmergencyScreen}
                 options={{
                   header: () => <Header />,
-                  headerShown: true,
                 }}
                 name={SCREEN_NAMES.EmergencyScreen}
               />
@@ -236,7 +222,6 @@ export default function App() {
                 name={SCREEN_NAMES.IDVerification}
                 options={{
                   header: () => <Header />,
-                  headerShown: true,
                 }}
               />
               <Stack.Screen
@@ -244,7 +229,6 @@ export default function App() {
                 name={SCREEN_NAMES.NotificationScreen}
                 options={{
                   header: () => <Header />,
-                  headerShown: true,
                 }}
               />
             </Stack.Navigator>

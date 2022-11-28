@@ -2,6 +2,7 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { FlatList, ScrollView, Text, View, VStack } from 'native-base';
 import React, { useEffect, useState } from 'react';
+import i18n from '../../../localization/Localization';
 import { connectUsers } from '../../../services/connect.service';
 import { Amigo } from '../../../types/models';
 import { RootStackParamList } from '../../../types/navigation';
@@ -40,20 +41,22 @@ export const ConnectUsers = () => {
   };
   return (
     <ScrollView flex={1} bg="white" paddingX={2}>
-      <VStack space={3}>
-        <Text variant={'h2'} color="green">
-          Here are your Amigoes!
+      <VStack
+        space={3}
+        marginLeft={'20px'}
+        marginRight={'20px'}
+        marginTop={'26px'}
+      >
+        <Text variant={'h3'} color="green">
+          {i18n.t('ConnectUsers.Title')}
         </Text>
-        <Text>
-          Your AmiGoes are listed below, if you are interested, click on one to
-          see more.
-        </Text>
+        <Text>{i18n.t('ConnectUsers.Description')}</Text>
         <FlatList
           data={amigoes}
           numColumns={2}
           renderItem={({ item, index }) => {
             return (
-              <View style={{ flex: 1, marginRight: index % 2 == 0 ? 10 : 0 }}>
+              <View style={{ flex: 0.5, marginRight: index % 2 == 0 ? 10 : 0 }}>
                 <ConnectFeedItem
                   amigo={item}
                   handleProfileClick={handleProfileClick}

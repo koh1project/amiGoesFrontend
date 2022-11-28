@@ -9,7 +9,9 @@ const TranslateScreen = ({ navigation, route }) => {
   return (
     <ScrollView style={styles.container}>
       <View>
-        <Text variant="screenTitle">{i18n.t('TranslateScreen.Title')}</Text>
+        <Text variant="screenTitle" marginTop={'26px'}>
+          {i18n.t('TranslateScreen.Title')}
+        </Text>
         {route.params?.translation ? (
           <View>
             <TranslateResults

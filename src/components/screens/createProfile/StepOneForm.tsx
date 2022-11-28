@@ -155,7 +155,7 @@ export const StepOneForm: React.FC = ({ navigation, route }) => {
   return (
     <SafeAreaView>
       <ScrollView style={styles.container}>
-        <Text style={styles.title} color="green">
+        <Text style={styles.title} color="green" marginTop={'26px'}>
           {i18n.t('createProfileStepOneForm.title')}
         </Text>
         <Text
