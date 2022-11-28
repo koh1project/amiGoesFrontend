@@ -100,7 +100,7 @@ const IDVerificationScreen = ({ navigation, route }) => {
             style={styles.close}
             onPress={() =>
               navigation.navigate('CreateProfileStepOneForm', {
-                validate: isVerified,
+                verified: isVerified,
               })
             }
           />

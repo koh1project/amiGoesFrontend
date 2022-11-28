@@ -135,7 +135,11 @@ const IndexScreen = () => {
             />
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate(SCREEN_NAMES.Profile as never)}
+            onPress={() =>
+              navigation.navigate(
+                SCREEN_NAMES.CreateProfileStepOneForm as never,
+              )
+            }
             style={styles.menuItem}
           >
             <MenuItem
