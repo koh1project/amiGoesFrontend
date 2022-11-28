@@ -8,6 +8,8 @@ const TranslateResults = (props) => {
   const { translation, text, image } = props;
   const img = 'data:image/png;base64,' + image;
 
+  console.log(translation);
+
   return (
     <VStack>
       <Text marginLeft={'20px'} marginRight={'20px'} marginBottom={'30px'}>
@@ -30,18 +32,32 @@ const TranslateResults = (props) => {
           <Image source={english} style={styles.icon} />
           <Text variant="h4">English</Text>
         </HStack>
-        <Text marginLeft={'20px'} marginRight={'20px'} marginBottom={'30px'}>
-          {text}
-        </Text>
+        {text.map((line, index) => (
+          <Text
+            key={index}
+            marginLeft={'20px'}
+            marginRight={'20px'}
+            marginBottom={'2px'}
+          >
+            {line}
+          </Text>
+        ))}
       </Box>
       <Box style={styles.textContainer}>
         <HStack style={styles.language}>
           <Image source={spanish} style={styles.icon} />
           <Text variant="h4">Spanish</Text>
         </HStack>
-        <Text marginLeft={'20px'} marginRight={'20px'} marginBottom={'30px'}>
-          {translation}
-        </Text>
+        {translation.map((line, index) => (
+          <Text
+            key={index}
+            marginLeft={'20px'}
+            marginRight={'20px'}
+            marginBottom={'2px'}
+          >
+            {line}
+          </Text>
+        ))}
       </Box>
     </VStack>
   );

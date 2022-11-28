@@ -114,6 +114,11 @@ const i18n = new I18n({
       description3:
         'Your face must be clearly visible. Avoid shadows and background lights.',
       button2: 'Take Selfie',
+      button3: 'Verify',
+      success: 'ID verification successful',
+      error: 'Not a valid government ID',
+      error2: 'No face detected',
+      error3: 'Not matching images',
     },
     login: {
       email: 'Email',
@@ -286,6 +291,11 @@ const i18n = new I18n({
       description3:
         'Su cara debe ser claramente visible. Evite sombras y luces de fondo.',
       button2: 'Tomar foto de su rostro',
+      button3: 'Verificar',
+      success: '¡Verificación exitosa!',
+      error: 'No es una identificación gubernamental válida',
+      error2: 'No es una foto de su rostro',
+      error3: 'No se pudo verificar',
     },
     login: {
       email: 'Correo electrónico',
