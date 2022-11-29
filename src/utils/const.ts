@@ -1,4 +1,5 @@
 import Constants from 'expo-constants';
+import i18n from '../localization/Localization';
 
 export const BASE_URL = Constants.expoConfig.extra.URL;
 
@@ -32,14 +33,17 @@ export const INITIAL_SCREEN = Constants.expoConfig.extra.INITIAL_SCREEN;
 export const GOOGLE_MAPS_API_KEY =
   Constants.expoConfig.extra.GOOGLE_MAPS_API_KEY;
 
-export const ActivitiesList = [
-  'Walk',
-  'Dinner',
-  'Movie',
-  'Shopping',
-  'Coffee',
-  'Sports',
-];
+export const ActivitiesList = () => {
+  const activities = [
+    i18n.t('ActivitiesList.Walk'),
+    i18n.t('ActivitiesList.Dinner'),
+    i18n.t('ActivitiesList.Movie'),
+    i18n.t('ActivitiesList.Shopping'),
+    i18n.t('ActivitiesList.Coffee'),
+    i18n.t('ActivitiesList.Sports'),
+  ];
+  return activities;
+};
 
 export const languagesOptions = [
   {

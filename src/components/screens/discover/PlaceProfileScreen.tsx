@@ -18,11 +18,11 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 import GoNowIcon from '../../../../assets/icons/go-now-icon.svg';
 import HeartIcon from '../../../../assets/icons/heart-icon.svg';
 import HeartWhiteIcon from '../../../../assets/icons/heart-white-icon.svg';
-import { useFavorites } from '../../../features/discover/hooks/useFavourite';
 import Info from '../../../../assets/icons/info.svg';
 import MapMarkerIcon from '../../../../assets/icons/map-marker-icon.svg';
 import { PlaceProfileMap } from '../../../features/discover/components/PlaceProfileMap';
 import { TextDistance } from '../../../features/discover/components/TextDistance';
+import { useFavorites } from '../../../features/discover/hooks/useFavourite';
 import { usePlaceProfile } from '../../../features/discover/hooks/usePlaceProfile';
 import { ThemeColors } from '../../../theme';
 import { SCREEN_NAMES } from '../../../utils/const';
@@ -98,57 +98,61 @@ export const PlaceProfileScreen: FC<PlaceProfileScreenProps> = ({ route }) => {
           </VStack>
         </Alert>
       )}
-      <TouchableOpacity onPress={handleNextPhoto}>
-        {/* <AspectRatio w="100%" ratio={16 / 9} h={308}> */}
-        <Image
-          source={{
-            uri: photoUrls[photoIndex],
-          }}
-          alt="image"
-          resizeMode="cover"
-          style={styles.image}
-          width="100%"
-          height={308}
-        />
-        {/* </AspectRatio> */}
+      <View marginLeft={'20px'} marginRight={'20px'}>
+        <TouchableOpacity onPress={handleNextPhoto}>
+          {/* <AspectRatio w="100%" ratio={16 / 9} h={308}> */}
 
-        <HStack style={styles.dotContainer}>
-          {photoUrls.map((url, index) => (
-            <View style={styles.dot} key={index}>
-              <CircleIcon
-                size={2}
-                color={
-                  index === photoIndex
-                    ? ThemeColors.green
-                    : ThemeColors.lightgreen
-                }
-              />
-            </View>
-          ))}
-        </HStack>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate(
-              SCREEN_NAMES.GoNow as never,
-              {
-                goBackDetection: goBackDetection,
-              } as never,
-            );
-          }}
-          style={styles.buttonContainer}
-        >
-          <GoNowIcon marginRight={4} />
-          <Text style={styles.buttonLabel}>GO NOW</Text>
+          <Image
+            source={{
+              uri: photoUrls[photoIndex],
+            }}
+            alt="image"
+            resizeMode="cover"
+            style={styles.image}
+            width="100%"
+            height={308}
+          />
+
+          {/* </AspectRatio> */}
+
+          <HStack style={styles.dotContainer}>
+            {photoUrls.map((url, index) => (
+              <View style={styles.dot} key={index}>
+                <CircleIcon
+                  size={2}
+                  color={
+                    index === photoIndex
+                      ? ThemeColors.green
+                      : ThemeColors.lightgreen
+                  }
+                />
+              </View>
+            ))}
+          </HStack>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate(
+                SCREEN_NAMES.GoNow as never,
+                {
+                  goBackDetection: goBackDetection,
+                } as never,
+              );
+            }}
+            style={styles.buttonContainer}
+          >
+            <GoNowIcon marginRight={4} />
+            <Text style={styles.buttonLabel}>GO NOW</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.favIcon}
+            onPress={() => {
+              handleUpdateFavorites(place_id);
+            }}
+          >
+            {favorites.includes(place_id) ? <HeartWhiteIcon /> : <HeartIcon />}
+          </TouchableOpacity>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.favIcon}
-          onPress={() => {
-            handleUpdateFavorites(place_id);
-          }}
-        >
-          {favorites.includes(place_id) ? <HeartWhiteIcon /> : <HeartIcon />}
-        </TouchableOpacity>
-      </TouchableOpacity>
+      </View>
       <VStack marginRight={'20px'} marginLeft={'20px'} marginBottom={'30px'}>
         <Flex>
           <Text variant={'h2'} color={'green'} marginTop={19}>

@@ -3,16 +3,16 @@ import * as ImagePicker from 'expo-image-picker';
 import { Button, Text, View } from 'native-base';
 import React, { useState } from 'react';
 import { Image, Keyboard, ScrollView, StyleSheet } from 'react-native';
-import { LooseObject } from '../../../types/models';
 import MultiSelect from 'react-native-multiple-select';
 import placeholder from '../../../../assets/images/placeholder.png';
 import { useNotificationsToken } from '../../../hooks/useNotificationsToken';
 import i18n from '../../../localization/Localization';
 import { post } from '../../../services/api';
 import { CREATE_USERPROFILE_ENDPOINT } from '../../../services/userProfile.service';
-import { Input } from '../../form/Input';
+import { LooseObject } from '../../../types/models';
+import { hobbiesOptions, languagesOptions } from '../../../utils/const';
 import { useAuthContext } from '../../auth/AuthContextProvider';
-import { languagesOptions, hobbiesOptions } from '../../../utils/const';
+import { Input } from '../../form/Input';
 
 export const StepTwoForm: React.FC = ({ route }) => {
   const { updateNotificationToken } = useNotificationsToken();
@@ -138,7 +138,7 @@ export const StepTwoForm: React.FC = ({ route }) => {
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.title} color="green">
+      <Text style={styles.title} color="green" marginTop={'26px'}>
         {i18n.t('createProfileStepTwoForm.title')}
       </Text>
       <Text

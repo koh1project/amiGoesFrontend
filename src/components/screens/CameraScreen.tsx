@@ -1,4 +1,6 @@
 import { Camera, CameraType } from 'expo-camera';
+import { manipulateAsync } from 'expo-image-manipulator';
+import { FlipType } from 'expo-image-manipulator/build/ImageManipulator.types';
 import { Button, Spinner, View } from 'native-base';
 import { useEffect, useRef, useState } from 'react';
 import { Image, StyleSheet, TouchableOpacity } from 'react-native';
@@ -30,8 +32,18 @@ const CameraScreen = (props) => {
           base64: true,
           quality: 0.5,
         });
+
         setImage(photo.base64);
-        setPreview(photo.uri);
+
+        if (type === CameraType.front) {
+          const manipResult = await manipulateAsync(photo.uri, [
+            { flip: FlipType.Vertical },
+            { rotate: 180 },
+          ]);
+          setPreview(manipResult.uri);
+        } else {
+          setPreview(photo.uri);
+        }
       } catch (error) {
         console.error(error);
       }

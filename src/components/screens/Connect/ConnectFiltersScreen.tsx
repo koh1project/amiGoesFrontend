@@ -60,13 +60,13 @@ const ConnectFilterScreen = () => {
     }
   };
   return (
-    <ScrollView bg="white" style={{ paddingHorizontal: 10 }}>
-      <VStack safeAreaBottom paddingBottom={5} space={5}>
+    <ScrollView bg="white" style={{ paddingHorizontal: 20 }}>
+      <VStack safeAreaBottom paddingBottom={5} space={5} marginTop={'26px'}>
         <Text color="green" variant={'h1'}>
           {i18n.t('Nouns.Connect')}
         </Text>
         <View>
-          <Text variant="h2" color="green">
+          <Text variant="h3" color="green">
             {i18n.t('ConnectScreen.YourDistancePreference')}
           </Text>
           <Text color="black">
@@ -80,23 +80,21 @@ const ConnectFilterScreen = () => {
             alignItems: 'flex-start',
           }}
         >
-          <Text>Location</Text>
+          <Text>{i18n.t('ConnectScreen.Location')}</Text>
           <View>
-            <Text>Vancouver</Text>
+            <Text>{i18n.t('ConnectScreen.City')}</Text>
             <Text>{sliderValue}kms</Text>
           </View>
         </View>
         <FormControl>
-          <Text>Maximum Distance</Text>
+          <Text>{i18n.t('ConnectScreen.maxDistance')}</Text>
           <AmigoSlider initialValue={sliderValue} onChange={setSliderValue} />
         </FormControl>
         <View>
-          <Text variant="h2" color="green">
-            Select Dates
+          <Text variant="h3" color="green">
+            {i18n.t('ConnectScreen.dates')}
           </Text>
-          <Text>
-            Select what dates and time are you available to meet new amigoes
-          </Text>
+          <Text>{i18n.t('ConnectScreen.datesDescription')}</Text>
           <View
             style={{
               borderRadius: 24,
@@ -126,8 +124,8 @@ const ConnectFilterScreen = () => {
             paddingBottom: 20,
           }}
         >
-          <Text variant={'h2'} color="green.400">
-            Select Time
+          <Text variant={'h3'} color="green" marginBottom={18}>
+            {i18n.t('ConnectScreen.time')}
           </Text>
           <HStack
             style={{
@@ -135,36 +133,53 @@ const ConnectFilterScreen = () => {
             }}
             space={5}
           >
-            <TimePicker title="From" value={to} onChange={setTo} />
-            <TimePicker title="To" value={from} onChange={setFrom} />
+            <TimePicker
+              title={i18n.t('ConnectScreen.from')}
+              value={to}
+              onChange={setTo}
+            />
+            <TimePicker
+              title={i18n.t('ConnectScreen.to')}
+              value={from}
+              onChange={setFrom}
+            />
           </HStack>
         </View>
         <VStack space={2}>
-          <Text variant="h2" color="green">
-            Amigoes Preference
+          <Text variant="h3" color="green">
+            {i18n.t('ConnectScreen.preference')}
           </Text>
-          <Text>
-            What do you want to do? Please select your options to find your
-            AmiGoes.
-          </Text>
-          <Text variant={'h3'} style={{ fontSize: 18 }}>
-            Interested In
+          <Text>{i18n.t('ConnectScreen.preferenceDescription')}</Text>
+          <Text
+            variant={'h4'}
+            style={{
+              marginTop: 10,
+            }}
+          >
+            {i18n.t('ConnectScreen.interestedIn')}
           </Text>
           <HStack space={6}>
             <Checkbox.Group
-              style={{ flexDirection: 'row' }}
+              style={{ flexDirection: 'row', flexWrap: 'wrap' }}
               onChange={setPreference}
               value={preference}
             >
-              <Checkbox mr={5} value="male">
-                Male
+              <Checkbox mr={5} value="male" marginBottom={5}>
+                {i18n.t('ConnectScreen.male')}
               </Checkbox>
-              <Checkbox value="female">Female</Checkbox>
+              <Checkbox value="female" marginBottom={5}>
+                {i18n.t('ConnectScreen.female')}
+              </Checkbox>
+              <Checkbox value="noPreference">
+                {i18n.t('ConnectScreen.noPreference')}
+              </Checkbox>
             </Checkbox.Group>
           </HStack>
         </VStack>
         <View>
-          <Text>Age</Text>
+          <Text variant={'h4'} marginBottom={'8px'}>
+            {i18n.t('ConnectScreen.age')}
+          </Text>
           <HStack space={5}>
             <VStack flex={1}>
               <Input
@@ -196,17 +211,16 @@ const ConnectFilterScreen = () => {
         </View>
         <View>
           <VStack space={4}>
-            <Text variant="h2" color="green">
-              Activities
+            <Text variant="h3" color="green">
+              {i18n.t('ConnectScreen.activities')}
             </Text>
-            <Text>
-              What would you like to do? This is how we will find your amigoes
-              for next activity
+            <Text>{i18n.t('ConnectScreen.activitiesDescription')}</Text>
+            <Text variant={'h4'}>
+              {i18n.t('ConnectScreen.chooseActivities')}
             </Text>
-            <Text variant={'h4'}>Choose one or several</Text>
 
             <FlatList
-              data={ActivitiesList}
+              data={ActivitiesList()}
               numColumns={2}
               renderItem={({ item }) => (
                 <CustomCheckbox
@@ -220,11 +234,20 @@ const ConnectFilterScreen = () => {
           </VStack>
         </View>
         <HStack justifyContent="space-between">
-          <Button variant={'primarySmallOutlined'} onPress={handleApplyFilter}>
-            Reset
+          <Button
+            variant="primarySmallLight"
+            onPress={handleApplyFilter}
+            flexShrink={1}
+            marginRight={2}
+          >
+            {i18n.t('ConnectScreen.reset')}
           </Button>
-          <Button variant={'primarySmall'} onPress={handleApplyFilter}>
-            Apply
+          <Button
+            variant={'primarySmall'}
+            onPress={handleApplyFilter}
+            flexShrink={1}
+          >
+            {i18n.t('ConnectScreen.apply')}
           </Button>
         </HStack>
       </VStack>

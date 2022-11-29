@@ -11,11 +11,13 @@ import {
 } from 'native-base';
 import React, { useEffect, useRef, useState } from 'react';
 import { StyleSheet } from 'react-native';
+import i18n from '../../../localization/Localization';
 import {
   acceptAmigo,
   addAmigo,
   getUserProfile,
 } from '../../../services/connect.service';
+import { translate } from '../../../services/translate.service';
 import { ThemeColors } from '../../../theme';
 import { Amigo } from '../../../types/models';
 import { RootStackParamList } from '../../../types/navigation';
@@ -35,6 +37,11 @@ const ConnectUserProfile = () => {
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const route = useRoute<ConnectUserProfileRouteProp>();
+  const [bio, setBio] = useState(null);
+  const lang = i18n.locale.slice(0, 2);
+  const [hobbies, setHobbies] = useState([]);
+  const [disabled, setDisabled] = useState(false);
+  console.log(lang);
 
   useEffect(() => {
     fetchUser(route.params.userId);
@@ -50,6 +57,7 @@ const ConnectUserProfile = () => {
   const handleGoToConnect = async () => {
     if (pageType === 'send') {
       const response = await addAmigo(user.uid, amigo._id);
+      setDisabled(true);
     } else {
       const response = await acceptAmigo(amigo._id, user.uid);
     }
@@ -60,12 +68,38 @@ const ConnectUserProfile = () => {
     setOpen(false);
   };
 
+  const transBio = async (lang, text) => {
+    const translated = await translate(lang, text).catch((err) =>
+      console.error(err),
+    );
+    if (translated) {
+      setBio(translated.data);
+    }
+  };
+
+  const transHobbies = async (lang, arr) => {
+    arr.forEach(async (hobby) => {
+      const translated = await translate(lang, hobby).catch((err) =>
+        console.error(err),
+      );
+      if (translated) {
+        setHobbies((prev) => [...prev, translated.data]);
+      }
+    });
+  };
+
   const fetchUser = async (id) => {
     setLoading(true);
     const response = await getUserProfile(id).catch((err) => console.log(err));
     if (response && response.data) {
       setAmigo(response.data);
+      console.log(amigo);
+      if (lang !== 'en') {
+        transBio(lang, response.data.bio);
+        transHobbies(lang, response.data.hobbies);
+      }
     }
+
     setLoading(false);
   };
   return (
@@ -74,7 +108,7 @@ const ConnectUserProfile = () => {
         <Text>Loading...</Text>
       ) : (
         <ScrollView bg="white" paddingX={10}>
-          <VStack space={1} minHeight="100%" safeAreaBottom>
+          <VStack space={1} minHeight="100%" safeAreaBottom marginTop={'26px'}>
             <View>
               <Text textAlign={'center'} variant={'h2'}>
                 {amigo.name}
@@ -87,7 +121,11 @@ const ConnectUserProfile = () => {
               space={2}
             >
               <Badge variant={'lightgreen'}>
-                {`${amigo.gender},${calculateAge(new Date(amigo.birthday))}`}
+                {`${
+                  amigo.gender === 'Male'
+                    ? i18n.t('ConnectUsers.male')
+                    : i18n.t('ConnectUsers.female')
+                }, ${calculateAge(new Date(amigo.birthday))}`}
               </Badge>
               <Badge variant={'lightgreen'}>{`${amigo.homeCountry}`}</Badge>
             </HStack>
@@ -99,12 +137,38 @@ const ConnectUserProfile = () => {
                 color="green"
                 marginBottom={2}
               >
-                Language
+                {i18n.t('ConnectUsers.languages')}
               </Text>
               <HStack space={2}>
                 {amigo.languages?.map((language) => (
                   <>
-                    <Badge variant="green">{language}</Badge>
+                    <Badge variant="green">
+                      {language === 'English'
+                        ? i18n.t('ConnectUsers.english')
+                        : language === 'Spanish'
+                        ? i18n.t('ConnectUsers.spanish')
+                        : language === 'French'
+                        ? i18n.t('ConnectUsers.french')
+                        : language === 'German'
+                        ? i18n.t('ConnectUsers.german')
+                        : language === 'Italian'
+                        ? i18n.t('ConnectUsers.italian')
+                        : language === 'Portuguese'
+                        ? i18n.t('ConnectUsers.portuguese')
+                        : language === 'Russian'
+                        ? i18n.t('ConnectUsers.russian')
+                        : language === 'Chinese'
+                        ? i18n.t('ConnectUsers.chinese')
+                        : language === 'Japanese'
+                        ? i18n.t('ConnectUsers.japanese')
+                        : language === 'Arabic'
+                        ? i18n.t('ConnectUsers.arabic')
+                        : language === 'Hindi'
+                        ? i18n.t('ConnectUsers.hindi')
+                        : language === 'Korean'
+                        ? i18n.t('ConnectUsers.korean')
+                        : language}
+                    </Badge>
                   </>
                 ))}
               </HStack>
@@ -112,21 +176,27 @@ const ConnectUserProfile = () => {
 
             <View style={styles.ViewBottom}>
               <Text variant={'h3'} color="green" style={styles.subHeader}>
-                Bio/About
+                {i18n.t('ConnectUsers.bio')}
               </Text>
-              <Text>{amigo.bio}</Text>
+              <Text>{lang === 'en' ? amigo?.bio : bio}</Text>
             </View>
 
             <View>
               <Text variant={'h3'} color="green" style={styles.subHeader}>
-                Hobbies
+                {i18n.t('ConnectUsers.hobbies')}
               </Text>
               <HStack space={2}>
-                {amigo.hobbies?.map((hobby) => (
-                  <>
-                    <Badge variant="green">{hobby}</Badge>
-                  </>
-                ))}
+                {lang === 'en'
+                  ? amigo.hobbies?.map((hobby) => (
+                      <>
+                        <Badge variant="green">{hobby}</Badge>
+                      </>
+                    ))
+                  : hobbies.map((hobby) => (
+                      <>
+                        <Badge variant="green">{hobby}</Badge>
+                      </>
+                    ))}
               </HStack>
             </View>
             <View
@@ -135,10 +205,13 @@ const ConnectUserProfile = () => {
             >
               <Button
                 width="auto"
-                variant="primaryLarge"
+                variant={disabled ? 'disabled' : 'primaryLarge'}
                 onPress={handleAddAmigoClick}
+                disabled={disabled}
               >
-                Add as AMIGO
+                {disabled
+                  ? i18n.t('ConnectUsers.requestSent')
+                  : i18n.t('ConnectUsers.addAmigo')}
               </Button>
             </View>
           </VStack>
@@ -155,7 +228,7 @@ const ConnectUserProfile = () => {
                   style={{ paddingVertical: 20, paddingHorizontal: 20 }}
                 >
                   <Text textAlign="center" variant={'h2'} color="green">
-                    Your Request was Sent
+                    {i18n.t('ConnectUsers.modalTitle')}
                   </Text>
                   {pageType === 'send' && (
                     <Button
@@ -163,7 +236,7 @@ const ConnectUserProfile = () => {
                       variant="primaryLarge"
                       width="auto"
                     >
-                      Delete Request
+                      {i18n.t('ConnectUsers.cancel')}
                     </Button>
                   )}
                   <Button
@@ -171,7 +244,7 @@ const ConnectUserProfile = () => {
                     variant="primaryLargeOutlined"
                     width="auto"
                   >
-                    Go to Connect
+                    {i18n.t('ConnectUsers.connect')}
                   </Button>
                 </VStack>
               </AlertDialog.Body>

@@ -26,7 +26,14 @@ export const Header: React.FC = () => {
     navigation.navigate(SCREEN_NAMES.NotificationScreen);
   };
   return (
-    <Box safeAreaTop backgroundColor="#ffffff">
+    <Box
+      safeAreaTop
+      style={{
+        backgroundColor: 'black',
+        borderBottomLeftRadius: 25,
+        borderBottomRightRadius: 25,
+      }}
+    >
       <View backgroundColor="green" style={styles.Heading}>
         <HStack style={styles.header}>
           {showBackButton ? (
@@ -66,7 +73,6 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 25,
     borderBottomRightRadius: 25,
     height: 84,
-    marginBottom: 26,
   },
   Logo: {
     width: 82.67,

@@ -2,7 +2,6 @@ import { useNavigation } from '@react-navigation/core';
 import * as Notifications from 'expo-notifications';
 import React, { useCallback, useEffect } from 'react';
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import axios from 'axios';
 import { Button, View, VStack } from 'native-base';
@@ -204,28 +203,6 @@ const IndexScreen = () => {
           </Button>
         </VStack>
       </View>
-
-      {/* <TouchableOpacity onPress={handleSignout}>
-        <Text>LOG OUT</Text>
-      </TouchableOpacity>
-      <PrimaryButton
-        label="Discover"
-        onPress={() => navigation.navigate('Discover' as never)}
-      />
-      <PrimaryButton
-        label="Create Profile"
-        onPress={() =>
-          navigation.navigate(SCREEN_NAMES.CreateProfileStepOneForm)
-        }
-      />
-      <PrimaryButton
-        label="Translate"
-        onPress={() => navigation.navigate(SCREEN_NAMES.Translate)}
-      />
-      <PrimaryButton
-        label="Connect"
-        onPress={() => navigation.navigate(SCREEN_NAMES.ConnectFilter)}
-      /> */}
     </View>
   );
 };
@@ -241,6 +218,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     flexWrap: 'wrap',
     flex: 1,
+    marginTop: 26,
   },
 
   column1: {
