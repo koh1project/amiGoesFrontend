@@ -1,23 +1,22 @@
+import moment from 'moment';
 import {
   Avatar,
   Box,
+  Button,
   Center,
   HStack,
+  Modal,
   ScrollView,
   Text,
   View,
-  Modal,
   VStack,
-  IconButton,
-  Button,
 } from 'native-base';
 import React, { useEffect, useState } from 'react';
-import moment from 'moment';
 import { StyleSheet } from 'react-native';
 import CalendarIcon from '../../../../assets/icons/calendar.svg';
 import i18n from '../../../localization/Localization';
-import { useAuthContext } from '../../auth/AuthContextProvider';
 import { blockUser } from '../../../services/blockedUsers.service';
+import { useAuthContext } from '../../auth/AuthContextProvider';
 
 const styles = StyleSheet.create({
   links: {
@@ -51,6 +50,7 @@ const UserProfileScreen = (props) => {
     id,
     updateConnectedUsers,
     setUpdateConnectedUsers,
+    profilePhotoLink,
   } = props.route.params;
 
   const formattedDate = moment(createdAt).format('DD-MMM-YY');
@@ -75,6 +75,9 @@ const UserProfileScreen = (props) => {
     setUpdateConnectedUsers(true);
   };
 
+  const photo =
+    profilePhotoLink ||
+    'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80';
   return (
     <ScrollView backgroundColor="white">
       <Text variant="screenTitle">{i18n.t('UserProfileScreen.title')}</Text>
@@ -84,7 +87,7 @@ const UserProfileScreen = (props) => {
           alignSelf="center"
           size="xl"
           source={{
-            uri: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+            uri: photo,
           }}
           mt={2}
           mb={3}

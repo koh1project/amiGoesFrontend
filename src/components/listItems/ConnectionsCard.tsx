@@ -1,7 +1,7 @@
-import { Center, Text, VStack, Avatar, View, Link } from 'native-base';
-import i18n from '../../localization/Localization';
+import { Avatar, Center, Text, View, VStack } from 'native-base';
 import React from 'react';
-import { StyleSheet, Dimensions } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
+import i18n from '../../localization/Localization';
 
 const width = Dimensions.get('window').width - 40;
 
@@ -41,8 +41,13 @@ const ConnectionsCard = (props) => {
     id,
     updateConnectedUsers,
     setUpdateConnectedUsers,
+    profilePhoto,
   } = props;
 
+  const profilePhotoLink =
+    profilePhoto ||
+    'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80';
+  console.log(profilePhotoLink);
   return (
     <View style={styles.container} borderWidth={1} borderColor="#3FA8AE">
       <Center>
@@ -52,7 +57,7 @@ const ConnectionsCard = (props) => {
             alignSelf="center"
             size="xl"
             source={{
-              uri: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+              uri: profilePhotoLink,
             }}
           >
             AJ
@@ -83,6 +88,7 @@ const ConnectionsCard = (props) => {
                     phoneNumber,
                     navigation,
                     id,
+                    profilePhotoLink,
                     updateConnectedUsers,
                     setUpdateConnectedUsers,
                   });

@@ -25,7 +25,7 @@ const NotificationItem = ({ request }: NotificationItemProps) => {
 
   const handleProfileClick = () => {
     navigation.navigate(SCREEN_NAMES.ConnectUserProfile, {
-      userId: request.userID2._id,
+      userId: request.userID1._id,
       type: 'accept',
     });
   };
@@ -34,7 +34,7 @@ const NotificationItem = ({ request }: NotificationItemProps) => {
     <HStack style={styles.container} space={2}>
       <VStack style={styles.contentContainer} space={1}>
         <Text variant="h3" color={'green'}>
-          {request.userID2.name}
+          {request.userID1.name}
         </Text>
         <Text>Sent you a connection Request!</Text>
         <HStack space={3}>

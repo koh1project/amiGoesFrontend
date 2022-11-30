@@ -1,14 +1,12 @@
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
-import { useAuthContext } from '../components/auth/AuthContextProvider';
 import { setExpoTokenForUser } from '../services/notification.service';
 
 export const useNotifications = () => {
-  const { user } = useAuthContext();
   // ask for permission to send notifications
   // if the user has not already granted permission
-  const registerForPushNotificationsAsync = async () => {
+  const registerForPushNotificationsAsync = async (user) => {
     if (Device.isDevice) {
       const { status: existingStatus } =
         await Notifications.getPermissionsAsync();

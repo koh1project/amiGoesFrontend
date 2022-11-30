@@ -49,26 +49,28 @@ const IndexScreen = () => {
   }, [location, user]);
 
   useEffect(() => {
-    registerForPushNotificationsAsync();
-    Notifications.setNotificationHandler({
-      handleNotification: async () => ({
-        shouldShowAlert: true,
-        shouldPlaySound: true,
-        shouldSetBadge: true,
-      }),
-    });
+    if (user) {
+      registerForPushNotificationsAsync(user);
+      Notifications.setNotificationHandler({
+        handleNotification: async () => ({
+          shouldShowAlert: true,
+          shouldPlaySound: true,
+          shouldSetBadge: true,
+        }),
+      });
 
-    const responseListener =
-      Notifications.addNotificationResponseReceivedListener(
-        handleNotificationResponse,
-      );
+      const responseListener =
+        Notifications.addNotificationResponseReceivedListener(
+          handleNotificationResponse,
+        );
 
-    return () => {
-      if (responseListener) {
-        Notifications.removeNotificationSubscription(responseListener);
-      }
-    };
-  }, []);
+      return () => {
+        if (responseListener) {
+          Notifications.removeNotificationSubscription(responseListener);
+        }
+      };
+    }
+  }, [user]);
 
   /** ! Handle Notifications */
   const handleNotificationResponse = (
