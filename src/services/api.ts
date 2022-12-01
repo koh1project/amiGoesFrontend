@@ -17,7 +17,7 @@ const DEFAULT_HEADERS = async () => {
   };
 };
 
-export const get = async <T = any>(url: string, headers) => {
+export const get = async <T = any>(url: string, headers = undefined) => {
   if (!headers) {
     headers = await DEFAULT_HEADERS();
   }
@@ -32,7 +32,11 @@ export const get = async <T = any>(url: string, headers) => {
     });
 };
 
-export const post = async <T, R = any>(url: string, data: T, headers) => {
+export const post = async <T, R = any>(
+  url: string,
+  data: T,
+  headers = undefined,
+) => {
   if (!headers) {
     headers = await DEFAULT_HEADERS();
   }
@@ -47,7 +51,7 @@ export const post = async <T, R = any>(url: string, data: T, headers) => {
   }
 };
 
-export const patch = async <T>(url: string, data: T, headers) => {
+export const patch = async <T>(url: string, data: T, headers = undefined) => {
   if (!headers) {
     headers = await DEFAULT_HEADERS();
   }

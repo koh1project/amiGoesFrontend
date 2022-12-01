@@ -1,5 +1,5 @@
 import { Amigo, PendingRequestResponse } from '../types/models';
-import { get, post } from './api';
+import { get, patch, post } from './api';
 
 const ConnectEndpoint = {
   connectFeed: (userId) => `/connect/${userId}`,
@@ -23,8 +23,8 @@ export const addAmigo = (userId: string, amigoId: string) => {
 };
 
 export const acceptAmigo = (amigoId: string, userId: string) => {
-  return post(ConnectEndpoint.acceptRequest(amigoId), {
-    targetUserId: userId,
+  return patch(ConnectEndpoint.acceptRequest(userId), {
+    targetUserId: amigoId,
   });
 };
 export const getPendingRequests = (userId: string) => {

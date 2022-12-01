@@ -11,7 +11,9 @@ const ConnectedUsersScreen = ({ navigation }) => {
 
   const fetchUsers = async () => {
     const result = await getConnectedUsers(user.uid);
+
     const data = result.data.connectedUsers;
+    console.log(data[0]);
     setConnectedUsers(data);
     setUpdateConnectedUsers(false);
     return data;
@@ -21,7 +23,7 @@ const ConnectedUsersScreen = ({ navigation }) => {
     if (user) {
       fetchUsers();
     }
-  }, [user, updateConnectedUsers]);
+  }, [user]);
 
   return (
     <ConnectedUsersList

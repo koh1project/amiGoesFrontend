@@ -1,4 +1,5 @@
-import { RouteProp, useRoute } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import {
   AlertDialog,
   Badge,
@@ -21,6 +22,7 @@ import { translate } from '../../../services/translate.service';
 import { ThemeColors } from '../../../theme';
 import { Amigo } from '../../../types/models';
 import { RootStackParamList } from '../../../types/navigation';
+import { SCREEN_NAMES } from '../../../utils/const';
 import { useAuthContext } from '../../auth/AuthContextProvider';
 import { calculateAge } from '../../list-items/ConnectFeedItem';
 
@@ -28,7 +30,10 @@ type ConnectUserProfileRouteProp = RouteProp<
   RootStackParamList,
   'ConnectUserProfile'
 >;
-
+type ConnectUserProfileNavigation = NativeStackNavigationProp<
+  RootStackParamList,
+  'ConnectFilter'
+>;
 const ConnectUserProfile = () => {
   const { user } = useAuthContext();
   const cancelRef = useRef(null);
@@ -41,7 +46,7 @@ const ConnectUserProfile = () => {
   const lang = i18n.locale.slice(0, 2);
   const [hobbies, setHobbies] = useState([]);
   const [disabled, setDisabled] = useState(false);
-  console.log(lang);
+  const navigation = useNavigation<ConnectUserProfileNavigation>();
 
   useEffect(() => {
     fetchUser(route.params.userId);
@@ -57,8 +62,10 @@ const ConnectUserProfile = () => {
   const handleGoToConnect = async () => {
     if (pageType === 'send') {
       const response = await addAmigo(user.uid, amigo._id);
+      navigation.navigate(SCREEN_NAMES.ConnectedUsersScreen);
       setDisabled(true);
     } else {
+      console.log(amigo.name, user);
       const response = await acceptAmigo(amigo._id, user.uid);
     }
     setOpen(false);

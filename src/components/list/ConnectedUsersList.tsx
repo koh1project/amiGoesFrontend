@@ -1,7 +1,7 @@
 import { FlatList } from 'native-base';
 import React from 'react';
-import { useAuthContext } from '../auth/AuthContextProvider';
 import { StyleSheet, View } from 'react-native';
+import { useAuthContext } from '../auth/AuthContextProvider';
 
 import ConnectionsCard from '../listItems/ConnectionsCard';
 
@@ -40,6 +40,7 @@ const ConnectedUsersList = (props: any) => {
               hobbies={item.userID2.hobbies}
               phoneNumber={item.userID2.contact.phoneNumber}
               id={item.userID2._id}
+              profilePhoto={item.userID2.profilePictureLink}
               connectedUsers={props.connectedUsers}
               updateConnectedUsers={props.updateConnectedUsers}
               setUpdateConnectedUsers={props.setUpdateConnectedUsers}
@@ -57,6 +58,7 @@ const ConnectedUsersList = (props: any) => {
               hobbies={item.userID1.hobbies}
               phoneNumber={item.userID1.contact.phoneNumber}
               id={item.userID1._id}
+              profilePhoto={item.userID1.profilePictureLink}
               updateConnectedUsers={props.updateConnectedUsers}
               setUpdateConnectedUsers={props.setUpdateConnectedUsers}
             />
