@@ -2,7 +2,8 @@ export type ConnectFilters = {
   to: string;
   from: string;
   sliderValue: number;
-  date: string;
+  fromDate: string;
+  toDate: string;
   activities: string[];
   preference: string[];
   preferenceAge: {

@@ -12,11 +12,12 @@ const BlockedUsersList = (props: any) => {
       zIndex: 1,
     },
   });
+  console.log(props.blockedUsers);
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={props.blockedUsers}
+        data={props.blockedUsers || []}
         numColumns={2}
         columnWrapperStyle={{
           justifyContent: 'space-between',
@@ -24,10 +25,10 @@ const BlockedUsersList = (props: any) => {
         }}
         renderItem={({ item }: any) => (
           <BlockedUsersCard
-            name={item.blockedUserID.name}
-            gender={item.blockedUserID.gender}
-            age={item.blockedUserID.age}
-            id={item.blockedUserID._id}
+            name={item.blockedUserID?.name}
+            gender={item.blockedUserID?.gender}
+            age={item.blockedUserID?.age}
+            id={item.blockedUserID?._id}
             setUpdateBlockedUsers={props.setUpdateBlockedUsers}
             updateBlockedUsers={props.updateBlockedUsers}
           />

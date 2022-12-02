@@ -7,6 +7,7 @@ const ConnectEndpoint = {
   newConnectionRequest: (userId) => `/connect/${userId}`,
   requests: (userId) => `/connect/requests/${userId}`,
   acceptRequest: (amigoId) => `/connect/acceptConnectionRequest/${amigoId}`,
+  updatePreference: (userId) => `/connect/updateConnectPreferences/${userId}`,
 };
 export const connectUsers = (userId: string) => {
   return get<Amigo[]>(ConnectEndpoint.connectFeed(userId));
@@ -19,6 +20,14 @@ export const getUserProfile = (userId: string) => {
 export const addAmigo = (userId: string, amigoId: string) => {
   return post(ConnectEndpoint.newConnectionRequest(userId), {
     targetUserId: amigoId,
+  });
+};
+export const updateConnectPreferences = (
+  userId: string,
+  connectPreferences: any,
+) => {
+  return patch(ConnectEndpoint.updatePreference(userId), {
+    connectPreferences,
   });
 };
 

@@ -208,7 +208,7 @@ const i18n = new I18n({
       apply: 'Apply',
     },
     ConnectUsers: {
-      title: 'Here are your Amigoes!',
+      Title: 'Here are your Amigoes!',
       Description:
         'Your AmiGoes are listed below, if you are interested, click on one to see more.',
       interestIn: 'Interested in',

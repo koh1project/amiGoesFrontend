@@ -2,9 +2,9 @@ import { useNavigation } from '@react-navigation/core';
 import * as Notifications from 'expo-notifications';
 import React, { useCallback, useEffect } from 'react';
 
+import { useFocusEffect } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import axios from 'axios';
-import { Button, View, VStack } from 'native-base';
+import { Button, ScrollView, View, VStack } from 'native-base';
 import { useState } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import Amigos from '../../../assets/icons/amigos-icon.svg';
@@ -19,7 +19,6 @@ import { setUserLocation } from '../../services/userProfile.service';
 import { RootStackParamList } from '../../types/navigation';
 import { SCREEN_NAMES } from '../../utils/const';
 import { auth } from '../../utils/firebase';
-import { url } from '../../utils/url';
 import { useAuthContext } from '../auth/AuthContextProvider';
 import MenuItem from '../listItems/MenuItems';
 
@@ -44,9 +43,9 @@ const IndexScreen = () => {
     }
   }, [location, user]);
 
-  useEffect(() => {
+  useFocusEffect(() => {
     updateUserLocation();
-  }, [location, user]);
+  });
 
   useEffect(() => {
     if (user) {
@@ -90,21 +89,6 @@ const IndexScreen = () => {
     }
   }, [user]);
 
-  // fetch data from backend home route
-  const fetchData = async (token) => {
-    const authHeader = 'Bearer ' + token;
-    const response = await axios
-      .get(`${url}/home`, {
-        headers: {
-          Authorization: authHeader,
-        },
-      })
-      .then((response) => {})
-      .catch((error) => {
-        handleSignout(); // sign out if token is invalid
-      });
-  };
-
   const handleSignout = () => {
     auth
       .signOut()
@@ -115,8 +99,8 @@ const IndexScreen = () => {
   };
 
   return (
-    <View
-      style={{
+    <ScrollView
+      contentContainerStyle={{
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'white',
@@ -205,7 +189,7 @@ const IndexScreen = () => {
           </Button>
         </VStack>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

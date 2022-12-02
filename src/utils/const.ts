@@ -35,12 +35,30 @@ export const GOOGLE_MAPS_API_KEY =
 
 export const ActivitiesList = () => {
   const activities = [
-    i18n.t('ActivitiesList.Walk'),
-    i18n.t('ActivitiesList.Dinner'),
-    i18n.t('ActivitiesList.Movie'),
-    i18n.t('ActivitiesList.Shopping'),
-    i18n.t('ActivitiesList.Coffee'),
-    i18n.t('ActivitiesList.Sports'),
+    {
+      label: i18n.t('ActivitiesList.Walk'),
+      value: 'Walk',
+    },
+    {
+      label: i18n.t('ActivitiesList.Dinner'),
+      value: 'Dinner',
+    },
+    {
+      label: i18n.t('ActivitiesList.Movie'),
+      value: 'Movie',
+    },
+    {
+      label: i18n.t('ActivitiesList.Shopping'),
+      value: 'Shopping',
+    },
+    {
+      label: i18n.t('ActivitiesList.Coffee'),
+      value: 'Coffee',
+    },
+    {
+      label: i18n.t('ActivitiesList.Sports'),
+      value: 'Sports',
+    },
   ];
   return activities;
 };

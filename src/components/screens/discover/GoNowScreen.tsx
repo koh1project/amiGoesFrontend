@@ -24,8 +24,8 @@ export const GoNowScreen: FC<any> = (props) => {
       { location: userLocation, distance: circleRadius },
       user.uid,
     );
-    if (response) {
-      const data = response.data.map((amigo) => {
+    if (response && response.data) {
+      const data = response.data?.map((amigo) => {
         return {
           ...amigo,
           coordinate: {
@@ -39,6 +39,7 @@ export const GoNowScreen: FC<any> = (props) => {
           photoUrl: amigo.profilePictureLink || defaultPhoto,
         };
       });
+      console.log(data);
       setMarkers(data);
     }
   };
