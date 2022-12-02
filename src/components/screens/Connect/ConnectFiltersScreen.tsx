@@ -14,14 +14,16 @@ import {
 } from 'native-base';
 import React, { useState } from 'react';
 import i18n from '../../../localization/Localization';
+import { updateConnectPreferences } from '../../../services/connect.service';
 import { ThemeColors } from '../../../theme';
 import { RootStackParamList } from '../../../types/navigation';
 import { ActivitiesList } from '../../../utils/const';
-import AmigoCalendar from '../../AmigoCalendar/AmigoCalendar';
+import { useAuthContext } from '../../auth/AuthContextProvider';
 
 import AmigoSlider from '../../form/AmigoSlider';
 import CustomCheckbox from '../../form/CustomCheckbox';
 import TimePicker from '../../TimePicker/TimePicker';
+import { DiscoverCalendar } from '../discover/DiscoverCalendar';
 
 type ConnectFilterScreen = NativeStackNavigationProp<
   RootStackParamList,
@@ -29,27 +31,41 @@ type ConnectFilterScreen = NativeStackNavigationProp<
 >;
 const ConnectFilterScreen = () => {
   const [sliderValue, setSliderValue] = useState(10);
-  const [date, setDate] = useState<string>(new Date().toDateString());
+  const [fromDate, setFromDate] = useState<string>(new Date().toDateString());
+  const [toDate, setToDate] = useState<string>();
   const [to, setTo] = useState<Date>(new Date());
   const [from, setFrom] = useState<Date>(new Date());
   const [preference, setPreference] = useState<string[]>([]);
   const [preferenceAge, setPreferenceAge] = useState({
-    minimumAge: 42,
+    minimumAge: 52,
     maximumAge: 80,
   });
   const [activities, setActivities] = useState<string[]>([]);
+  const { user } = useAuthContext();
 
   const navigation = useNavigation<ConnectFilterScreen>();
-  const handleApplyFilter = () => {
-    navigation.navigate('ConnectUsers', {
-      sliderValue,
-      date: date,
-      to: to.toISOString(),
-      from: from.toISOString(),
-      preference,
+  const handleApplyFilter = async () => {
+    const connectPreferences = {
+      minAge: preferenceAge.minimumAge,
+      maxAge: preferenceAge.maximumAge,
       activities,
-      preferenceAge,
-    });
+    };
+    const response = await updateConnectPreferences(
+      user.uid,
+      connectPreferences,
+    );
+    if (response.data) {
+      navigation.navigate('ConnectUsers', {
+        sliderValue,
+        fromDate: fromDate,
+        toDate: toDate,
+        to: to.toISOString(),
+        from: from.toISOString(),
+        preference,
+        activities,
+        preferenceAge,
+      });
+    }
   };
 
   const handleCustomCheckboxChange = (value) => {
@@ -104,17 +120,7 @@ const ConnectFilterScreen = () => {
               paddingVertical: 10,
             }}
           >
-            <AmigoCalendar
-              initialDate={date}
-              minDate={new Date().toDateString()}
-              onDayPress={(date) => {
-                setDate(date.dateString);
-              }}
-              // markingType="period"
-              markedDates={{
-                [date]: { selected: true, selectedColor: ThemeColors.coral },
-              }}
-            />
+            <DiscoverCalendar setDayTo={setToDate} setDayFrom={setFromDate} />
           </View>
         </View>
         <View
@@ -221,13 +227,13 @@ const ConnectFilterScreen = () => {
 
             <FlatList
               data={ActivitiesList()}
-              numColumns={2}
+              numColumns={3}
               renderItem={({ item }) => (
                 <CustomCheckbox
                   onChange={handleCustomCheckboxChange}
-                  title={item}
-                  isChecked={activities.includes(item.toLowerCase())}
-                  value={item.toLowerCase()}
+                  title={item.label}
+                  isChecked={activities.includes(item.value)}
+                  value={item.value}
                 />
               )}
             />

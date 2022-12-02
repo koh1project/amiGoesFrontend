@@ -65,7 +65,6 @@ const ConnectUserProfile = () => {
       navigation.navigate(SCREEN_NAMES.ConnectedUsersScreen);
       setDisabled(true);
     } else {
-      console.log(amigo.name, user);
       const response = await acceptAmigo(amigo._id, user.uid);
     }
     setOpen(false);
@@ -147,9 +146,9 @@ const ConnectUserProfile = () => {
                 {i18n.t('ConnectUsers.languages')}
               </Text>
               <HStack space={2}>
-                {amigo.languages?.map((language) => (
+                {amigo.languages?.map((language, index) => (
                   <>
-                    <Badge variant="green">
+                    <Badge variant="green" key={index}>
                       {language === 'English'
                         ? i18n.t('ConnectUsers.english')
                         : language === 'Spanish'
@@ -194,14 +193,18 @@ const ConnectUserProfile = () => {
               </Text>
               <HStack space={2}>
                 {lang === 'en'
-                  ? amigo.hobbies?.map((hobby) => (
+                  ? amigo.hobbies?.map((hobby, index) => (
                       <>
-                        <Badge variant="green">{hobby}</Badge>
+                        <Badge variant="green" key={index}>
+                          {hobby}
+                        </Badge>
                       </>
                     ))
-                  : hobbies.map((hobby) => (
+                  : hobbies.map((hobby, index) => (
                       <>
-                        <Badge variant="green">{hobby}</Badge>
+                        <Badge variant="green" key={index}>
+                          {hobby}
+                        </Badge>
                       </>
                     ))}
               </HStack>
