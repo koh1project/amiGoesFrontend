@@ -1,6 +1,7 @@
 import { Button, Text, View, VStack } from 'native-base';
 import React, { useRef, useState } from 'react';
 import { Animated, Dimensions, Image, StyleSheet } from 'react-native';
+import i18n from '../../localization/Localization';
 import { slides } from '../../utils/onboarding_slides';
 
 const { width, height } = Dimensions.get('screen');
@@ -93,7 +94,7 @@ const Onboarding = ({ navigation, route }) => {
                     variant="primaryLarge"
                     onPress={() => navigation.navigate('Index')}
                   >
-                    Get Started
+                    {i18n.t('onboarding.button')}
                   </Button>
                 ) : null}
               </VStack>

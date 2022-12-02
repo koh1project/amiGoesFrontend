@@ -274,6 +274,7 @@ const i18n = new I18n({
       subtitle5: 'Explore now!',
       text5:
         'You can always come back and check this information, by clicking on How to Use.',
+      button: 'Get Started',
     },
     TranslateScreen: {
       Title: 'Translate',
@@ -386,6 +387,7 @@ const i18n = new I18n({
       subtitle5: 'Explora ahora!',
       text5:
         'Siempre puedes volver y revisar esta información, haciendo clic en Como Usar.',
+      button: 'Comenzar',
     },
     TranslateScreen: {
       Title: 'Traducir',
