@@ -66,6 +66,8 @@ const ConnectUserProfile = () => {
       setDisabled(true);
     } else {
       const response = await acceptAmigo(amigo._id, user.uid);
+      navigation.navigate(SCREEN_NAMES.ConnectedUsersScreen);
+      setDisabled(true);
     }
     setOpen(false);
   };
@@ -238,7 +240,9 @@ const ConnectUserProfile = () => {
                   style={{ paddingVertical: 20, paddingHorizontal: 20 }}
                 >
                   <Text textAlign="center" variant={'h2'} color="green">
-                    {i18n.t('ConnectUsers.modalTitle')}
+                    {pageType === 'send'
+                      ? i18n.t('ConnectUsers.modalTitle')
+                      : 'Connection Added Successfully'}
                   </Text>
                   {pageType === 'send' && (
                     <Button
