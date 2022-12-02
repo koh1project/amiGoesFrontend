@@ -26,11 +26,11 @@ export const StepOneForm: React.FC = ({ navigation, route }) => {
   const [verified, setVerified] = useState(false);
 
   const [inputs, setInputs] = useState({
-    name: 'Will Smith',
+    name: 'Gabriela Fernandez Chaves',
     birthDate: '',
-    gender: 'male',
+    gender: 'female',
     phoneNumber: '777 145 8899',
-    emergencyName: 'John Smith',
+    emergencyName: 'John Fernandez Chaves',
     emergencyRelationship: 'Son',
     emergencyPhoneNumber: '777 321 1255',
     isVerified: false,
